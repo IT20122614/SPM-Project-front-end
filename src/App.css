@@ -30,3 +30,34 @@
 hr.solid {
   border-top: 3px solid #bbb;
 }
+.stylingColor {
+  margin-top: 60px;
+  padding-top: 60px;
+}
+.colorChange {
+  background-color: #3633eb;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 150px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.borderBox {
+  box-sizing: border-box;
+}
