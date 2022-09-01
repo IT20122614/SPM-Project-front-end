@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
-
+import {BrowserRouter,Route} from 'react-router-dom'
+import PlaceList from "./components/IT20192082/PlaceList";
+import PlaceDetails from "./components/IT20192082/PlaceDetails";
+import Places from "./components/IT20192082/Places";
+import PlaceEdit from "./components/IT20192082/PlaceEdit";
 
 
 class App extends Component {
@@ -9,12 +13,21 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div>
-          Hello world!
-        </div>
+
+
+      <BrowserRouter>
+        <div  className="container">
+        <Route path='/place' exact component={PlaceList}></Route>
+        <Route path='/adminPlace' exact component={Places}></Route>
+        <Route path='/place/:id' exact component={PlaceDetails}></Route>
+        <Route path='/edit/:id' exact component={PlaceEdit}></Route>
+
         
-      </React.Fragment>
+
+        </div>
+      </BrowserRouter>
+
+
     );
   }
 }
