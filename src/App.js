@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import "./App.css";
-
-
+import { Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import TransportServicesRequests from "./services/IT20216078/TransportServicesRequests";
+import RegisterTransportServices from "./services/IT20216078/RegisterTransportServices";
 
 class App extends Component {
-  state = {
-  };
-
   render() {
     return (
-      <React.Fragment>
-        <div>
-          Hello world!
-        </div>
-        
-      </React.Fragment>
+      <Switch>
+        <Route exact path="/" component={TransportServicesRequests} />
+        <Route exact path="/register" component={RegisterTransportServices} />
+      </Switch>
     );
   }
 }
