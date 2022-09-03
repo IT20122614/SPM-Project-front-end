@@ -63,7 +63,7 @@ export default function TransportServicesRequests() {
     }, [requests.length]);
 
     async function acceptRequest(id) {
-        await fetch(`http://localhost:8080/api/transport-services/approve/${id}`, {
+        await fetch(`http://localhost:8080/api/transport-services/approve/?id=${id}`, {
             method: "PUT",
         });
 
@@ -72,7 +72,7 @@ export default function TransportServicesRequests() {
     }
 
     async function declineRequest(id) {
-        await fetch(`http://localhost:8080/api/transport-services/decline/${id}`, {
+        await fetch(`http://localhost:8080/api/transport-services/decline/?id=${id}`, {
             method: "PUT",
         });
 

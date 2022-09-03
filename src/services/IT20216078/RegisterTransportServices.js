@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 export default function RegisterTransportServices() {
     const [form, setForm] = useState({
+        id: "",
         companyName: "",
         companyEmailAddress: "",
         companyHotline: "",
         landTransport: "",
         airTransport: "",
         waterTransport: "",
-        locations: ""
+        locations: "",
+        isApproved: ""
     });
 
     function updateForm(value) {
@@ -22,7 +24,7 @@ export default function RegisterTransportServices() {
 
         const newTransportService = { ...form };
 
-        await fetch("http://localhost:8080/transport-services/add", {
+        await fetch("http://localhost:8080/api/transport-services/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
