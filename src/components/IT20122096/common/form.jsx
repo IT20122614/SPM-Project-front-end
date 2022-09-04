@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import DropDownList from "./dropDownList";
 import Input from "./input";
+import DateRangeInput from "./dateRangePicker";
+import RadioButton from "./radioButton";
 
 class Form extends Component {
   state = {
     data: {},
     errors: {},
   };
-  validate = () => {
-    const result = Joi.validate(this.state.data, this.schema, {
-      abortEarly: false,
-    });
+  validate = (schema,request) => {
+    const result = Joi.validate(request,schema);
 
     if (!result.error) return null;
 
@@ -43,13 +43,13 @@ class Form extends Component {
 
     const data = { ...this.state.data };
     data[name] = value;
-    this.setState({ data,errors });
+    this.setState({ data, errors });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const errors = this.validate();
+    const errors = this.validate(this.schema,this.state.data);
     this.setState({ errors: errors || {} });
     if (errors) return;
 
@@ -57,7 +57,7 @@ class Form extends Component {
   };
 
   renderInputField(label, name, type) {
-    const {data,errors} = this.state;
+    const { data, errors } = this.state;
     return (
       <Input
         label={label}
@@ -72,19 +72,50 @@ class Form extends Component {
   renderButton(label, className, type, onClick) {
     return (
       <React.Fragment>
-        <button type={type} className={className} onClick={onClick} disabled={this.validate()}>
+        <button
+          type={type}
+          className={className}
+          onClick={onClick}
+          disabled={this.validate(this.schema, this.state.data)}
+        >
           {label}
         </button>
       </React.Fragment>
     );
   }
   renderDropDown(lable, name, options) {
+    const { data, errors } = this.state;
     return (
       <DropDownList
         label={lable}
         name={name}
         options={options}
         onChange={this.handleChange}
+        error={errors[name]}
+        value={data[name]}
+      />
+    );
+  }
+  renderDatePicker(lable, name) {
+    const { data, errors } = this.state;
+    return (
+      <DateRangeInput
+        label={lable}
+        name={name}
+        onChange={this.handleChange}
+        error={errors[name]}
+        value={data[name]}
+      />
+    );
+  }
+  renderRadioButtonList(name, options, selected, handleSubmitData) {
+    return (
+      <RadioButton
+        name={name}
+        selected={selected}
+        options={options}
+        onChange={this.handleChange}
+        onSubmit={handleSubmitData}
       />
     );
   }

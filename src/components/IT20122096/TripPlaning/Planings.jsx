@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import NavbarInside from '../common/navbarInside';
+import HorizontalLinearStepper from './../common/Stepper';
 
 class Plannings extends Component {
   state = {
     currentItem: localStorage.getItem("TPcurrent") || "Groups",
-    items : ["Groups", "Documents", "Users", "Report"]
+    items : ["Create New Planing", "Current Plannings", "Report"]
   };
   handleNavSelect = (item) => {
     localStorage.setItem("TPcurrent", item);
@@ -14,15 +15,17 @@ class Plannings extends Component {
      const currentItem =
        localStorage.getItem("TPcurrent") || this.state.currentItem;
     return (
-      <div style={{ marginTop: "2rem" }}>
-        <center>
+      <div style={{ marginTop: "0rem" }}>
+        {/* <center>
           <h1>Admin Pannel</h1>
-        </center>
+        </center> */}
         <NavbarInside
           items={this.state.items}
           onChange={this.handleNavSelect}
           currentItem={this.state.currentItem}
+
         />
+        <HorizontalLinearStepper/>
         {/* <div style={{ marginTop: "4rem" }}>
           {currentItem === "Groups" ? (
             <AdminGroups />

@@ -3,7 +3,7 @@ import React from "react";
 const NavbarInside = (props) => {
   const { items, onChange, currentItem } = props;
   return (
-    <div style={{ backgroundColor: "black" }}>
+    <div style={{ backgroundColor: "black" ,marginBottom:"2rem"}}>
       <ul style={{ overflow: "hidden" }} className="nav nav-fill">
         {items.map((item) => (
           <li

@@ -36,9 +36,9 @@ class RegisterForm extends Form {
 
         loginWithJwt(res.data);
         console.log(res, res.data);
-        // setTimeout(() => {
-        //   window.location = "/home";
-        // }, 2000);
+        setTimeout(() => {
+          window.location = "/login";
+        }, 2000);
       })
       .catch((error) => {
         toast.error(error.response.data);

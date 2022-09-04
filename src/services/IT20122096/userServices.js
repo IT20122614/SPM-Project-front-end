@@ -23,7 +23,9 @@ export async function saveUser(data) {
     email: data.email,
     password: data.password,
   };
-  const response = await http.post(endpoint+"/save", user);
+  const response = await http.post(endpoint + "/save", user, {
+    headers: { Authorization: "" },
+  });
   return response;
 }
 
