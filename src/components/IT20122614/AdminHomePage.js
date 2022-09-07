@@ -16,11 +16,19 @@ export default function AdminHomePage() {
     <div>
       <div>
         <Tabs>
-          <TabList>
-            <Tab>Place Management</Tab>
-            <Tab>Hotel Management</Tab>
-            <Tab>Transport Management</Tab>
-          </TabList>
+          <div className="center adminTab">
+            <TabList>
+              <Tab>
+                <h3>Place Management</h3>
+              </Tab>
+              <Tab>
+                <h3>Hotel Management</h3>
+              </Tab>
+              <Tab>
+                <h3>Transport Management</h3>
+              </Tab>
+            </TabList>
+          </div>
 
           <TabPanel>
             <h2>Any content 1</h2>

@@ -14,6 +14,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import Footer from "../Footer";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -31,16 +32,11 @@ const MenuProps = {
 };
 
 const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
+  "Free WiFi",
+  "Family rooms",
+  "Free parking",
+  "Non-smoking rooms",
+  "Airport shuttle",
 ];
 
 function getStyles(name, personName, theme) {
@@ -229,6 +225,7 @@ export default function AddNewHotel() {
       .post("http://localhost:8081/hotel/add-new", data, { mode: "cors" })
       .then((result) => {
         console.log(result);
+        window.location.href = "/edit-hotel";
       })
       .catch((error) => {
         console.log(error);
@@ -269,7 +266,7 @@ export default function AddNewHotel() {
               <form onSubmit={submitNewHotels}>
                 {activeStep + 1 === 1 && (
                   <table width="100%">
-                    <tr>
+                    <tr className="tableTop">
                       <td>Property Type</td>
                       <td>
                         <TextField
@@ -289,8 +286,8 @@ export default function AddNewHotel() {
                       </td>
                     </tr>
                     <tr>
-                      <td>Property Name</td>
-                      <td>
+                      <td className="tableTop">Property Name</td>
+                      <td className="tableTop">
                         <input
                           type="text"
                           class="form-control"
@@ -302,7 +299,7 @@ export default function AddNewHotel() {
                       </td>
                     </tr>
 
-                    <tr>
+                    <tr className="tableTop">
                       <td>Description</td>
                       <td>
                         <input
@@ -543,7 +540,11 @@ export default function AddNewHotel() {
                       </tr>
                     </table>
                     <div align="right">
-                      <input type="submit" value="Submit" />
+                      <input
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-success"
+                      />
                     </div>
                   </div>
                 )}
