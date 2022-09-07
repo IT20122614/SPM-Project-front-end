@@ -262,7 +262,7 @@ export default function AddNewHotel() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <div>
+            <div className="addNEwBottom">
               <form onSubmit={submitNewHotels}>
                 {activeStep + 1 === 1 && (
                   <table width="100%">
@@ -285,7 +285,7 @@ export default function AddNewHotel() {
                         </TextField>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tableTop">
                       <td className="tableTop">Property Name</td>
                       <td className="tableTop">
                         <input
@@ -300,8 +300,8 @@ export default function AddNewHotel() {
                     </tr>
 
                     <tr className="tableTop">
-                      <td>Description</td>
-                      <td>
+                      <td className="tableTop">Description</td>
+                      <td className="tableTop">
                         <input
                           type="text"
                           class="form-control"
@@ -313,8 +313,8 @@ export default function AddNewHotel() {
                       </td>
                     </tr>
                     <tr>
-                      <td>Address</td>
-                      <td>
+                      <td className="tableTop">Address</td>
+                      <td className="tableTop">
                         <input
                           type="text"
                           class="form-control"
@@ -326,8 +326,8 @@ export default function AddNewHotel() {
                       </td>
                     </tr>
                     <tr>
-                      <td>City</td>
-                      <td>
+                      <td className="tableTop">City</td>
+                      <td className="tableTop">
                         <input
                           type="text"
                           class="form-control"
@@ -339,8 +339,8 @@ export default function AddNewHotel() {
                       </td>
                     </tr>
                     <tr>
-                      <td>Image</td>
-                      <td>
+                      <td className="tableTop">Image</td>
+                      <td className="tableTop">
                         <input
                           type="text"
                           class="form-control"
@@ -357,8 +357,8 @@ export default function AddNewHotel() {
                   <div>
                     <table width="100%">
                       <tr>
-                        <td>Room Type</td>
-                        <td>
+                        <td className="tableTop">Room Type</td>
+                        <td className="tableTop">
                           <TextField
                             id=""
                             select
@@ -376,8 +376,8 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td>Capacity</td>
-                        <td>
+                        <td className="tableTop">Capacity</td>
+                        <td className="tableTop">
                           <input
                             type="number"
                             class="form-control"
@@ -389,8 +389,8 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td>Room Number</td>
-                        <td>
+                        <td className="tableTop">Room Number</td>
+                        <td className="tableTop">
                           <input
                             type="number"
                             class="form-control"
@@ -403,8 +403,8 @@ export default function AddNewHotel() {
                       </tr>
 
                       <tr>
-                        <td>Facilities</td>
-                        <td>
+                        <td className="tableTop">Facilities</td>
+                        <td className="tableTop">
                           <InputLabel id="demo-multiple-name-label">
                             Facilities
                           </InputLabel>
@@ -431,12 +431,12 @@ export default function AddNewHotel() {
                       </tr>
 
                       <tr>
-                        <td>Price</td>
-                        <td>
-                          <span class="prefix">LKR.</span>
+                        <td className="tableTop">Price</td>
+                        <td className="tableTop">
                           <input
                             type="numbers"
-                            placeholder="0.00"
+                            class="form-control"
+                            placeholder="LKR 0.00"
                             onChange={(e) => {
                               setprice(e.target.value);
                             }}
@@ -444,16 +444,16 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="tableTop">
                           <hr class="solid" />
                         </td>
-                        <td>
+                        <td className="tableTop">
                           <hr class="solid" />
                         </td>
                       </tr>
                       <tr>
-                        <td>Room Type</td>
-                        <td>
+                        <td className="tableTop">Room Type</td>
+                        <td className="tableTop">
                           <TextField
                             id=""
                             select
@@ -471,8 +471,8 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td>Capacity</td>
-                        <td>
+                        <td className="tableTop">Capacity</td>
+                        <td className="tableTop">
                           <input
                             type="number"
                             class="form-control"
@@ -484,8 +484,8 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td>Room Number</td>
-                        <td>
+                        <td className="tableTop">Room Number</td>
+                        <td className="tableTop">
                           <input
                             type="number"
                             class="form-control"
@@ -498,8 +498,8 @@ export default function AddNewHotel() {
                       </tr>
 
                       <tr>
-                        <td>Facilities</td>
-                        <td>
+                        <td className="tableTop">Facilities</td>
+                        <td className="tableTop">
                           <InputLabel id="demo-multiple-name-label">
                             Facilities
                           </InputLabel>
@@ -526,12 +526,12 @@ export default function AddNewHotel() {
                       </tr>
 
                       <tr>
-                        <td>Price</td>
-                        <td>
-                          <span class="prefix">LKR.</span>
+                        <td className="tableTop">Price</td>
+                        <td className="tableTop">
                           <input
                             type="numbers"
-                            placeholder="0.00"
+                            placeholder="LKR 0.00"
+                            class="form-control"
                             onChange={(e) => {
                               setprice2(e.target.value);
                             }}
