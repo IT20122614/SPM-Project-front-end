@@ -10,7 +10,7 @@ import Input from "../common/input";
 
 export default class TransportSelectForm extends Component {
   state = {
-    numOfMembers: "",
+    numOfKilometers: 0,
     selectedVehicles: [],
     vehicleCategory: "",
     vehicles: [...this.props.selectedTransport.vehicles],
@@ -19,18 +19,21 @@ export default class TransportSelectForm extends Component {
 
   handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    this.setState({ numOfMembers: value });
+    this.setState({ numOfKilometers: value });
   };
   handleOnSave = () => {
-    const { numOfMembers, selectedVehicles } = this.state;
+    const { numOfKilometers, selectedVehicles } = this.state;
     let tot = 0;
+    console.log(numOfKilometers);
 
     selectedVehicles.map((v) => {
-      tot += v.price;
+      tot += v.price * numOfKilometers;
+      console.log(v.price * numOfKilometers);
     });
     
     const data = {
-      numOfMembers: numOfMembers,
+      id:this.props.selectedTransport.id,
+      numOfKilometers: numOfKilometers,
       vehicles: selectedVehicles,
       total:tot
     };
@@ -44,7 +47,7 @@ export default class TransportSelectForm extends Component {
       isSearched,
       vehicleCategory,
       selectedVehicles,
-      numOfMembers,
+      numOfKilometers,
     } = this.state;
   
     return (
@@ -59,8 +62,8 @@ export default class TransportSelectForm extends Component {
             }}
           >
             <Input
-              label="No Of Members"
-              name="numOfMembers"
+              label="No Of KM"
+              name="numOfKilometers"
               type={"number"}
               onChange={this.handleChange}
             />
@@ -170,7 +173,7 @@ export default class TransportSelectForm extends Component {
                 </div>
               </div>
               <div style={{ marginLeft: "85%" }}>
-                {numOfMembers !== "" && selectedVehicles.length !== 0 && (
+                {numOfKilometers !== "" && selectedVehicles.length !== 0 && (
                   <Button
                     size="small"
                     variant="contained"

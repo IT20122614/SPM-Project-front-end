@@ -31,7 +31,11 @@ export default function PlaceSelectForm({ Selectedplace, getData, isSaved }) {
         selectedPlaces.push(p);
       }
     });
-    getData(selectedPlaces);
+    const data = {
+      id: Selectedplace.id,
+      visitingPlaces:selectedPlaces
+    };
+    getData(data);
   };
 
   return (

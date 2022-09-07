@@ -5,6 +5,8 @@ import Form from "./../common/form";
 import { Button } from "@mui/material";
 import radioButton from "./../common/radioButton";
 import PlaceCard from "./placeCard";
+import { saveNewTripPlan } from "../../../services/IT20122096/tripPlanService";
+import { toast } from 'react-toastify';
 
 const Joi = BaseJoi.extend(Extension);
 export default class NewPlanForm extends Form {
@@ -14,11 +16,11 @@ export default class NewPlanForm extends Form {
       type: "",
       startDate: "",
       endDate: "",
-      hotel: "1",
+      hotel: "6310ca7cdbfcd41336de4359",
       district: "",
       province: "",
-      place: "1",
-      transport: "1",
+      place: "6310ca7cdbfcd41336de4359",
+      transport: "6310ca7cdbfcd41336de4359",
     },
     errors: {},
 
@@ -30,23 +32,32 @@ export default class NewPlanForm extends Form {
           "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         image:
           "https://imgcy.trivago.com/c_lfill,d_dummy.jpeg,e_sharpen:60,f_auto,h_450,q_auto,w_450/itemimages/96/95/96959_v6.jpeg",
-        id: "1",
+        id: "6310ca7cdbfcd41336de4359",
         rating: 5,
         rooms: [
           {
-            roomNumber: 123,
-            roomCategory: "single",
-            price: 23000.0,
+            roomNumber: "123",
+            category: "single",
+            price: 20000.0,
+            capacity: 1,
           },
           {
-            roomNumber: 123,
-            roomCategory: "12345",
-            price: 23000.0,
+            roomNumber: "456",
+            category: "singled",
+            price: 30000.0,
+            capacity: 2,
           },
           {
-            roomNumber: 123,
-            roomCategory: "12345",
-            price: 23000.0,
+            roomNumber: "789",
+            category: "singled",
+            price: 40000.0,
+            capacity: 3,
+          },
+          {
+            roomNumber: "147",
+            category: "single",
+            price: 50000.0,
+            capacity: 4,
           },
         ],
       },
@@ -57,24 +68,33 @@ export default class NewPlanForm extends Form {
           "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         image:
           "https://pix8.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?ca=6&ce=1&s=1024x768",
-        id: "2",
+        id: "6310ca7cdbfcd41336de4358",
         rating: 3,
 
         rooms: [
           {
-            roomNumber: 123,
-            roomCategory: "single",
-            price: 23000.0,
+            roomNumber: "123",
+            category: "single",
+            price: 20000.0,
+            capacity: 1,
           },
           {
-            roomNumber: 123,
-            roomCategory: "12345",
-            price: 23000.0,
+            roomNumber: "456",
+            category: "singled",
+            price: 30000.0,
+            capacity: 2,
           },
           {
-            roomNumber: 123,
-            roomCategory: "12345",
-            price: 23000.0,
+            roomNumber: "789",
+            category: "singled",
+            price: 40000.0,
+            capacity: 3,
+          },
+          {
+            roomNumber: "147",
+            category: "single",
+            price: 50000.0,
+            capacity: 4,
           },
         ],
       },
@@ -88,7 +108,7 @@ export default class NewPlanForm extends Form {
           "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         image:
           "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
-        id: "1",
+        id: "6310ca7cdbfcd41336de4359",
         visitingPlaces: [
           {
             name: "place 1",
@@ -124,7 +144,7 @@ export default class NewPlanForm extends Form {
           "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         image:
           "https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200",
-        id: "1",
+        id: "6310ca7cdbfcd41336de4359",
         vehicles: [{ id: "daf", type: "Car", capacity: 3, price: 100 }],
       },
     ],
@@ -136,6 +156,7 @@ export default class NewPlanForm extends Form {
     selectedPlace: {},
     selectedHotel: {},
     selectedTransportMethod: {},
+    totalCost: 0,
   };
   schema = {
     name: Joi.string().required().min(3).label("Name"),
@@ -183,8 +204,29 @@ export default class NewPlanForm extends Form {
   };
 
   doSubmit = async () => {
-    const { data, errors } = this.state;
+    const { data, selectedPlace, selectedHotel, selectedTransportMethod } =
+      this.state;
     this.props.isSubmited(true);
+
+    const newTrip = {
+      userId: localStorage.getItem("userId"),
+      name: data.name,
+      type: data.type,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      accommodation: selectedHotel,
+      place: selectedPlace,
+      transportation: selectedTransportMethod,
+      totalCost: this.calcTot(),
+    };
+
+    await saveNewTripPlan(newTrip)
+      .then(({ data }) => {
+        toast.success("Saved Successfully", { autoClose: 1000 });
+      })
+      .catch((error) => {
+        toast.error(error.response, { autoClose: 1000 });
+      });
   };
   calcTot = () => {
     let tot = 0;

@@ -1,0 +1,167 @@
+import React, { Component } from "react";
+
+export default class TripPlanModal extends Component {
+  state = { visitingPlaces: [...this.props.plan.place.visitingPlaces] };
+
+  render() {
+    const { plan, onClose, dateCovertor } = this.props;
+    console.log(this.state.visitingPlaces);
+    return (
+      <div>
+        {/* <!-- Modal --> */}
+        <div
+          className="modal  fade "
+          id="tripPlanModal"
+          data-bs-backdrop="static"
+        >
+          <div className={`modal-dialog modal-lg`}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="staticBackdropLabel"></h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => onClose()}
+                ></button>
+              </div>
+
+              <div className="modal-body">
+                <h2>Details</h2>
+
+                <span>{plan.name}</span>
+                <br />
+                <span>{plan.type}</span>
+                <br />
+                <span>{dateCovertor(plan.startDate)}</span>
+                <br />
+                <span>{dateCovertor(plan.endDate)}</span>
+                <br />
+                <br />
+                <h2>Place</h2>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      alt=""
+                      width="150px"
+                      height={"150px"}
+                      style={{ marginRight: "1rem" }}
+                    />
+                  </div>
+                  <div>
+                    <h5>Place Name</h5>
+                    <br />
+                    <span>Located in: (Province) (Distritc) </span>
+                    <br />
+                  </div>
+                </div>
+                <br />
+                <h4>Visiting Places</h4>
+                <div>
+                  {plan.place.visitingPlaces.map((v) => {
+                    return (
+                      <div>
+                        <img
+                          src={v.image}
+                          alt=""
+                          width="50px"
+                          height={"50px"}
+                          style={{ margin: "1rem" }}
+                        />
+                        <span>{v.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <h2>Accomodation</h2>
+                <br />
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      alt=""
+                      width="150px"
+                      height={"150px"}
+                      style={{ marginRight: "1rem" }}
+                    />
+                  </div>
+                  <div>
+                    <h5>Hotel Name</h5>
+                    <h6>Room Numbers</h6>
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      {plan.accommodation.rooms.map((room) => {
+                        return (
+                          <div style={{ marginLeft: "1rem" }}>
+                            <li>
+                              {room.roomNumber} ({room.category})
+                            </li>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <h6>Cost : LKR{plan.accommodation.total}.00</h6>
+                  </div>
+                </div>
+                <br />
+                <h2>Transportation</h2>
+                <br />
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      alt=""
+                      width="150px"
+                      height={"150px"}
+                      style={{ marginRight: "1rem" }}
+                    />
+                  </div>
+                  <div>
+                    <h5>Transport Service Name</h5>
+                    <h6>Distance : {plan.transportation.numOfKilometers}KM</h6>
+                    <h6>Selected Vehicles</h6>
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      {plan.transportation.vehicles.map((vehicle) => {
+                        return (
+                          <div style={{ marginLeft: "1rem" }}>
+                            <li>{vehicle.type}</li>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <h6>Cost : LKR{plan.transportation.total}.00</h6>
+                  </div>
+                </div>
+                <br /><br />
+                <div style={{backgroundColor:"lightblue",fontSize:"25px",paddingTop:"1rem",paddingBottom: "1rem",fontWeight:"bold"}} >Total Cost : LKR{ plan.totalCost}.00</div>
+              </div>
+
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  onClick={() => onClose()}
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  // onClick={() => {
+                  //   onClose();
+                  // }}
+                  // disabled={!this.state.isSaved}
+                >
+                  Book
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

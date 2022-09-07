@@ -16,8 +16,6 @@ export default class HotelBookModal extends Component {
     this.setState({ isSaved: true });
   };
 
-  
-
   render() {
     const { onClose, choice, name } = this.props;
     return (
@@ -81,7 +79,11 @@ export default class HotelBookModal extends Component {
                 <button
                   type="button"
                   class="btn btn-primary"
-                  onClick={() => {this.props.onSubmit(this.state.data,name)} }
+                  data-bs-dismiss="modal"
+                  onClick={() => {
+                    this.props.onSubmit(this.state.data, name);
+                    onClose();
+                  }}
                   disabled={!this.state.isSaved}
                 >
                   Book

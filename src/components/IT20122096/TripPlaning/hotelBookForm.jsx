@@ -12,37 +12,12 @@ export default class HotelBookForm extends Component {
     numOfMembers: "",
     selectedRooms: [],
     roomCategory: "",
-    rooms: [
-      {
-        roomNumber: "123",
-        category: "single",
-        price: 20000.0,
-        capacity: 1,
-      },
-      {
-        roomNumber: "456",
-        category: "single",
-        price: 30000.0,
-        capacity: 2,
-      },
-      {
-        roomNumber: "789",
-        category: "single",
-        price: 40000.0,
-        capacity: 3,
-      },
-      {
-        roomNumber: "147",
-        category: "single",
-        price: 50000.0,
-        capacity: 4,
-      },
-    ],
+    rooms: this.props.selectedHotel.rooms,
     isSearched: false,
   };
 
   handleChange = (e) => {
-    const { name, value } = e.currentTarget;
+    const { value } = e.currentTarget;
     this.setState({ numOfMembers: value });
   };
   handleOnSave = () => {
@@ -54,6 +29,7 @@ export default class HotelBookForm extends Component {
     });
 
     const data = {
+      id:this.props.selectedHotel.id,
       numOfMembers: numOfMembers,
       rooms: selectedRooms,
       total:tot

@@ -52,7 +52,7 @@ class Form extends Component {
     const errors = this.validate(this.schema,this.state.data);
     this.setState({ errors: errors || {} });
     if (errors) return;
-
+console.log(errors)
     this.doSubmit();
   };
 

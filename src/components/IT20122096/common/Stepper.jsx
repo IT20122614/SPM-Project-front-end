@@ -5,9 +5,8 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import newPlanForm from "./../TripPlaning/newPlanForm";
 import NewPlanForm from "./../TripPlaning/newPlanForm";
-
+import { UilCheckCircle } from "@iconscout/react-unicons";
 const steps = [
   "Create new planing",
   "Select a place",
@@ -18,8 +17,7 @@ const steps = [
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-  const [isSubmitted,setIsSubmitted] = React.useState(false)
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -33,8 +31,8 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
   const handleFinish = (answer) => {
-    setIsSubmitted(answer)
-  }
+    setIsSubmitted(answer);
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -52,12 +50,71 @@ export default function HorizontalLinearStepper() {
       {/* Finish the stepper */}
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
+          <Typography
+            sx={{
+              mt: 2,
+              mb: 1,
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                border: "5px solid #36D81D",
+                height: "25rem",
+                padding: "4rem",
+              }}
+            >
+              <center
+                style={{
+                  color: "black",
+                  fontWaight: "900",
+                  fontSize: "35px",
+                }}
+              >
+                All Done
+              </center>
+              <br />
+              <center>
+                <UilCheckCircle color="#36D81D" size="100" />
+              </center>
+              <br />
+              <center
+                style={{
+                  color: "black",
+                  fontWaight: "900",
+                  fontSize: "35px",
+                }}
+              >
+                Your Trip Plane is Saved
+              </center>
+              <br />
+            </div>
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              pt: 2,
+              margin: "-4rem 1rem 0rem 1rem",
+            }}
+          >
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button onClick={handleReset} color="error" variant="contained">
+              Reset
+            </Button>
+            <Button
+              onClick={() => {
+                localStorage.setItem("TPcurrent", "Current Plannings");
+                window.location = "/plannings";
+              }}
+              variant="contained"
+              sx={{ marginLeft: "1rem" }}
+            >
+              Continue
+            </Button>
           </Box>
         </React.Fragment>
       ) : (
@@ -78,8 +135,8 @@ export default function HorizontalLinearStepper() {
               display: "flex",
               flexDirection: "row",
               pt: 2,
-               
-              margin:"-5rem 1rem 0rem 1rem"
+
+              margin: "-5rem 1rem 0rem 1rem",
             }}
           >
             <Button
@@ -93,7 +150,11 @@ export default function HorizontalLinearStepper() {
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
 
-            <Button onClick={handleNext} variant="contained" disabled={(activeStep === steps.length - 1 && !isSubmitted)} >
+            <Button
+              onClick={handleNext}
+              variant="contained"
+               disabled={activeStep === steps.length - 1 && !isSubmitted}
+            >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>

@@ -35,7 +35,7 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
             checked={selected === choice.id}
             onChange={onChange}
           />
-          <div class="row g-0" style={{ border: "1px solid black" }}>
+          <div class="row g-0" style={{ border: "1px solid black",boxShadow: "5px 10px #888888" }}>
             <div class="col-md-4" style={{ height: "100%" }}>
               <img src={choice.image} alt="..." width="90%" height="140px" />
             </div>

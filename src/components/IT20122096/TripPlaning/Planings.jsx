@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import NavbarInside from '../common/navbarInside';
 import HorizontalLinearStepper from './../common/Stepper';
+import CurrentPlannings from './currentPlannings/currentPlannings';
 
 class Plannings extends Component {
   state = {
-    currentItem: localStorage.getItem("TPcurrent") || "Groups",
-    items : ["Create New Planing", "Current Plannings", "Report"]
+    currentItem: localStorage.getItem("TPcurrent") || "Current Plannings",
+    items: ["Create New Planing", "Current Plannings", "Report"],
   };
   handleNavSelect = (item) => {
     localStorage.setItem("TPcurrent", item);
     this.setState({ currentItem: item });
   };
   render() {
-     const currentItem =
-       localStorage.getItem("TPcurrent") || this.state.currentItem;
+    const currentItem =
+      localStorage.getItem("TPcurrent") || this.state.currentItem;
     return (
       <div style={{ marginTop: "0rem" }}>
         {/* <center>
@@ -23,20 +24,17 @@ class Plannings extends Component {
           items={this.state.items}
           onChange={this.handleNavSelect}
           currentItem={this.state.currentItem}
-
         />
-        <HorizontalLinearStepper/>
-        {/* <div style={{ marginTop: "4rem" }}>
-          {currentItem === "Groups" ? (
-            <AdminGroups />
-          ) : currentItem === "Documents" ? (
-            <AdminDocuments />
-          ) : currentItem === "Users" ? (
-            <AdminUsers />
+
+        <div style={{ marginTop: "4rem" }}>
+          {currentItem === "Create New Planing" ? (
+            <HorizontalLinearStepper />
+          ) : currentItem === "Current Plannings" ? (
+            <CurrentPlannings/>
           ) : currentItem === "Report" ? (
-            <AdminReport />
+            <div>reports</div>
           ) : null}
-        </div> */}
+        </div>
       </div>
     );
   }
