@@ -23,7 +23,7 @@
 .center {
   margin: auto;
   width: 50%;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   padding: 10px;
   margin-top: 60px;
 }
@@ -47,9 +47,12 @@ hr.solid {
 .left {
   width: 25%;
 }
+.centerDivTag {
+  width: 50%;
+}
 
 .right {
-  width: 75%;
+  width: 25%;
 }
 
 /* Clear floats after the columns */
@@ -60,4 +63,34 @@ hr.solid {
 }
 .borderBox {
   box-sizing: border-box;
+  border-style: solid;
+  border-color: rgb(80, 83, 255);
+  box-shadow: 20px 20px 50px rgba(200, 201, 244, 0.635);
+  border-radius: 10px;
+}
+.marginStyling {
+  margin-top: 50px;
+  margin-left: 80px;
+  margin-right: 80px;
+  padding: 20px;
+}
+.viewMoreStyling {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+  width: 60%;
+}
+.editStyling {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.longName {
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 500px; */
+  max-height: 80px;
+  overflow: auto;
 }

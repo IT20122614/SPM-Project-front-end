@@ -13,6 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Select from "@mui/material/Select";
+import axios from "axios";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -88,7 +89,7 @@ const roomTypes = [
   },
 ];
 
-const steps = ["Informations", "Facilities"];
+const steps = ["Informations", "Rooms"];
 
 export default function AddNewHotel() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -96,12 +97,22 @@ export default function AddNewHotel() {
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const [personName2, setPersonName2] = React.useState([]);
 
   const handleChangeFacilities = (event) => {
     const {
       target: { value },
     } = event;
     setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+  const handleChangeFacilities2 = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName2(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -146,12 +157,18 @@ export default function AddNewHotel() {
   // };
   const [currency, setCurrency] = React.useState("Hotels");
   const [roomType, setroomType] = React.useState("Three-Bedroom Apartment");
+  const [roomType2, setroomType2] = React.useState("Three-Bedroom Apartment");
   const [propName, setpropName] = React.useState("");
   const [description, setdescription] = React.useState("");
   const [address, setaddress] = React.useState("");
   const [city, setcity] = React.useState("");
   const [imageURL, setimageURL] = React.useState("");
   const [price, setprice] = React.useState(0);
+  const [price2, setprice2] = React.useState(0);
+  const [capacity, setCapacity] = React.useState(0);
+  const [capacity2, setCapacity2] = React.useState(0);
+  const [roomNumber, setRoomNumber] = React.useState(0);
+  const [roomNumber2, setRoomNumber2] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -172,6 +189,9 @@ export default function AddNewHotel() {
   const handleChangeRoom = (e) => {
     setroomType(e.target.value);
   };
+  const handleChangeRoom2 = (e) => {
+    setroomType2(e.target.value);
+  };
 
   const handleReset = () => {
     setActiveStep(0);
@@ -186,12 +206,33 @@ export default function AddNewHotel() {
       address: address,
       city: city,
       imageURL: imageURL,
-      roomType: roomType,
-      facilities: personName,
-      price: price,
+      room: [
+        {
+          roomType: roomType,
+          capacity: capacity,
+          roomNumber: roomNumber,
+          facilities: personName,
+          price: price,
+        },
+        {
+          roomType: roomType2,
+          capacity: capacity2,
+          roomNumber: roomNumber2,
+          facilities: personName2,
+          price: price2,
+        },
+      ],
     };
     console.log(data);
     setOpen(true);
+    axios
+      .post("http://localhost:8081/hotel/add-new", data, { mode: "cors" })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -319,7 +360,7 @@ export default function AddNewHotel() {
                   <div>
                     <table width="100%">
                       <tr>
-                        <td>Property Type</td>
+                        <td>Room Type</td>
                         <td>
                           <TextField
                             id=""
@@ -338,13 +379,34 @@ export default function AddNewHotel() {
                         </td>
                       </tr>
                       <tr>
-                        <td></td>
+                        <td>Capacity</td>
                         <td>
-                          <hr class="solid" />
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="address"
+                            onChange={(e) => {
+                              setCapacity(e.target.value);
+                            }}
+                          />
                         </td>
                       </tr>
                       <tr>
-                        <td>Property Name</td>
+                        <td>Room Number</td>
+                        <td>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="address"
+                            onChange={(e) => {
+                              setRoomNumber(e.target.value);
+                            }}
+                          />
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Facilities</td>
                         <td>
                           <InputLabel id="demo-multiple-name-label">
                             Facilities
@@ -380,6 +442,101 @@ export default function AddNewHotel() {
                             placeholder="0.00"
                             onChange={(e) => {
                               setprice(e.target.value);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <hr class="solid" />
+                        </td>
+                        <td>
+                          <hr class="solid" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Room Type</td>
+                        <td>
+                          <TextField
+                            id=""
+                            select
+                            label=""
+                            value={roomType2}
+                            onChange={handleChangeRoom2}
+                            variant="standard"
+                          >
+                            {roomTypes.map((option) => (
+                              <MenuItem key={option.value} value={option.value}>
+                                <h4>{option.label}</h4>
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Capacity</td>
+                        <td>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="address"
+                            onChange={(e) => {
+                              setCapacity2(e.target.value);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Room Number</td>
+                        <td>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="address"
+                            onChange={(e) => {
+                              setRoomNumber2(e.target.value);
+                            }}
+                          />
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Facilities</td>
+                        <td>
+                          <InputLabel id="demo-multiple-name-label">
+                            Facilities
+                          </InputLabel>
+                          <Select
+                            labelId="demo-multiple-name-label"
+                            id="demo-multiple-name"
+                            multiple
+                            value={personName2}
+                            onChange={handleChangeFacilities2}
+                            input={<OutlinedInput label="Name" />}
+                            MenuProps={MenuProps}
+                          >
+                            {names.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Price</td>
+                        <td>
+                          <span class="prefix">LKR.</span>
+                          <input
+                            type="numbers"
+                            placeholder="0.00"
+                            onChange={(e) => {
+                              setprice2(e.target.value);
                             }}
                           />
                         </td>
