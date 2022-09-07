@@ -6,6 +6,7 @@ import AdminHomePage from "./components/IT20122614/AdminHomePage";
 import AddNewHotel from "./components/IT20122614/AddNewHotel";
 import EditHotels from "./components/IT20122614/EditHotels";
 import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 
 class App extends Component {
   state = {};
@@ -13,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <NavBar />
         <Switch>
           <Route path="/student-profile" exact component={Testing} />
           <Route path="/admin-home" exact component={AdminHomePage} />
