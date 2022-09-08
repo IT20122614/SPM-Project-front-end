@@ -568,7 +568,9 @@ export default function AddNewHotel() {
               )} */}
 
               <Button onClick={handleNext}>
-                <h4>{activeStep + 1 === 1 && "Next"}</h4>
+                <h4 className="tn btn-success nextBtn">
+                  {activeStep + 1 === 1 && "Next"}
+                </h4>
               </Button>
             </Box>
           </React.Fragment>

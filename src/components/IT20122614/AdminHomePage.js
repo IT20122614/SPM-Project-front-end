@@ -16,7 +16,7 @@ export default function AdminHomePage() {
     <div>
       <div>
         <Tabs>
-          <div className="center adminTab">
+          <div className="center2 adminTab">
             <TabList>
               <Tab>
                 <h3>Place Management</h3>
@@ -34,7 +34,7 @@ export default function AdminHomePage() {
             <h2>Any content 1</h2>
           </TabPanel>
           <TabPanel>
-            <div className="center">
+            <div className="center2">
               <table width="100%">
                 <tr>
                   <td>
