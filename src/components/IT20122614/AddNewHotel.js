@@ -14,7 +14,6 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Select from "@mui/material/Select";
 import axios from "axios";
-import Footer from "../Footer";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -64,6 +63,10 @@ const currencies = [
   {
     value: "Villas",
     label: "Villas",
+  },
+  {
+    value: "Restaurants",
+    label: "Restaurants",
   },
 ];
 const roomTypes = [
@@ -166,6 +169,7 @@ export default function AddNewHotel() {
   const [roomNumber, setRoomNumber] = React.useState(0);
   const [roomNumber2, setRoomNumber2] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  let isResturent = false;
 
   const handleClick = () => {
     setOpen(true);
@@ -221,8 +225,9 @@ export default function AddNewHotel() {
     };
     console.log(data);
     setOpen(true);
+    
     axios
-      .post("http://localhost:8081/hotel/add-new", data, { mode: "cors" })
+      .post("http://localhost:8081/hotel/add-new", data)
       .then((result) => {
         console.log(result);
         window.location.href = "/edit-hotel";
@@ -355,7 +360,21 @@ export default function AddNewHotel() {
                 )}
                 {activeStep + 1 === 2 && (
                   <div>
-                    <table width="100%">
+                    {!currency.localeCompare("Restaurants") && (
+                      <div>
+                        <Alert severity="error">
+                          You cannot Add Restaurants
+                        </Alert>
+                      </div>
+                    )}
+                    <table
+                      width="100%"
+                      style={{
+                        pointerEvents: !currency.localeCompare("Restaurants")
+                          ? "none"
+                          : "",
+                      }}
+                    >
                       <tr>
                         <td className="tableTop">Room Type</td>
                         <td className="tableTop">
@@ -568,7 +587,7 @@ export default function AddNewHotel() {
               )} */}
 
               <Button onClick={handleNext}>
-                <h4 className="tn btn-success nextBtn">
+                <h4 className="">
                   {activeStep + 1 === 1 && "Next"}
                 </h4>
               </Button>

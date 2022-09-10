@@ -34,7 +34,8 @@ const hotel = [
 ];
 
 export default function EditHotels() {
-  const [hotels, setHotels] = useState([]);
+  let [hotels, setHotels] = useState([]);
+  const [search, serSearch] = useState("");
 
   useEffect(() => {
     function getHotels() {
@@ -50,8 +51,33 @@ export default function EditHotels() {
     }
     getHotels();
   }, []);
+
+  function searchData(e) {
+    e.preventDefault();
+    const avengers = hotels.filter((character) =>
+      character.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setHotels(avengers);
+    console.log(avengers);
+  }
   return (
     <div>
+      <div align="right" className="searchBar">
+        <form class="form-inline my-2 my-lg-0" onSubmit={searchData}>
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search By Hotel Name"
+            aria-label="Search"
+            onChange={(e) => {
+              serSearch(e.target.value);
+            }}
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
       <table width="100%">
         {hotels.map((hotel, key) => (
           <tr className="stylingColor" key={key}>
