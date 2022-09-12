@@ -4,6 +4,7 @@ import Joi, { errors } from "joi-browser";
 import React, { Component } from "react";
 import DropDownList from "../common/dropDownList";
 import Input from "../common/input";
+import color from "../common/color";
 // import Form from '../common/form';
 // import Button from '@mui/material/Button';
 
@@ -61,7 +62,7 @@ export default class HotelBookForm extends Component {
             <DropDownList
               label="Room Category"
               name="roomCategory"
-              options={[" ", "single", "asd"]}
+              options={[" ", "Single", "Double", "Triple", "Quad"]}
               onChange={(e) => {
                 this.setState({ roomCategory: e.currentTarget.value });
                 this.setState({ isSearched: false });
@@ -95,7 +96,7 @@ export default class HotelBookForm extends Component {
                     }}
                   >
                     <div className="col">Room Number</div>
-                    <div className="col">Capacity</div>
+                    <div className="col">Facilities</div>
                     <div className="col">Price</div>
                     <div className="col"></div>
                     <div className="col"></div>
@@ -108,12 +109,12 @@ export default class HotelBookForm extends Component {
                           className="row"
                           style={{
                             marginBottom: "1rem",
-                            borderBottom: "solid black 1px",
+                            borderBottom: `solid ${color.primary} 1px`,
                             paddingBottom: "1rem",
                           }}
                         >
                           <div className="col">{room.roomNumber}</div>
-                          <div className="col">{room.capacity}</div>
+                          <div className="col">{room.facilities}</div>
                           <div className="col">{room.price}</div>
                           <div className="col">
                             <Button

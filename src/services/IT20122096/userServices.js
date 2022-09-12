@@ -11,6 +11,8 @@ export async function getUser() {
 }
 export async function isAdmin() {
   const { data: user } = await getUser();
+  localStorage.setItem('userName',user.name)
+  localStorage.setItem('profilePic',user.image)
   return user.hasOwnProperty('isAdmin')===true?user.isAdmin : false; 
 }
 export async function getStaff(id) {
@@ -29,8 +31,19 @@ export async function saveUser(data) {
   return response;
 }
 
-export async function updateUser(id, data) {
-  return await http.put(endpoint + `/${id}`, data);
+export async function updateUser(data) {
+  const id = localStorage.getItem("userId");
+  const updatedUser = {
+    id: id,
+    name: data.name,
+    address: data.address,
+    phoneNumber: data.phoneNumber,
+    password: data.newPassword,
+    currentPassword: data.currentPassword,
+    image:data.image
+  };
+  
+  return await http.put(endpoint + "/update", updatedUser);
 }
 
 export async function deleteUser(id) {

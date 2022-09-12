@@ -1,10 +1,10 @@
 
-import { Button, FormLabel, TextField } from "@mui/material";
+import { Button} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Joi, { errors } from "joi-browser";
 import React, { Component } from "react";
 import DropDownList from "../common/dropDownList";
 import Input from "../common/input";
+import color from "../common/color";
 // import Form from '../common/form';
 // import Button from '@mui/material/Button';
 
@@ -62,7 +62,7 @@ export default class TransportSelectForm extends Component {
             }}
           >
             <Input
-              label="No Of KM"
+              label="No KM"
               name="numOfKilometers"
               type={"number"}
               onChange={this.handleChange}
@@ -117,7 +117,7 @@ export default class TransportSelectForm extends Component {
                           className="row"
                           style={{
                             marginBottom: "1rem",
-                            borderBottom: "solid black 1px",
+                            borderBottom: `solid ${color.primary} 1px`,
                             paddingBottom: "1rem",
                           }}
                         >

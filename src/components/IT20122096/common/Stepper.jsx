@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import NewPlanForm from "./../TripPlaning/newPlanForm";
 import { UilCheckCircle } from "@iconscout/react-unicons";
+import color from "./color";
 const steps = [
   "Create new planing",
   "Select a place",
@@ -61,7 +62,7 @@ export default function HorizontalLinearStepper() {
           >
             <div
               style={{
-                border: "5px solid #36D81D",
+                border: `5px solid ${color.primary}`,
                 height: "25rem",
                 padding: "4rem",
               }}
@@ -77,7 +78,7 @@ export default function HorizontalLinearStepper() {
               </center>
               <br />
               <center>
-                <UilCheckCircle color="#36D81D" size="100" />
+                <UilCheckCircle color={color.primary} size="100" />
               </center>
               <br />
               <center
@@ -136,7 +137,7 @@ export default function HorizontalLinearStepper() {
               flexDirection: "row",
               pt: 2,
 
-              margin: "-5rem 1rem 0rem 1rem",
+              margin: "-1rem 1rem 0rem 1rem",
             }}
           >
             <Button

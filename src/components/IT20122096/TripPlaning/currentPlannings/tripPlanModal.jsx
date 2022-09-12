@@ -51,9 +51,9 @@ export default class TripPlanModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Place Name</h5>
+                    <h5>Sigiriya</h5>
                     <br />
-                    <span>Located in: (Province) (Distritc) </span>
+                    <span>Located in: Central Province, Matale Distric </span>
                     <br />
                   </div>
                 </div>
@@ -88,7 +88,7 @@ export default class TripPlanModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Hotel Name</h5>
+                    <h5>Royal Rock Sigiriya</h5>
                     <h6>Room Numbers</h6>
                     <div style={{ marginBottom: "0.5rem" }}>
                       {plan.accommodation.rooms.map((room) => {
@@ -118,7 +118,7 @@ export default class TripPlanModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Transport Service Name</h5>
+                    <h5>Samanala Cabs</h5>
                     <h6>Distance : {plan.transportation.numOfKilometers}KM</h6>
                     <h6>Selected Vehicles</h6>
                     <div style={{ marginBottom: "0.5rem" }}>
@@ -133,8 +133,19 @@ export default class TripPlanModal extends Component {
                     <h6>Cost : LKR{plan.transportation.total}.00</h6>
                   </div>
                 </div>
-                <br /><br />
-                <div style={{backgroundColor:"lightblue",fontSize:"25px",paddingTop:"1rem",paddingBottom: "1rem",fontWeight:"bold"}} >Total Cost : LKR{ plan.totalCost}.00</div>
+                <br />
+                <br />
+                <div
+                  style={{
+                    backgroundColor: "lightblue",
+                    fontSize: "25px",
+                    paddingTop: "1rem",
+                    paddingBottom: "1rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Total Cost : LKR{plan.totalCost}.00
+                </div>
               </div>
 
               <div className="modal-footer">
@@ -155,7 +166,7 @@ export default class TripPlanModal extends Component {
                   // }}
                   // disabled={!this.state.isSaved}
                 >
-                  Book
+                  Download
                 </button>
               </div>
             </div>

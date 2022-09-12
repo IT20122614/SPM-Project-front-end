@@ -58,7 +58,7 @@ class LoginForm extends Form {
             {this.renderInputField("Email", "email", "text")}
             {this.renderInputField("Password", "password", "password")}
             <br />
-            <center>{this.renderButton("Submit", "btn btn-primary")}</center>
+            <center>{this.renderButton("Login", "btn btn-primary")}</center>
           </form>
         </div>
       </React.Fragment>

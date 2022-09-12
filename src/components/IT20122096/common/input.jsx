@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Input = (props) => {
-  const { label, name, onChange, type, error, value } = props;
+  const { label, name, onChange, type, error, value ,style} = props;
   return (
     <div>
       <label className="form-label">{label}</label>
@@ -12,7 +12,7 @@ const Input = (props) => {
         name={name}
         onChange={onChange}
         value={value}
-        
+        style={style}
       />
       {error ? <div className="alert alert-danger">{error}</div> : null}
     </div>

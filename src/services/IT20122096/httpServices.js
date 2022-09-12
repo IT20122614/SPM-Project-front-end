@@ -6,8 +6,14 @@ axios.defaults.baseURL = "http://localhost:8080/api/v1";
 axios.defaults.headers.common["Authorization"] ="Bearer " + localStorage.getItem("token") || "token";
 
 axios.interceptors.response.use(null, (err) => {
-  toast.error(err.message);
-  console.log(err.message);
+  let errorMessage = ""
+  if (typeof err.response.data === "string") {
+    errorMessage = err.response.data;
+  } else {
+    errorMessage = err.response.data.errors[0].defaultMessage;
+  }
+    toast.error(errorMessage,{autoClose:1000});
+  console.log(err);
   return Promise.reject(err);
 });
 

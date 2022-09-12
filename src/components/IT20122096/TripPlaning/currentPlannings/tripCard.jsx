@@ -43,7 +43,7 @@ export default class TripCard extends Component {
               data-bs-target="#tripPlanModal"
               data-bs-toggle="modal"
               onClick={() => {
-                this.props.onView(plan.name);
+                
                 this.setState({ selectedPlan: true });
               }}
             >
@@ -53,6 +53,7 @@ export default class TripCard extends Component {
               variant="contained"
               color="error"
               style={{ marginLeft: "1rem" }}
+              onClick={()=>this.props.onDelete(plan.id)}
             >
               Delete
             </Button>

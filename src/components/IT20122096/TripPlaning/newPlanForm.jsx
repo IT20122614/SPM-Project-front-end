@@ -7,6 +7,7 @@ import radioButton from "./../common/radioButton";
 import PlaceCard from "./placeCard";
 import { saveNewTripPlan } from "../../../services/IT20122096/tripPlanService";
 import { toast } from 'react-toastify';
+import color from "../common/color";
 
 const Joi = BaseJoi.extend(Extension);
 export default class NewPlanForm extends Form {
@@ -26,12 +27,12 @@ export default class NewPlanForm extends Form {
 
     hotels: [
       {
-        name: "ABC Hotel",
+        name: "Hotel Sigiriya",
         district: "Matale",
         description:
-          "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+          "You're eligible for a Genius discount at Royal Rock Sigiriya! To save at this property.",
         image:
-          "https://imgcy.trivago.com/c_lfill,d_dummy.jpeg,e_sharpen:60,f_auto,h_450,q_auto,w_450/itemimages/96/95/96959_v6.jpeg",
+          "https://cf.bstatic.com/xdata/images/hotel/max1280x900/210372174.jpg?k=c55d236f72d64bdf22c1b7abb15ead690c168fe049f77761d3a0bdde7b135bdf&o=&hp=1",
         id: "6310ca7cdbfcd41336de4359",
         rating: 5,
         rooms: [
@@ -62,10 +63,10 @@ export default class NewPlanForm extends Form {
         ],
       },
       {
-        name: "ABCD Hotel",
+        name: "Royal Rock Sigiriya",
         district: "Matale",
         description:
-          "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+          "You're eligible for a Genius discount at Royal Rock Sigiriya! To save at this property.",
         image:
           "https://pix8.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?ca=6&ce=1&s=1024x768",
         id: "6310ca7cdbfcd41336de4358",
@@ -80,21 +81,21 @@ export default class NewPlanForm extends Form {
           },
           {
             roomNumber: "456",
-            category: "singled",
+            category: "Single",
             price: 30000.0,
-            capacity: 2,
+            facilities: "TV WI-FI",
           },
           {
             roomNumber: "789",
-            category: "singled",
+            category: "Single",
             price: 40000.0,
-            capacity: 3,
+            facilities: "TV WI-FI",
           },
           {
             roomNumber: "147",
-            category: "single",
+            category: "Single",
             price: 50000.0,
-            capacity: 4,
+            facilities: "TV WI-FI",
           },
         ],
       },
@@ -105,22 +106,28 @@ export default class NewPlanForm extends Form {
         district: "Matale",
         province: "Central Province",
         description:
-          "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+          "Sigiriya, Sri Lanka, is a small town that has become famous because of one particular attraction – Sigiriya Rock.",
         image:
           "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
         id: "6310ca7cdbfcd41336de4359",
         visitingPlaces: [
           {
-            name: "place 1",
+            name: "Sigiriya Rock",
             id: "abc123",
             image:
-              "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
+              "https://destinationlesstravel.com/wp-content/uploads/2020/04/Depositphotos_88178998_XL.jpg.webp",
           },
           {
             id: "abcd1234",
-            name: "place 2",
+            name: "Pidurangala Rock",
             image:
-              "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
+              "https://destinationlesstravel.com/wp-content/uploads/2019/05/DSC_0266-1.jpg.webp",
+          },
+          {
+            id: "abcd12345",
+            name: "Pethikada paintings and crafts",
+            image:
+              "https://destinationlesstravel.com/wp-content/uploads/2020/04/Pethikada-2.jpg.webp",
           },
         ],
       },
@@ -138,12 +145,12 @@ export default class NewPlanForm extends Form {
     ],
     transportMethods: [
       {
-        name: "Car",
+        name: "Samanala Cabs",
         district: "Matale",
         description:
-          "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+          "Samanala cabs provide 24/7 customer support service, a fully-fledged phone app for easy bookings.",
         image:
-          "https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200",
+          "https://lh3.googleusercontent.com/p/AF1QipPtb1z-zQeJgQWmZC6s8UbOz7uMgbWYXUdiVs9n=w768-h768-n-o-v1",
         id: "6310ca7cdbfcd41336de4359",
         vehicles: [{ id: "daf", type: "Car", capacity: 3, price: 100 }],
       },
@@ -243,7 +250,13 @@ export default class NewPlanForm extends Form {
       this.state;
 
     return (
-      <div style={{ border: "1px solid", width: "60%", height: "100%" }}>
+      <div
+        style={{
+          border: `1px solid ${color.primary}`,
+          width: "75%",
+          height: "100%",
+        }}
+      >
         <form onSubmit={this.handleSubmit}>
           {this.props.step === 1 ? (
             <div style={{ padding: "2rem" }}>
@@ -341,7 +354,7 @@ export default class NewPlanForm extends Form {
                       paddingTop: "15%",
                     }}
                   >
-                    <center style={{ fontSize: "24px", color: "blue" }}>
+                    <center style={{ fontSize: "24px", color: color.primary }}>
                       No result to show. Select the Provice and District.
                     </center>
                   </div>

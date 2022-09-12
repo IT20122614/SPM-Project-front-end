@@ -4,7 +4,7 @@ const SideMenuList = ({ items, currentItem,onChange,width }) => {
   return (
     <ul
       className="list-group"
-      style={{ width: width, paddingLeft: "2rem", paddingRight: "2rem" }}
+      style={{ width: width,  }}
     >
       {items.map((item) => (
         <li

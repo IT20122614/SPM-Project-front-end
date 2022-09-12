@@ -41,9 +41,9 @@ export default function PlaceSelectForm({ Selectedplace, getData, isSaved }) {
   return (
     <List
       dense
-      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+      sx={{ width: "100%", maxWidth: 430, bgcolor: "background.paper" }}
     >
-      <p>Select the places that you would like to vist</p>
+      <h5>Select the places that you would like to visit.</h5>
       <br />
       {place.map((place, index) => {
         const labelId = `checkbox-list-secondary-label-${place.id}`;
@@ -65,7 +65,7 @@ export default function PlaceSelectForm({ Selectedplace, getData, isSaved }) {
               <ListItemAvatar>
                 <Avatar alt={`Avatar n°${place.id + 1}`} src={place.image} />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={place.name} />
+              <p style={{marginTop:"0.7rem", fontWeight:"bold"}} >{ place.name}</p>
             </ListItemButton>
           </ListItem>
         );

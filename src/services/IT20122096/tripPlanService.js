@@ -9,3 +9,6 @@ export async function getAllTripPlans() {
 export async function saveNewTripPlan(data) {
   return await http.post(endpoint + "/save", data);
 }
+export async function deleteTripPlan(tripId) {
+  return await http.get(endpoint+`/delete/${tripId}`)
+}

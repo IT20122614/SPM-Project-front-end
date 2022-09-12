@@ -52,11 +52,10 @@ class Form extends Component {
     const errors = this.validate(this.schema,this.state.data);
     this.setState({ errors: errors || {} });
     if (errors) return;
-console.log(errors)
     this.doSubmit();
   };
 
-  renderInputField(label, name, type) {
+  renderInputField(label, name, type,style) {
     const { data, errors } = this.state;
     return (
       <Input
@@ -66,6 +65,7 @@ console.log(errors)
         onChange={this.handleChange}
         value={data[name]}
         error={errors[name]}
+        style={style}
       />
     );
   }

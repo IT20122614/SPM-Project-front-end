@@ -17,6 +17,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HikingIcon from "@mui/icons-material/Hiking";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../../services/IT20122096/authServices";
+import color from "./color";
 
 const beforePages = [
   { name: "Sign In", link: "/login" },
@@ -74,7 +75,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
               textDecoration: "none",
             }}
           >
-            TRIPO
+            TRIP PLANNER
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -140,7 +141,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
               textDecoration: "none",
             }}
           >
-            TRIPO
+            TRIP PLANNER
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {user
@@ -148,7 +149,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                   <NavLink className="nav-link" to={page.link}>
                     <MenuItem
                       key={index}
-                    onClick={() => {
+                      onClick={() => {
                         localStorage.setItem("selectedNav", page.name);
                         handleCloseNavMenu();
                         handleSelect(page.name);
@@ -167,7 +168,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                   <NavLink className="nav-link" to={page.link}>
                     <MenuItem
                       key={index}
-                    onClick={() => {
+                      onClick={() => {
                         localStorage.setItem("selectedNav", page.name);
                         handleCloseNavMenu();
                         handleSelect(page.name);
@@ -187,7 +188,14 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt={localStorage.getItem("userName")}
+                    src={
+                      localStorage.getItem("profilePic") ||
+                      `/static/images/avatar/2.jpg`
+                    }
+                    style={{ backgroundColor: "white", color: color.primary }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -220,14 +228,18 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                 {user && isAdmin && (
                   <NavLink className="nav-link" to={"/dashboard"}>
                     <MenuItem onClick={handleCloseUserMenu}>
-                      <AdminPanelSettingsIcon style={{ marginRight: "1rem" }} />
+                      <AdminPanelSettingsIcon
+                        style={{ marginRight: "1rem", color: color.primary }}
+                      />
                       DashBoard
                     </MenuItem>
                   </NavLink>
                 )}
                 <NavLink className="nav-link" to={"/profile"}>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <SettingsIcon style={{ marginRight: "1rem" }} />
+                    <SettingsIcon
+                      style={{ marginRight: "1rem", color: color.primary }}
+                    />
                     Account Settings
                   </MenuItem>
                 </NavLink>
@@ -239,7 +251,9 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                   }}
                 >
                   <Typography>
-                    <LogoutIcon style={{ marginRight: "1rem" }} />
+                    <LogoutIcon
+                      style={{ marginRight: "1rem", color: color.primary }}
+                    />
                     Sign Out
                   </Typography>
                 </MenuItem>

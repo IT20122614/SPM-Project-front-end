@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import "./App.css";
+import Footer from "./components/IT20122096/common/Footer";
 import NavBar from "./components/IT20122096/common/NavBar";
 import ResponsiveAppBar from "./components/IT20122096/common/newNav";
 import Home from "./components/IT20122096/home";
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path={"/profile"} component={profile} />
           <Redirect from="/" to={"/login"} />
         </Switch>
+        <Footer/>
         <ToastContainer
           position="top-right"
           autoClose={2000}

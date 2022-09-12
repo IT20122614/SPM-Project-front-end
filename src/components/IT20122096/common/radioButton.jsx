@@ -2,6 +2,7 @@ import { Button, Rating } from "@mui/material";
 import React, { useState } from "react";
 import HotelBookModal from "../TripPlaning/hotelBookModal";
 import PlaceSelectModal from "../TripPlaning/placeSelectForm";
+import color from "./color";
 
 function RadioButton({ name, options, selected, onChange, onSubmit }) {
   const [modalVisible, SetModalVisible] = useState(false);
@@ -35,13 +36,19 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
             checked={selected === choice.id}
             onChange={onChange}
           />
-          <div class="row g-0" style={{ border: "1px solid black",boxShadow: "5px 10px #888888" }}>
+          <div
+            class="row g-0"
+            style={{
+              border: `1px solid ${color.primary}`,
+              boxShadow: "5px 10px #888888",
+            }}
+          >
             <div class="col-md-4" style={{ height: "100%" }}>
               <img src={choice.image} alt="..." width="90%" height="140px" />
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">{choice.name}</h5>
+                <h5 class="card-title" style={{marginBottom:"0.5rem"}}>{choice.name}</h5>
                 <p class="card-text">{choice.description}</p>
                 <div
                   style={{
