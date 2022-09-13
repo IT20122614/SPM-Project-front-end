@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Input = (props) => {
-  const { label, name, onChange, type, error, value ,style} = props;
+  const { label, name, onChange, type, error, value ,style,onFocus} = props;
   return (
     <div>
       <label className="form-label">{label}</label>
@@ -13,6 +13,7 @@ const Input = (props) => {
         onChange={onChange}
         value={value}
         style={style}
+        onFocus={(e)=>onFocus(e)}
       />
       {error ? <div className="alert alert-danger">{error}</div> : null}
     </div>

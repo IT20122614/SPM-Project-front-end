@@ -55,7 +55,7 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInputField(label, name, type,style) {
+  renderInputField(label, name, type,style,onFocus) {
     const { data, errors } = this.state;
     return (
       <Input
@@ -66,6 +66,7 @@ class Form extends Component {
         value={data[name]}
         error={errors[name]}
         style={style}
+        onFocus={onFocus}
       />
     );
   }

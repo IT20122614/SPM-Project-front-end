@@ -44,12 +44,12 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
             }}
           >
             <div class="col-md-4" style={{ height: "100%" }}>
-              <img src={choice.image} alt="..." width="90%" height="140px" />
+              <img src={choice.imageURL} alt="..." width="90%" height="140px" />
             </div>
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title" style={{marginBottom:"0.5rem"}}>{choice.name}</h5>
-                <p class="card-text">{choice.description}</p>
+                <p class="card-text" style={{textOverflow:"ellipsis"}}>{choice.description}</p>
                 <div
                   style={{
                     marginRight: "1rem",

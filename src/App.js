@@ -9,6 +9,7 @@ import Home from "./components/IT20122096/home";
 import LoginForm from "./components/IT20122096/loginForm";
 import profile from "./components/IT20122096/profile";
 import RegisterForm from "./components/IT20122096/registerForm";
+import Payment from "./components/IT20122096/TripPlaning/payment/payment";
 import Plannings from "./components/IT20122096/TripPlaning/Planings";
 import { getCurrentUser } from "./services/IT20122096/authServices";
 import { isAdmin } from "./services/IT20122096/userServices";
@@ -32,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-       {/* <NavBar user={this.state.user} isAdmin={this.state.isAdmin} /> */}
+        {/* <NavBar user={this.state.user} isAdmin={this.state.isAdmin} /> */}
         <ResponsiveAppBar user={this.state.user} isAdmin={this.state.isAdmin} />
         <Switch>
           <Route path={"/login"} component={LoginForm} />
@@ -40,9 +41,10 @@ class App extends Component {
           <Route path={"/home"} component={Home} />
           <Route path={"/plannings"} component={Plannings} />
           <Route path={"/profile"} component={profile} />
+          <Route path={"/payment/:id"} render={(props)=> <Payment {...props} />} />
           <Redirect from="/" to={"/login"} />
         </Switch>
-        <Footer/>
+        <Footer />
         <ToastContainer
           position="top-right"
           autoClose={2000}

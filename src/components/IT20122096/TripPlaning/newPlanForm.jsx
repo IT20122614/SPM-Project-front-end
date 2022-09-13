@@ -5,7 +5,7 @@ import Form from "./../common/form";
 import { Button } from "@mui/material";
 import radioButton from "./../common/radioButton";
 import PlaceCard from "./placeCard";
-import { saveNewTripPlan } from "../../../services/IT20122096/tripPlanService";
+import { getAllHotels, saveNewTripPlan } from "../../../services/IT20122096/tripPlanService";
 import { toast } from 'react-toastify';
 import color from "../common/color";
 
@@ -17,7 +17,7 @@ export default class NewPlanForm extends Form {
       type: "",
       startDate: "",
       endDate: "",
-      hotel: "6310ca7cdbfcd41336de4359",
+      hotel: "",
       district: "",
       province: "",
       place: "6310ca7cdbfcd41336de4359",
@@ -25,85 +25,11 @@ export default class NewPlanForm extends Form {
     },
     errors: {},
 
-    hotels: [
-      {
-        name: "Hotel Sigiriya",
-        district: "Matale",
-        description:
-          "You're eligible for a Genius discount at Royal Rock Sigiriya! To save at this property.",
-        image:
-          "https://cf.bstatic.com/xdata/images/hotel/max1280x900/210372174.jpg?k=c55d236f72d64bdf22c1b7abb15ead690c168fe049f77761d3a0bdde7b135bdf&o=&hp=1",
-        id: "6310ca7cdbfcd41336de4359",
-        rating: 5,
-        rooms: [
-          {
-            roomNumber: "123",
-            category: "single",
-            price: 20000.0,
-            capacity: 1,
-          },
-          {
-            roomNumber: "456",
-            category: "singled",
-            price: 30000.0,
-            capacity: 2,
-          },
-          {
-            roomNumber: "789",
-            category: "singled",
-            price: 40000.0,
-            capacity: 3,
-          },
-          {
-            roomNumber: "147",
-            category: "single",
-            price: 50000.0,
-            capacity: 4,
-          },
-        ],
-      },
-      {
-        name: "Royal Rock Sigiriya",
-        district: "Matale",
-        description:
-          "You're eligible for a Genius discount at Royal Rock Sigiriya! To save at this property.",
-        image:
-          "https://pix8.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?ca=6&ce=1&s=1024x768",
-        id: "6310ca7cdbfcd41336de4358",
-        rating: 3,
-
-        rooms: [
-          {
-            roomNumber: "123",
-            category: "single",
-            price: 20000.0,
-            capacity: 1,
-          },
-          {
-            roomNumber: "456",
-            category: "Single",
-            price: 30000.0,
-            facilities: "TV WI-FI",
-          },
-          {
-            roomNumber: "789",
-            category: "Single",
-            price: 40000.0,
-            facilities: "TV WI-FI",
-          },
-          {
-            roomNumber: "147",
-            category: "Single",
-            price: 50000.0,
-            facilities: "TV WI-FI",
-          },
-        ],
-      },
-    ],
+    hotels: [],
     places: [
       {
         name: "Sigiriya",
-        district: "Matale",
+        district: "Nuwara Eliya",
         province: "Central Province",
         description:
           "Sigiriya, Sri Lanka, is a small town that has become famous because of one particular attraction – Sigiriya Rock.",
@@ -146,7 +72,7 @@ export default class NewPlanForm extends Form {
     transportMethods: [
       {
         name: "Samanala Cabs",
-        district: "Matale",
+        district: "Nuwara Eliya",
         description:
           "Samanala cabs provide 24/7 customer support service, a fully-fledged phone app for easy bookings.",
         image:
@@ -177,14 +103,18 @@ export default class NewPlanForm extends Form {
     transport: Joi.required(),
   };
 
+  async componentDidMount() {
+    const { data: hotels } = await getAllHotels();
+    console.log(hotels);
+    this.setState({ hotels });
+  }
+
   handlePlaceFilter = () => {
     const { district, province } = this.state.data;
     const filterdPlaces = this.state.places.filter(
       (p) => p.district === district && p.province === province
     );
-    const filterdHotels = this.state.hotels.filter(
-      (h) => h.district === district
-    );
+    const filterdHotels = this.state.hotels.filter((h) => h.city === district);
     const filterdTransportMethods = this.state.transportMethods.filter(
       (t) => t.district === district
     );
@@ -307,6 +237,7 @@ export default class NewPlanForm extends Form {
                   " ",
                   "Matale",
                   "Ratnapura",
+                  "Nuwara Eliya",
                 ])}
 
                 <Button

@@ -13,7 +13,7 @@ export default class HotelBookForm extends Component {
     numOfMembers: "",
     selectedRooms: [],
     roomCategory: "",
-    rooms: this.props.selectedHotel.rooms,
+    rooms: this.props.selectedHotel.room,
     isSearched: false,
   };
 
@@ -41,7 +41,7 @@ export default class HotelBookForm extends Component {
   render() {
     const { rooms, isSearched, roomCategory, selectedRooms, numOfMembers } =
       this.state;
-
+console.log(this.props.selectedHotel);
     return (
       <div>
         <form>
@@ -62,7 +62,14 @@ export default class HotelBookForm extends Component {
             <DropDownList
               label="Room Category"
               name="roomCategory"
-              options={[" ", "Single", "Double", "Triple", "Quad"]}
+              options={[
+                " ",
+                "Single",
+                "Double",
+                "Triple",
+                "Quad",
+                "Three-Bedroom Apartment",
+              ]}
               onChange={(e) => {
                 this.setState({ roomCategory: e.currentTarget.value });
                 this.setState({ isSearched: false });
@@ -96,13 +103,13 @@ export default class HotelBookForm extends Component {
                     }}
                   >
                     <div className="col">Room Number</div>
-                    <div className="col">Facilities</div>
+                    <div className="col">Capacity</div>
                     <div className="col">Price</div>
                     <div className="col"></div>
                     <div className="col"></div>
                   </div>
                   {rooms
-                    .filter((r) => r.category === roomCategory)
+                    .filter((r) => r.roomType === roomCategory)
                     .map((room) => {
                       return (
                         <div
@@ -114,7 +121,7 @@ export default class HotelBookForm extends Component {
                           }}
                         >
                           <div className="col">{room.roomNumber}</div>
-                          <div className="col">{room.facilities}</div>
+                          <div className="col">{room.capacity}</div>
                           <div className="col">{room.price}</div>
                           <div className="col">
                             <Button

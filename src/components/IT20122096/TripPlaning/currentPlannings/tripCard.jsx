@@ -37,30 +37,48 @@ export default class TripCard extends Component {
               {plan.totalCost}.00
             </span>
           </div>
-          <div style={{ marginLeft: "75%", marginTop: "-5%" }}>
-            <Button
-              variant="contained"
-              data-bs-target="#tripPlanModal"
-              data-bs-toggle="modal"
-              onClick={() => {
-                
-                this.setState({ selectedPlan: true });
-              }}
-            >
-              View
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              style={{ marginLeft: "1rem" }}
-              onClick={()=>this.props.onDelete(plan.id)}
-            >
-              Delete
-            </Button>
+          <div style={{ marginLeft: "75%", marginTop: "-14%" }}>
+            <div style={{display:"flex", flexDirection:"column",alignItems:"center"}}>
+              <div style={{marginBottom:"1.5rem"}}>
+                <Button
+                  variant="contained"
+                  style={{ width: "10rem" }}
+                  onClick={() => {
+                    window.location=`/payment/${plan.id}`
+                  }}
+                >
+                  BOOK
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant="contained"
+                  data-bs-target="#tripPlanModal"
+                  data-bs-toggle="modal"
+                  onClick={() => {
+                    this.setState({ selectedPlan: true });
+                  }}
+                >
+                  View
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  style={{ marginLeft: "1rem" }}
+                  onClick={() => this.props.onDelete(plan.id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         {this.state.selectedPlan && (
-          <TripPlanModal plan={plan} onClose={this.onClose} dateCovertor={this.getDate} />
+          <TripPlanModal
+            plan={plan}
+            onClose={this.onClose}
+            dateCovertor={this.getDate}
+          />
         )}
       </div>
     );

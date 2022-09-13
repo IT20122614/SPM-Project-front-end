@@ -5,13 +5,18 @@ import NavbarInside from "../common/navbarInside";
 import SideMenuList from "../common/sideMenuList";
 import HorizontalLinearStepper from "./../common/Stepper";
 import CurrentPlannings from "./currentPlannings/currentPlannings";
+import MyBookings from "./myBookings/myBookings";
 
 class Plannings extends Component {
   state = {
     tripPlans: [],
     currentItem: localStorage.getItem("TPcurrent") || "Current Plannings",
-    items: ["Create New Planing", "Current Plannings", "Report"],
-    sideMenuOptions: ["Create New Planing", "Current Plannings", "Report"],
+    sideMenuOptions: [
+      "Create New Planing",
+      "Current Plannings",
+      "My Bookings",
+      "Report",
+    ],
     selectedSideMenu: localStorage.getItem("TPcurrent") || "Current Plannings",
   };
 
@@ -39,13 +44,19 @@ class Plannings extends Component {
         }}
       >
         <div
-          style={{ flex: "0.4", borderRight: `1px solid ${color.primary}`, paddingTop: "10%",background:"lightgray" }}
+          style={{
+            flex: "0.4",
+            borderRight: `1px solid ${color.primary}`,
+            paddingTop: "10%",
+            background: "lightgray",
+          }}
         >
           <SideMenuList
             items={sideMenuOptions}
             currentItem={selectedSideMenu}
             onChange={this.handleSideMenu}
             width={"22rem"}
+            height="4rem"
           />
         </div>
 
@@ -54,6 +65,8 @@ class Plannings extends Component {
             <HorizontalLinearStepper />
           ) : selectedSideMenu === "Current Plannings" ? (
             <CurrentPlannings />
+          ) : selectedSideMenu === "My Bookings" ? (
+            <MyBookings />
           ) : selectedSideMenu === "Report" ? (
             <div>reports</div>
           ) : null}

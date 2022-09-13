@@ -5,7 +5,7 @@ export default class TripPlanModal extends Component {
 
   render() {
     const { plan, onClose, dateCovertor } = this.props;
-    console.log(this.state.visitingPlaces);
+    console.log(plan);
     return (
       <div>
         {/* <!-- Modal --> */}
@@ -80,7 +80,7 @@ export default class TripPlanModal extends Component {
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <div>
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      src={plan.accommodation.image}
                       alt=""
                       width="150px"
                       height={"150px"}
@@ -88,14 +88,14 @@ export default class TripPlanModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Royal Rock Sigiriya</h5>
+                    <h5>{plan.accommodation.name}</h5>
                     <h6>Room Numbers</h6>
                     <div style={{ marginBottom: "0.5rem" }}>
                       {plan.accommodation.rooms.map((room) => {
                         return (
                           <div style={{ marginLeft: "1rem" }}>
                             <li>
-                              {room.roomNumber} ({room.category})
+                              {room.roomNumber} ({room.roomType})
                             </li>
                           </div>
                         );

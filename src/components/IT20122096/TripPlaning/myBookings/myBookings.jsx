@@ -7,9 +7,9 @@ import {
 import BackDrop from "../../common/backDrop";
 import color from "../../common/color";
 import SideMenuList from "../../common/sideMenuList";
-import TripCard from "./tripCard";
+import TripCard from "../currentPlannings/tripCard";
 
-export default class CurrentPlannings extends Component {
+export default class MyBookings extends Component {
   state = {
     tripPlans: [],
     empty: false,
@@ -42,15 +42,17 @@ export default class CurrentPlannings extends Component {
       .catch((error) => toast.error(error.response));
   };
   render() {
-
-    const { tripPlans, empty } = this.state;    console.log(tripPlans);
+    const { tripPlans, empty } = this.state;
+    console.log(tripPlans);
     return (
       <div>
         {tripPlans.length !== 0 && !empty ? (
           <div>
-            {tripPlans.filter((t)=>t.booked===false).map((plan, index) => {
-              return <TripCard plan={plan} onDelete={this.handleDelete} />;
-            })}
+            {tripPlans
+              .filter((t) => t.booked === true)
+              .map((plan, index) => {
+                return <TripCard plan={plan} onDelete={this.handleDelete} />;
+              })}
           </div>
         ) : empty ? (
           <div>

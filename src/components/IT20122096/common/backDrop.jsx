@@ -4,13 +4,13 @@ export default function BackDrop() {
   return (
     <Backdrop
       sx={{
-        color: "#fff",
+        color: "white",
 
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
       open={true}
     >
-      <CircularProgress color="error" />
+      <CircularProgress   />
     </Backdrop>
   );
 }
