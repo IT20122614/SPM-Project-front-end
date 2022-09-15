@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import {
-  getPlace,
-  updatePlace,
-  deletePlace,
-} from "../../services/IT20192082/placeManagement";
+import { savePlace } from "../../services/IT20192082/placeManagement";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { Redirect } from "react-router-dom";
-import "../../../src/form.css"
 
-export default class PlaceEdit extends Component {
+export default class PlaceCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,9 +20,9 @@ export default class PlaceEdit extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
+      return <Redirect to="/adminPlace" />;
     }
-  }
+  };
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,85 +35,56 @@ export default class PlaceEdit extends Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const id = this.props.match.params.id;
     const { name, image, location, rating, description } = this.state;
 
     const data = {
       name: name,
       image: image,
       location: location,
-      rating: Number(rating),
+      rating: rating,
       description: description,
+      approved: true,
     };
 
     console.log(data);
-
-    await updatePlace(id, data).then(() => {
-      alert("Place Updated");
-      this.setState({
-        name: "",
-        image: "",
-        location: "",
-        rating: "",
-        description: "",
-        redirect: true,
+    if (
+      !data.name ||
+      !data.image ||
+      !data.location ||
+      !data.rating ||
+      !data.description
+    ) {
+      window.alert("Please fill all field");
+    } else {
+      await savePlace(data).then(() => {
+        alert("Place Created");
+        this.setState({
+          name: "",
+          image: "",
+          location: "",
+          rating: "",
+          description: "",
+          redirect: true,
+        });
       });
-    });
-    if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
+      if (this.state.redirect) {
+        return <Redirect to="/adminPlace" />;
+      }
     }
   };
-
-  onDeleteSubmit = async (e) => {
-    e.preventDefault();
-    const id = this.props.match.params.id;
-
-    await deletePlace(id).then(() => {
-      alert("Place Deleted");
-      this.setState({
-        name: "",
-        image: "",
-        location: "",
-        rating: "",
-        description: "",
-        redirect: true,
-      });
-    });
-    if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
-    }
-  };
-
-  async componentDidMount() {
-    const id = this.props.match.params.id;
-
-    await getPlace(id).then((res) => {
-      this.setState({
-        places: res.data,
-        name: res.data.name,
-        image: res.data.image,
-        location: res.data.location,
-        rating: parseInt(res.data.rating),
-        description: res.data.description,
-      });
-      console.log(this.state.place);
-    });
-  }
 
   render() {
-    const id = this.props.match.params.id;
-
     return (
       <div>
         <div>
           <div className="row">
             <div className="col-md-12">
               <form>
-                <h1> Edit Form </h1>
+                <h1> Create Form </h1>
 
                 <fieldset>
                   <legend>
-                    <span className="number">1</span> Change Location Details
+                    <span className="number">1</span> Location Details
                   </legend>
 
                   <label htmlFor="name">Name:</label>
@@ -126,8 +92,8 @@ export default class PlaceEdit extends Component {
                     type="text"
                     className="form-control"
                     name="name"
-                    placeholder="Enter status"
-                    value={this.state.name}
+                    placeholder="Enter Name"
+                    value= {this.state.name} 
                     onChange={this.handleInputChange}
                   />
 
@@ -136,23 +102,30 @@ export default class PlaceEdit extends Component {
                     type="text"
                     className="form-control"
                     name="image"
-                    placeholder="Enter Message"
-                    value={this.state.image}
+                    placeholder="Enter Image URL"
+                    value= {this.state.image} 
                     onChange={this.handleInputChange}
                   />
 
                   <label htmlFor="description">Description:</label>
                   <textarea
-                    id="bio"
+                    type="text"
                     name="description"
                     placeholder="Enter Description"
-                    value={this.state.description}
+                    value= {this.state.description} 
                     onChange={this.handleInputChange}
-                  ></textarea>
+                  />
 
                   <label htmlFor="location">Location:</label>
-                  <select id="location" name="location" onChange={this.handleInputChange}>
-                  <option value={this.state.location} disabled="disabled" selected="selected">{this.state.location}</option>
+                  <select
+                    id="location"
+                    name="location"
+                    onChange={this.handleInputChange}
+                    value= {this.state.location} 
+                  >
+                    <option disabled="disabled" selected="selected">
+                      {this.state.location}
+                    </option>
                     <optgroup label="Western">
                       <option value="Colombo">Colombo</option>
                       <option value="Gampaha">Gampaha</option>
@@ -205,33 +178,23 @@ export default class PlaceEdit extends Component {
                         "& > legend": { mt: 2 },
                       }}
                     ></Box>
-                    <Rating
-                      name="rating"
-                      value={this.state.rating}
-                      onChange={this.handleInputChange}
-                    />
+                    <Rating name="rating" onChange={this.handleInputChange} value= {this.state.rating} />
                   </div>
                 </fieldset>
 
-                <a href={`/edit/${id}`}>
-                {this.renderRedirect()}
+                <div>
+                  {this.renderRedirect()}
                   <button
                     type="button"
-                    className="btn-warning"
+                    className="btn btn-warning"
                     onClick={this.onSubmit}
-                    { ...this.state.redirect ? (<Redirect push to="/adminPlace" />) : null}
+                    {...(this.state.redirect ? (
+                      <Redirect push to="/place" />
+                    ) : null)}
                   >
-                    Save
+                    Create
                   </button>
-                  <button
-                    type="button"
-                    className="btn-danger"
-                    onClick={this.onDeleteSubmit}
-                    { ...this.state.redirect ? (<Redirect push to="/adminPlace" />) : null}
-                  >
-                    Delete
-                  </button>
-                </a>
+                </div>
               </form>
             </div>
           </div>
