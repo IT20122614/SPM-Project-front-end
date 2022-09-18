@@ -7,35 +7,61 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import ViewMore from "./ViewMore";
+import { useHistory } from "react-router-dom";
 
-const hotel = [
-  {
-    id: 0,
-    name: "Cinnamon Bentota Beach",
-    description:
-      "Situated in Bentota, 650 metres from Bentota Beach, Cinnamon Bentota Beach features accommodation with a restaurant, free private parking, an outdoor swimming pool and a bar.",
-    price: 6400.0,
-    img: "https://t-cf.bstatic.com/xdata/images/hotel/square200/386274940.webp?k=c4c53744128cf2fd93b664745a168fc3d2d1ee6e29fb03d2d4f39ee8b95c26df&o=&s=1",
-  },
-  {
-    id: 1,
-    name: "ncvjdsvndvnds",
-    description: "ssssssssssssssssssssssssssssssssssssssssss",
-    price: 6400.0,
-    img: "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?Thursday,%2025-Aug-2022%2018:08:31%20GMT",
-  },
-  {
-    id: 2,
-    name: "ncvj",
-    description: "ssssssssssssssssssssssssssssssssssssssssss",
-    price: 6400.0,
-    img: "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?Thursday,%2025-Aug-2022%2018:08:31%20GMT",
-  },
-];
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+// const hotel = [
+//   {
+//     id: 0,
+//     name: "Cinnamon Bentota Beach",
+//     description:
+//       "Situated in Bentota, 650 metres from Bentota Beach, Cinnamon Bentota Beach features accommodation with a restaurant, free private parking, an outdoor swimming pool and a bar.",
+//     price: 6400.0,
+//     img: "https://t-cf.bstatic.com/xdata/images/hotel/square200/386274940.webp?k=c4c53744128cf2fd93b664745a168fc3d2d1ee6e29fb03d2d4f39ee8b95c26df&o=&s=1",
+//   },
+//   {
+//     id: 1,
+//     name: "ncvjdsvndvnds",
+//     description: "ssssssssssssssssssssssssssssssssssssssssss",
+//     price: 6400.0,
+//     img: "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?Thursday,%2025-Aug-2022%2018:08:31%20GMT",
+//   },
+//   {
+//     id: 2,
+//     name: "ncvj",
+//     description: "ssssssssssssssssssssssssssssssssssssssssss",
+//     price: 6400.0,
+//     img: "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?Thursday,%2025-Aug-2022%2018:08:31%20GMT",
+//   },
+// ];
 
 export default function EditHotels() {
   let [hotels, setHotels] = useState([]);
   const [search, serSearch] = useState("");
+  const [open, setOpen] = React.useState(false);
+  let [hotelData, setHotelData] = useState();
+  const history = useHistory();
+
+  function handleOpen(data) {
+    setOpen(true);
+    setHotelData(data);
+  }
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     function getHotels() {
@@ -60,8 +86,13 @@ export default function EditHotels() {
     setHotels(avengers);
     console.log(avengers);
   }
+  function EditHotels(hotel) {
+    // history.push(`/profile/${userName}`);
+    console.log(hotel._id);
+  }
   return (
     <div>
+      <div></div>
       <div align="right" className="searchBar">
         <form class="form-inline my-2 my-lg-0" onSubmit={searchData}>
           <input
@@ -78,6 +109,7 @@ export default function EditHotels() {
           </button>
         </form>
       </div>
+
       <table width="100%">
         {hotels.map((hotel, key) => (
           <tr className="stylingColor" key={key}>
@@ -98,7 +130,13 @@ export default function EditHotels() {
                 </div>
                 <div className="column right">
                   <div className="viewMoreStyling">
-                    <Button variant="contained" endIcon={<PreviewIcon />}>
+                    <Button
+                      variant="contained"
+                      endIcon={<PreviewIcon />}
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      onClick={() => handleOpen(hotel)}
+                    >
                       View More
                     </Button>
                   </div>
@@ -106,7 +144,12 @@ export default function EditHotels() {
                     <Button variant="outlined" endIcon={<DeleteIcon />}>
                       Delete
                     </Button>
-                    <Button variant="outlined" endIcon={<EditIcon />}>
+
+                    <Button
+                      variant="outlined"
+                      endIcon={<EditIcon />}
+                      onClick={() => EditHotels(hotel)}
+                    >
                       Edit
                     </Button>
                   </Stack>
@@ -116,6 +159,14 @@ export default function EditHotels() {
           </tr>
         ))}
       </table>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ViewMore hotelData={hotelData} />
+      </Modal>
     </div>
   );
 }
