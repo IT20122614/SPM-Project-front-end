@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function RegisterTransportServices() {
+    const loggedEmailAddress = "a@a.a";
+
     const [form, setForm] = useState({
-        id: "",
+        id: null,
         companyName: "",
-        companyEmailAddress: "",
+        companyEmailAddress: loggedEmailAddress,
         companyHotline: "",
         landTransport: "",
         airTransport: "",
         waterTransport: "",
         locations: "",
-        isApproved: ""
+        approved: ""
     });
+
+
+    useEffect(() => {
+        async function getRecords() {
+            const response = await fetch(`http://localhost:8080/api/transport-services/search/registered/?searchString=${loggedEmailAddress}`);
+
+            if (response.status === 302) {
+                const request = await response.json();
+                setForm(request);
+            }
+
+        }
+
+        getRecords();
+
+        return;
+    }, []);
 
     function updateForm(value) {
         return setForm((prev) => {
@@ -24,7 +43,7 @@ export default function RegisterTransportServices() {
 
         const newTransportService = { ...form };
 
-        await fetch("http://localhost:8080/api/transport-services/add", {
+        const response = await fetch("http://localhost:8080/api/transport-services/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -35,31 +54,65 @@ export default function RegisterTransportServices() {
             return;
         });
 
-        setForm({
-            companyName: "",
-            companyEmailAddress: "",
-            companyHotline: "",
-            landTransport: "",
-            airTransport: "",
-            waterTransport: "",
-            locations: ""
-        });
+        console.log(response);
+        if (response.status === 400) {
+            window.alert("We have received your request before. Please stay tuned. Until that you can't edit submitted information");
+        } else {
+            window.alert("Your request has sent successfully");
+        }
     }
 
     const style = {
         padding: 16
     }
 
+    function heading() {
+        if (!form.approved) {
+            return (
+                <h3>
+                    Register Transport Service
+                </h3>
+            );
+        } else if (form.approved) {
+            return (
+                <h3>
+                    Your registered services
+                </h3>
+            );
+        }
+    }
+
+    function submitButton() {
+        if (!form.approved) {
+            return (
+                <input
+                    type="submit"
+                    value="Register"
+                    className="btn btn-primary"
+                />
+            );
+        } else if (form.approved) {
+            return (
+                <input
+                    type="submit"
+                    value="Update"
+                    className="btn btn-warning"
+                />
+            );
+        }
+    }
+
     return (
         <div style={style}>
-            <h3>Register Transport Service</h3>
+            <br />
+            {heading()}
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Company Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="name"
+                        id="companyName"
                         value={form.companyName}
                         onChange={(e) => updateForm({ companyName: e.target.value })}
                     />
@@ -70,7 +123,8 @@ export default function RegisterTransportServices() {
                     <input
                         type="email"
                         className="form-control"
-                        id="position"
+                        id="companyEmailAddress"
+                        disabled
                         value={form.companyEmailAddress}
                         onChange={(e) => updateForm({ companyEmailAddress: e.target.value })}
                     />
@@ -81,40 +135,44 @@ export default function RegisterTransportServices() {
                     <input
                         type="number"
                         className="form-control"
-                        id="position"
+                        id="companyHotline"
                         value={form.companyHotline}
                         onChange={(e) => updateForm({ companyHotline: e.target.value })}
                     />
                 </div>
                 <br />
+                <div>Please enter tranport services you are expected to provide as "5, 10, 10.00" which means
+                    in each same type of 5 vehicles can tranport for 10 travellers and each traveller can carry
+                    10KG. Put a space in-between when enter multiple vehicles details.</div>
+                <br />
                 <div className="form-group">
-                    <label htmlFor="position">Land Transport Services You are Going to Provide... (Please enter details as "5, 10, 10.00" which means each of 5 vehicles can provide services for 10 travellers and each of them carry 10KG)</label>
+                    <label htmlFor="position">Land Transport Services You are Going to Provide</label>
                     <input
                         type="tex"
                         className="form-control"
-                        id="position"
+                        id="landTransport"
                         value={form.landTransport}
                         onChange={(e) => updateForm({ landTransport: e.target.value })}
                     />
                 </div>
                 <br />
                 <div className="form-group">
-                    <label htmlFor="position">Air Transport Services You are Going to Provide... (Please enter details as "5, 10, 10.00" which means each of 5 vehicles can provide services for 10 travellers and each of them carry 10KG)</label>
+                    <label htmlFor="position">Air Transport Services You are Going to Provide</label>
                     <input
                         type="tex"
                         className="form-control"
-                        id="position"
+                        id="airTransport"
                         value={form.airTransport}
                         onChange={(e) => updateForm({ airTransport: e.target.value })}
                     />
                 </div>
                 <br />
                 <div className="form-group">
-                    <label htmlFor="position">Shipline Transport Services You are Going to Provide... (Please enter details as "5, 10, 10.00" which means each of 5 vehicles can provide services for 10 travellers and each of them carry 10KG)</label>
+                    <label htmlFor="position">Shipline Transport Services You are Going to Provide</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="position"
+                        id="waterTransport"
                         value={form.waterTransport}
                         onChange={(e) => updateForm({ waterTransport: e.target.value })}
                     />
@@ -125,18 +183,14 @@ export default function RegisterTransportServices() {
                     <input
                         type="text"
                         className="form-control"
-                        id="position"
+                        id="locations"
                         value={form.locations}
                         onChange={(e) => updateForm({ locations: e.target.value })}
                     />
                 </div>
                 <br />
                 <div className="form-group">
-                    <input
-                        type="submit"
-                        value="Create person"
-                        className="btn btn-primary"
-                    />
+                    {submitButton()}
                 </div>
             </form>
         </div>

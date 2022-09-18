@@ -1,6 +1,6 @@
-import * as React from "react"
 import { useEffect, useState } from "react";
-import "react-tabs/style/react-tabs.css";
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 
 const Record = (props) => (
     <tr>
@@ -32,22 +32,13 @@ const Record = (props) => (
                     props.declineRequest(props.record.companyEmailAddress);
                 }}
             >
-                Decline
-            </button>
-            &nbsp;&nbsp;
-            <button
-                className="btn btn-primary"
-                onClick={() => {
-                    props.acceptRequest(props.record.companyEmailAddress);
-                }}
-            >
-                Accept
+                Remove
             </button>
         </td>
     </tr>
 );
 
-export default function TransportServicesRequests() {
+export default function TransportServicesRegistered() {
     const [requests, setRequests] = useState([]);
     const [searchString, setSearchString] = useState({
         searchText: ""
@@ -55,7 +46,7 @@ export default function TransportServicesRequests() {
 
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`http://localhost:8080/api/transport-services/requested`);
+            const response = await fetch(`http://localhost:8080/api/transport-services/registered`);
 
             const requests = await response.json();
 
@@ -66,15 +57,6 @@ export default function TransportServicesRequests() {
 
         return;
     }, []);
-
-    async function acceptRequest(id) {
-        await fetch(`http://localhost:8080/api/transport-services/approve/?id=${id}`, {
-            method: "PUT",
-        });
-
-        const newRequests = requests.filter((el) => el.companyEmailAddress !== id);
-        setRequests(newRequests);
-    }
 
     async function declineRequest(id) {
         await fetch(`http://localhost:8080/api/transport-services/decline/?id=${id}`, {
@@ -89,7 +71,7 @@ export default function TransportServicesRequests() {
         return requests.map((request) => {
             return (
                 <Record record={request}
-                    acceptRequest={() => acceptRequest(request.companyEmailAddress)} declineRequest={() => declineRequest(request.companyEmailAddress)} key={request.id} />
+                    declineRequest={() => declineRequest(request.companyEmailAddress)} key={request.id} />
             );
         });
     }
@@ -122,9 +104,28 @@ export default function TransportServicesRequests() {
         padding: 16
     }
 
+    function GeneratePDF() {
+        const doc = new jsPDF();
+
+        doc.autoTable({
+            html: '#table_report',
+            columns:
+                [
+                    { header: 'Company Name', dataKey: 'companyName' },
+                    { header: 'Company Email', dataKey: 'companyEmailAddress' },
+                    { header: 'Company Hotline', dataKey: 'companyHotline' },
+                    { header: 'Land Transport', dataKey: 'landTransport' },
+                    { header: 'Air Transport', dataKey: 'airTransport' },
+                    { header: 'Shipline Transport', dataKey: 'waterTransport' },
+                    { header: 'Locations', dataKey: 'locations' }
+                ]
+        });
+        doc.save('Registered Transport Services.pdf');
+    }
+
     return (
         <div style={style}>
-            <h3>Requested List</h3>
+            <h3>Registered List</h3>
             <nav className="navbar bg-light">
                 <div className="container-fluid">
                     <form className="d-flex" role="search" onSubmit={onSubmit}>
@@ -137,7 +138,7 @@ export default function TransportServicesRequests() {
                     </form>
                 </div>
             </nav>
-            <table className="table table-striped" style={{ marginTop: 20 }}>
+            <table id="table_report" className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                     <tr>
                         <th>Company Name</th>
@@ -152,6 +153,7 @@ export default function TransportServicesRequests() {
                 </thead>
                 <tbody>{requestList()}</tbody>
             </table>
+            <button type="button" className="btn btn-outline-success" onClick={() => GeneratePDF()}>Export as PDF</button>
         </div >
     );
 }
