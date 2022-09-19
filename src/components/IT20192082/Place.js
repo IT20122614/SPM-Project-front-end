@@ -9,6 +9,7 @@ const Place = ({
   location,
   rating,
   description,
+  otherPlacesArray,
   removePlace,
   approvePlace,
 }) => {
@@ -32,6 +33,11 @@ const Place = ({
             {readMore ? "show less" : "read more"}
           </button>
         </p>
+        <p>
+                  <b>Near Places:</b>
+                  <h4>{otherPlacesArray[0].name}</h4>
+                  <h4>{otherPlacesArray[1].name}</h4>
+                </p>
         <Box
           sx={{
             "& > legend": { mt: 2 },
@@ -52,7 +58,7 @@ const Place = ({
         <button
           className="btn-warning"
           onClick={() => {
-            approvePlace(id, name, image, location, rating, description);
+            approvePlace(id, name, image, location, rating, description, otherPlacesArray);
           }}
         >
           Approve Place

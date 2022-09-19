@@ -14,6 +14,17 @@ export default class PlaceCreate extends Component {
       location: "",
       rating: "",
       description: "",
+      otherPlaceOne: {
+        id: "",
+        name: "",
+        image: "",
+      },
+      otherPlaceTwo: {
+        id: "",
+        name: "",
+        image: "",
+      },
+      otherPlacesArray: [],
       redirect: false,
     };
   }
@@ -27,15 +38,50 @@ export default class PlaceCreate extends Component {
   handleInputChange = (e) => {
     const { name, value } = e.target;
 
+    console.log(name);
+
     this.setState({
       ...this.state,
       [name]: value,
     });
+
+    console.log(this.state);
+  };
+
+  handleInputChangeArray = (e) => {
+    const { name, value } = e.target;
+
+    console.log(name);
+
+    console.log(value);
+
+    this.setState({
+      ...this.state,
+      [name]: value,
+    });
+
+    console.log(this.state);
   };
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const { name, image, location, rating, description } = this.state;
+
+    const {
+      name,
+      image,
+      location,
+      rating,
+      description,
+      otherPlaceOne,
+      otherPlaceTwo,
+      otherPlacesArray
+    } = this.state;
+
+    this.state.otherPlacesArray.push(otherPlaceOne);
+    this.state.otherPlacesArray.push(otherPlaceTwo);
+
+    console.log(this.state.otherPlacesArray);
+    console.log("Array");
 
     const data = {
       name: name,
@@ -43,6 +89,8 @@ export default class PlaceCreate extends Component {
       location: location,
       rating: rating,
       description: description,
+      otherPlacesArray: otherPlacesArray,
+      ratingCount: 1,
       approved: true,
     };
 
@@ -52,7 +100,8 @@ export default class PlaceCreate extends Component {
       !data.image ||
       !data.location ||
       !data.rating ||
-      !data.description
+      !data.description ||
+      !data.otherPlacesArray
     ) {
       window.alert("Please fill all field");
     } else {
@@ -64,6 +113,17 @@ export default class PlaceCreate extends Component {
           location: "",
           rating: "",
           description: "",
+          otherPlaceOne: {
+            id: "",
+            name: "",
+            image: "",
+          },
+          otherPlaceTwo: {
+            id: "",
+            name: "",
+            image: "",
+          },
+          otherPlacesArray: [],
           redirect: true,
         });
       });
@@ -93,8 +153,8 @@ export default class PlaceCreate extends Component {
                     className="form-control"
                     name="name"
                     placeholder="Enter Name"
-                    value= {this.state.name} 
-                    onChange={this.handleInputChange}
+                    value={this.state.name}
+                    onChange={this.handleInputChangeArray}
                   />
 
                   <label htmlFor="image">Image:</label>
@@ -103,8 +163,8 @@ export default class PlaceCreate extends Component {
                     className="form-control"
                     name="image"
                     placeholder="Enter Image URL"
-                    value= {this.state.image} 
-                    onChange={this.handleInputChange}
+                    value={this.state.image}
+                    onChange={this.handleInputChangeArray}
                   />
 
                   <label htmlFor="description">Description:</label>
@@ -112,16 +172,103 @@ export default class PlaceCreate extends Component {
                     type="text"
                     name="description"
                     placeholder="Enter Description"
-                    value= {this.state.description} 
+                    value={this.state.description}
                     onChange={this.handleInputChange}
                   />
+
+                  <label htmlFor="location">Near Place One:</label>
+                  <div class="row g-3">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Name"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceOne: {
+                              ...this.state.otherPlaceOne,
+                              id: Date.now(),
+                              name: value,
+                            },
+                          });
+                        }}
+                        aria-label="First name"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        name="otherPlaceOne"
+                        class="form-control"
+                        placeholder="Image-URL"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceOne: {
+                              ...this.state.otherPlaceOne,
+                              id: Date.now(),
+                              image: value,
+                            },
+                          });
+                        }}
+                        aria-label="Last name"
+                      />
+                    </div>
+                  </div>
+
+                  <label htmlFor="location">Near Place Two:</label>
+                  <div class="row g-3">
+                    <div class="col">
+                      <input
+                        type="text"
+                        name="otherPlaceTwo.name"
+                        class="form-control"
+                        placeholder="Name"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceTwo: {
+                              ...this.state.otherPlaceTwo,
+                              id: Date.now(),
+                              name: value,
+                            },
+                          });
+                        }}
+                        aria-label="First name"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        name="otherPlaceTwo.image"
+                        class="form-control"
+                        placeholder="Image-URL"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceTwo: {
+                              ...this.state.otherPlaceTwo,
+                              id: Date.now(),
+                              image: value,
+                            },
+                          });
+                        }}
+                        aria-label="Last name"
+                      />
+                    </div>
+                  </div>
 
                   <label htmlFor="location">Location:</label>
                   <select
                     id="location"
                     name="location"
                     onChange={this.handleInputChange}
-                    value= {this.state.location} 
+                    value={this.state.location}
                   >
                     <option disabled="disabled" selected="selected">
                       {this.state.location}
@@ -178,7 +325,11 @@ export default class PlaceCreate extends Component {
                         "& > legend": { mt: 2 },
                       }}
                     ></Box>
-                    <Rating name="rating" onChange={this.handleInputChange} value= {this.state.rating} />
+                    <Rating
+                      name="rating"
+                      onChange={this.handleInputChange}
+                      value={this.state.rating}
+                    />
                   </div>
                 </fieldset>
 

@@ -7,7 +7,7 @@ import {
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { Redirect } from "react-router-dom";
-import "../../../src/form.css"
+import "../../../src/form.css";
 
 export default class PlaceEdit extends Component {
   constructor(props) {
@@ -19,15 +19,26 @@ export default class PlaceEdit extends Component {
       location: "",
       rating: "",
       description: "",
+      otherPlaceOne: {
+        id: "",
+        name: "",
+        image: "",
+      },
+      otherPlaceTwo: {
+        id: "",
+        name: "",
+        image: "",
+      },
+      otherPlacesArray: [],
       redirect: false,
     };
   }
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
+      return <Redirect to="/adminPlace" />;
     }
-  }
+  };
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,14 +52,29 @@ export default class PlaceEdit extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    const { name, image, location, rating, description } = this.state;
+    const {
+      name,
+      image,
+      location,
+      rating,
+      description,
+      otherPlaceOne,
+      otherPlaceTwo,
+      otherPlacesArray,
+    } = this.state;
+
+    this.state.otherPlacesArray.push(otherPlaceOne);
+    this.state.otherPlacesArray.push(otherPlaceTwo);
 
     const data = {
       name: name,
       image: image,
       location: location,
-      rating: Number(rating),
+      rating: rating,
       description: description,
+      otherPlacesArray: otherPlacesArray,
+      ratingCount: 1,
+      approved: true,
     };
 
     console.log(data);
@@ -61,11 +87,22 @@ export default class PlaceEdit extends Component {
         location: "",
         rating: "",
         description: "",
+        otherPlaceOne: {
+          id: "",
+          name: "",
+          image: "",
+        },
+        otherPlaceTwo: {
+          id: "",
+          name: "",
+          image: "",
+        },
+        otherPlacesArray: [],
         redirect: true,
       });
     });
     if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
+      return <Redirect to="/adminPlace" />;
     }
   };
 
@@ -81,11 +118,22 @@ export default class PlaceEdit extends Component {
         location: "",
         rating: "",
         description: "",
+        otherPlaceOne: {
+          id: "",
+          name: "",
+          image: "",
+        },
+        otherPlaceTwo: {
+          id: "",
+          name: "",
+          image: "",
+        },
+        otherPlacesArray: [],
         redirect: true,
       });
     });
     if (this.state.redirect) {
-      return <Redirect to='/adminPlace' />
+      return <Redirect to="/adminPlace" />;
     }
   };
 
@@ -93,15 +141,21 @@ export default class PlaceEdit extends Component {
     const id = this.props.match.params.id;
 
     await getPlace(id).then((res) => {
+
+      console.log(res.data.otherPlacesArray);
+
+      this.state.otherPlaceOne = Object.assign(res.data.otherPlacesArray[0])
+      this.state.otherPlaceTwo = Object.assign(res.data.otherPlacesArray[1])
+
       this.setState({
-        places: res.data,
+        place: res.data,
         name: res.data.name,
         image: res.data.image,
         location: res.data.location,
         rating: parseInt(res.data.rating),
         description: res.data.description,
       });
-      console.log(this.state.place);
+
     });
   }
 
@@ -150,9 +204,106 @@ export default class PlaceEdit extends Component {
                     onChange={this.handleInputChange}
                   ></textarea>
 
+                  <label htmlFor="location">Near Place One:</label>
+                  <div class="row g-3">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Name"
+                        value={this.state.otherPlaceOne.name}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceOne: {
+                              ...this.state.otherPlaceOne,
+                              name: value,
+                            },
+                          });
+                        }}
+                        aria-label="First name"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Image-URL"
+                        value={this.state.otherPlaceOne.image}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceOne: {
+                              ...this.state.otherPlaceOne,
+                              id: Date.now(),
+                              image: value,
+                            },
+                          });
+                        }}
+                        aria-label="Last name"
+                      />
+                    </div>
+                  </div>
+
+                  <label htmlFor="location">Near Place Two:</label>
+                  <div class="row g-3">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Name"
+                        value={this.state.otherPlaceTwo.name}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceTwo: {
+                              ...this.state.otherPlaceTwo,
+                              id: Date.now(),
+                              name: value,
+                            },
+                          });
+                        }}
+                        aria-label="First name"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Image-URL"
+                        value={this.state.otherPlaceTwo.image}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          this.setState({
+                            ...this.state,
+                            otherPlaceTwo: {
+                              ...this.state.otherPlaceTwo,
+                              id: Date.now(),
+                              image: value,
+                            },
+                          });
+                        }}
+                        aria-label="Last name"
+                      />
+                    </div>
+                  </div>
+
                   <label htmlFor="location">Location:</label>
-                  <select id="location" name="location" onChange={this.handleInputChange}>
-                  <option value={this.state.location} disabled="disabled" selected="selected">{this.state.location}</option>
+                  <select
+                    id="location"
+                    name="location"
+                    onChange={this.handleInputChange}
+                  >
+                    <option
+                      value={this.state.location}
+                      disabled="disabled"
+                      selected="selected"
+                    >
+                      {this.state.location}
+                    </option>
                     <optgroup label="Western">
                       <option value="Colombo">Colombo</option>
                       <option value="Gampaha">Gampaha</option>
@@ -214,12 +365,14 @@ export default class PlaceEdit extends Component {
                 </fieldset>
 
                 <a href={`/edit/${id}`}>
-                {this.renderRedirect()}
+                  {this.renderRedirect()}
                   <button
                     type="button"
                     className="btn-warning"
                     onClick={this.onSubmit}
-                    { ...this.state.redirect ? (<Redirect push to="/adminPlace" />) : null}
+                    {...(this.state.redirect ? (
+                      <Redirect push to="/adminPlace" />
+                    ) : null)}
                   >
                     Save
                   </button>
@@ -227,7 +380,9 @@ export default class PlaceEdit extends Component {
                     type="button"
                     className="btn-danger"
                     onClick={this.onDeleteSubmit}
-                    { ...this.state.redirect ? (<Redirect push to="/adminPlace" />) : null}
+                    {...(this.state.redirect ? (
+                      <Redirect push to="/adminPlace" />
+                    ) : null)}
                   >
                     Delete
                   </button>

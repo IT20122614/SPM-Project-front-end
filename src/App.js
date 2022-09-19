@@ -24,7 +24,6 @@ class App extends Component {
       <NavBar />
       <AdminHomePage />
         <Switch>
-    
         <Route path='/place' exact component={PlaceList}></Route>
         <Route path='/adminPlace' exact component={Places}></Route>
         <Route path='/place/:id' exact component={PlaceDetails}></Route>
@@ -32,8 +31,6 @@ class App extends Component {
         <Route path='/save' exact component={PlaceCreate}></Route>
         <Route path='/user/save' exact component={Create}></Route>
         <Route path='/user/place' exact component={ApproveList}></Route>
-
-
         </Switch>
         <Footer />
       </React.Fragment>

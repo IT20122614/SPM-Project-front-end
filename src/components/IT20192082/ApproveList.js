@@ -25,7 +25,7 @@ export default class ApproveList extends React.Component {
     });
   }
 
-  async approvePlace(id, name, image, location, rating, description) {
+  async approvePlace(id, name, image, location, rating, description, otherPlacesArray) {
 
     console.log(id);
     
@@ -35,6 +35,7 @@ export default class ApproveList extends React.Component {
       location: location,
       rating: Number(rating),
       description: description,
+      otherPlacesArray: otherPlacesArray,
       approved: true,
     };
 

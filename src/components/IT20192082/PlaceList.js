@@ -6,8 +6,6 @@ import {
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
-import { Redirect } from "react-router-dom";
-
 import "../../../src/App.css";
 
 export default class PlaceList extends Component {
@@ -16,6 +14,8 @@ export default class PlaceList extends Component {
 
     this.state = {
       places: [],
+      otherPlaceOneGet: {},
+      otherPlaceTwoGet: {},
       rating: null,
     };
   }
@@ -44,7 +44,6 @@ export default class PlaceList extends Component {
 
     console.log(data);
     await patchPlace(id, data).then(() => {
-      alert("Rating Updated");
       this.state.rating = null;
       window.location.reload();
     });
@@ -100,7 +99,7 @@ export default class PlaceList extends Component {
         <div className="cbtn">
           <a href={`/user/save`}>
             <button type="button" className="btn btn-secondary">
-              Create Place
+            suggest a place
             </button>
           </a>
         </div>
@@ -115,8 +114,13 @@ export default class PlaceList extends Component {
                   </a>
                   <h4 className="tour-price">Location: {place.location}</h4>
                 </div>
-                <h4>Description</h4>
-                <p>{place.description}</p>
+                <h4><b>Description</b></h4>
+                <p>{place.description.substring(0, 200)}...</p>
+                <p>
+                  <b>Near Places:</b>
+                  <li>{place.otherPlacesArray[0].name}</li>  
+                  <li>{place.otherPlacesArray[1].name}</li>
+                </p>
                 <br />
                 <Box
                   sx={{
@@ -130,14 +134,13 @@ export default class PlaceList extends Component {
                     precision={1}
                     onChange={this.handleInputChange}
                   />
-                </div>
-                <p>User count:{place.ratingCount}</p>
-                <button
-                  type="button"
+                  <p>Vote count:{place.ratingCount}</p>
+                <Button variant="outlined" color="success" sx={{ mt: -16, ml: 15, width: '75%' }}
                   onClick={() => {
                     this.onSubmit(place.id, place.rating, place.ratingCount);
                   }}
-                ></button>
+                >Vote</Button>
+                </div> 
               </footer>
             </article>
           ))}
