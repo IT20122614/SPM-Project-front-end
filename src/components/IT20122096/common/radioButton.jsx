@@ -9,7 +9,7 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
   const [choice, setChoice] = useState({});
 
   const handleModal = (choice) => {
-    SetModalVisible(true)
+    SetModalVisible(true);
     setChoice(choice);
   };
   const onClose = () => {
@@ -41,6 +41,7 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
             style={{
               border: `1px solid ${color.primary}`,
               boxShadow: "5px 10px #888888",
+              width: "50rem",
             }}
           >
             <div class="col-md-4" style={{ height: "100%" }}>
@@ -48,8 +49,20 @@ function RadioButton({ name, options, selected, onChange, onSubmit }) {
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title" style={{marginBottom:"0.5rem"}}>{choice.name}</h5>
-                <p class="card-text" style={{textOverflow:"ellipsis"}}>{choice.description}</p>
+                <h5 class="card-title" style={{ marginBottom: "0.5rem" }}>
+                  {choice.name}
+                </h5>
+                <p
+                  class="card-text"
+                  style={{
+                    textOverflow: "ellipsis",
+                    maxWidth: "400px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                  }}
+                >
+                  {choice.description}
+                </p>
                 <div
                   style={{
                     marginRight: "1rem",

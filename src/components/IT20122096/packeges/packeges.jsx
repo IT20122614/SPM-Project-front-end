@@ -3,21 +3,23 @@ import { getAllTripPlans } from "../../../services/IT20122096/tripPlanService";
 import color from "../common/color";
 import NavbarInside from "../common/navbarInside";
 import SideMenuList from "../common/sideMenuList";
-import HorizontalLinearStepper from "./Stepper";
-import CurrentPlannings from "./currentPlannings/currentPlannings";
-import MyBookings from "./myBookings/myBookings";
+import CurrentPackages from "./currentPackages";
 
-class Plannings extends Component {
+// import CurrentPlannings from "./currentPlannings/currentPlannings";
+// import MyBookings from "./myBookings/myBookings";
+import PackageStepper from "./PackageStepper";
+
+class Packages extends Component {
   state = {
     tripPlans: [],
-    currentItem: localStorage.getItem("TPcurrent") || "Current Plannings",
+    currentItem: localStorage.getItem("Pcurrent") || "Current Packages",
     sideMenuOptions: [
-      "Create New Planing",
-      "Current Plannings",
-      "My Bookings",
-      "Report",
+      "Create Package",
+      "Current Packages",
+      // "My Bookings",
+      // "Report",
     ],
-    selectedSideMenu: localStorage.getItem("TPcurrent") || "Current Plannings",
+    selectedSideMenu: localStorage.getItem("Pcurrent") || "Current Packages",
   };
 
   async componentDidMount() {
@@ -26,11 +28,11 @@ class Plannings extends Component {
   }
 
   handleNavSelect = (item) => {
-    localStorage.setItem("TPcurrent", item);
+    localStorage.setItem("Pcurrent", item);
     this.setState({ currentItem: item });
   };
   handleSideMenu = (item) => {
-    localStorage.setItem("TPcurrent", item);
+    localStorage.setItem("Pcurrent", item);
     this.setState({ selectedSideMenu: item });
   };
   render() {
@@ -60,14 +62,10 @@ class Plannings extends Component {
           />
         </div>
         <div style={{ flex: "2", marginTop: "4rem", marginRight: "1rem" }}>
-          {selectedSideMenu === "Create New Planing" ? (
-            <HorizontalLinearStepper />
-          ) : selectedSideMenu === "Current Plannings" ? (
-            <CurrentPlannings />
-          ) : selectedSideMenu === "My Bookings" ? (
-            <MyBookings />
-          ) : selectedSideMenu === "Report" ? (
-            <div>reports</div>
+          {selectedSideMenu === "Create Package" ? (
+            <PackageStepper />
+          ) : selectedSideMenu === "Current Packages" ? (
+            <CurrentPackages />
           ) : null}
         </div>
       </div>
@@ -75,4 +73,4 @@ class Plannings extends Component {
   }
 }
 
-export default Plannings;
+export default Packages;

@@ -26,6 +26,7 @@ const beforePages = [
 const afterPages = [
   { name: "Home", link: "/home" },
   { name: "My Plannings", link: "/plannings" },
+  { name: "Packages", link: "/packages" },
 ];
 //const settings = [{ name: "Account Settings", link: "/profile" }, {"Sign Out"}];
 

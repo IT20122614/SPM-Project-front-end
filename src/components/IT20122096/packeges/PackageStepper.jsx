@@ -5,9 +5,10 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import NewPlanForm from "./../TripPlaning/newPlanForm";
 import { UilCheckCircle } from "@iconscout/react-unicons";
-import color from "./color";
+import color from "../common/color";
+import PackageForm from "./packageForm";
+
 const steps = [
   "Create new planing",
   "Select a place",
@@ -16,7 +17,7 @@ const steps = [
   "Finish",
 ];
 
-export default function HorizontalLinearStepper() {
+export default function PackageStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
 
@@ -88,7 +89,7 @@ export default function HorizontalLinearStepper() {
                   fontSize: "35px",
                 }}
               >
-                Your Trip Plane is Saved
+                Package saved.
               </center>
               <br />
             </div>
@@ -108,8 +109,8 @@ export default function HorizontalLinearStepper() {
             </Button>
             <Button
               onClick={() => {
-                localStorage.setItem("TPcurrent", "Current Plannings");
-                window.location = "/plannings";
+                localStorage.setItem("Pcurrent", "Current Packages");
+                window.location = "/packages";
               }}
               variant="contained"
               sx={{ marginLeft: "1rem" }}
@@ -129,7 +130,7 @@ export default function HorizontalLinearStepper() {
               flexDirection: "column",
             }}
           >
-            <NewPlanForm step={activeStep + 1} isSubmited={handleFinish} />
+            <PackageForm step={activeStep + 1} isSubmited={handleFinish} />
           </Typography>
           <Box
             sx={{

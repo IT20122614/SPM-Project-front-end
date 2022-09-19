@@ -7,12 +7,15 @@ import NavBar from "./components/IT20122096/common/NavBar";
 import ResponsiveAppBar from "./components/IT20122096/common/newNav";
 import Home from "./components/IT20122096/home";
 import LoginForm from "./components/IT20122096/loginForm";
+import PackageStepper from "./components/IT20122096/packeges/PackageStepper";
+import Packages from "./components/IT20122096/packeges/packeges";
 import profile from "./components/IT20122096/profile";
 import RegisterForm from "./components/IT20122096/registerForm";
 import Payment from "./components/IT20122096/TripPlaning/payment/payment";
 import Plannings from "./components/IT20122096/TripPlaning/Planings";
 import { getCurrentUser } from "./services/IT20122096/authServices";
 import { isAdmin } from "./services/IT20122096/userServices";
+import UpdatePackage from './components/IT20122096/packeges/updatePackage';
 
 class App extends Component {
   state = {
@@ -40,8 +43,13 @@ class App extends Component {
           <Route path={"/register"} component={RegisterForm} />
           <Route path={"/home"} component={Home} />
           <Route path={"/plannings"} component={Plannings} />
+          <Route path={"/packages"} component={Packages} />
+          <Route path={"/package/update"} component={UpdatePackage} />
           <Route path={"/profile"} component={profile} />
-          <Route path={"/payment/:id"} render={(props)=> <Payment {...props} />} />
+          <Route
+            path={"/payment/:id"}
+            render={(props) => <Payment {...props} />}
+          />
           <Redirect from="/" to={"/login"} />
         </Switch>
         <Footer />

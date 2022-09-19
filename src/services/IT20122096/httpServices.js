@@ -13,7 +13,6 @@ axios.interceptors.response.use(null, (err) => {
     errorMessage = err.response.data.errors[0].defaultMessage;
   }
     toast.error(errorMessage,{autoClose:1000});
-  console.log(err);
   return Promise.reject(err);
 });
 

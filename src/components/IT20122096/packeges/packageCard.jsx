@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import React, { Component } from "react";
-import TripPlanModal from "./tripPlanModal";
+import TripPlanModal from './../TripPlaning/currentPlannings/tripPlanModal';
+import PackageModal from "./packageModal";
 
-export default class TripCard extends Component {
-  state={selectedPlan: false};
+export default class PackageCard extends Component {
+  state = { selectedPlan: false };
   getDate(d) {
     let date = new Date(d);
     let day = ("0" + date.getDate()).slice(-2);
@@ -16,7 +17,7 @@ export default class TripCard extends Component {
   };
   render() {
     const { plan } = this.props;
-    console.log(plan)
+    console.log(plan);
     return (
       <div
         className="card "
@@ -25,28 +26,34 @@ export default class TripCard extends Component {
         <div className="card-body">
           <h5 className="card-title">{plan.name}</h5>
           <div>
-            <span>
-              {plan.type} trip to {"Sigiriya"}
-            </span>
+            <span>{plan.type} Package</span>
             <br />
-            <span>{plan.noOfDays} </span>
+            <span>No of Days {plan.noOfDays} </span>
             <br />
             <span>
               Total cost for Accommodation and Transportation : LKR{" "}
               {plan.totalCost}.00
             </span>
           </div>
-          <div style={{ marginLeft: "75%", marginTop: "-14%" }}>
-            <div style={{display:"flex", flexDirection:"column",alignItems:"center"}}>
-              <div style={{marginBottom:"1.5rem"}}>
+          <div style={{ marginLeft: "70%", marginTop: "-14%" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ marginBottom: "1.5rem" }}>
                 <Button
                   variant="contained"
                   style={{ width: "10rem" }}
+                  data-bs-target="#tripPlanModal"
+                  data-bs-toggle="modal"
                   onClick={() => {
-                    window.location=`/payment/${plan.id}`
+                    this.setState({ selectedPlan: true });
                   }}
                 >
-                  BOOK
+                  View
                 </Button>
               </div>
               <div>
@@ -55,10 +62,10 @@ export default class TripCard extends Component {
                   data-bs-target="#tripPlanModal"
                   data-bs-toggle="modal"
                   onClick={() => {
-                    this.setState({ selectedPlan: true });
+                    window.location = "/package/update";
                   }}
                 >
-                  View
+                  Update
                 </Button>
                 <Button
                   variant="contained"
@@ -73,7 +80,7 @@ export default class TripCard extends Component {
           </div>
         </div>
         {this.state.selectedPlan && (
-          <TripPlanModal
+          <PackageModal
             plan={plan}
             onClose={this.onClose}
             dateCovertor={this.getDate}
