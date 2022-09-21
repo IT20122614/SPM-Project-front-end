@@ -3,6 +3,9 @@ import React from "react";
 import { loginUser } from "../../services/IT20122096/authServices";
 import Form from "./common/form";
 import {toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
+import img from "./images/Dream-Vacation-Now.png";
+import color from "./common/color";
 
 class LoginForm extends Form {
   state = {
@@ -17,20 +20,15 @@ class LoginForm extends Form {
   doSubmit = async () => {
     const { data } = this.state;
 
-    await loginUser(data)
-      .then(() => {
-        toast.success("Logged in Successfully", { autoClose: 1000 });
-        setTimeout(() => {
-          window.location = "/home";
-        }, 2000);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 400) {
-          const errors = { email: error.response.data };
-          this.setState({ errors });
-          toast.error(error.response.data);
-        }
-      });
+    await toast.promise(loginUser(data), {
+      pending: "Sign in...",
+      success: "Logged In Successfully",
+      error: "Something Went Wrong",
+    },{autoClose:1000});
+    setTimeout(() => {
+      window.location = "/home";
+    }, 2000);
+    
   };
 
   render() {
@@ -39,27 +37,44 @@ class LoginForm extends Form {
       <React.Fragment>
         <div
           style={{
-            border:
-              Object.keys(errors).length !== 0
-                ? " 3px solid red"
-                : " 3px solid #73AD21",
-            width: "40%",
-            padding: "5rem",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            margin: "5rem",
-            marginLeft: "25rem",
+            display: "flex",
+            flexDirection: "row",
+            height: `${window.innerHeight - 137}px`,
           }}
         >
-          <center>
-            <h2>Login </h2>
-          </center>
-          <form onSubmit={this.handleSubmit}>
-            {this.renderInputField("Email", "email", "text")}
-            {this.renderInputField("Password", "password", "password")}
+          <div
+            style={{
+              border:
+                Object.keys(errors).length !== 0
+                  ? " 3px solid red"
+                  : ` 3px solid ${color.primary}`,
+              width: "40%",
+              padding: "5rem",
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+              margin: "0.5rem",
+              //  marginLeft: "25rem",
+              flex: "1",
+            }}
+          >
+            <center>
+              <h2 style={{ color: color.primary }}>Sign In </h2>
+            </center>
             <br />
-            <center>{this.renderButton("Login", "btn btn-primary")}</center>
-          </form>
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInputField("Email", "email", "text")}
+              {this.renderInputField("Password", "password", "password")}
+              <br />
+              <br />
+              <center>{this.renderButton("Login", "btn btn-primary")}</center>
+            </form>
+            <div>
+              <NavLink to={"/register"}>Sign Up</NavLink>
+            </div>
+          </div>
+          <div style={{ flex: "2" }}>
+            <img src={img} alt="" height={"100%"} width={"100%"} />
+          </div>
         </div>
       </React.Fragment>
     );

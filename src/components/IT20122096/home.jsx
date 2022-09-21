@@ -4,9 +4,55 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import TuneIcon from "@mui/icons-material/Tune";
 import AddToHomeScreenIcon from "@mui/icons-material/AddToHomeScreen";
 import BuildIcon from "@mui/icons-material/Build";
+import { Box, Button, Grid } from "@mui/material";
+import { getAllPackages } from "../../services/IT20122096/packageService";
+import color from "./common/color";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+
+import PackageModal from "./packeges/packageModal";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 class Home extends Component {
-  state = {};
+  state = {
+    packages: [],
+    selectedPlan: false,
+    selectedPackage: {},
+    sort: false,
+    sorted: false,
+  };
+  componentDidMount = async () => {
+    const { data: packages } = await getAllPackages();
+    this.setState({ packages });
+  };
+  getDate(d) {
+    let date = new Date(d);
+    let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    let postDate = date.getFullYear() + "-" + month + "-" + day;
+    return postDate;
+  }
+  handleFilter = () => {
+    const packages = [...this.state.packages];
+    let filterdPacks = [];
+    if (this.state.sort) {
+      filterdPacks = packages.sort((a, b) =>
+        a.totalCost > b.totalCost ? 1 : -1
+      );
+    } else {
+      filterdPacks = packages.sort((a, b) =>
+        a.totalCost < b.totalCost ? 1 : -1
+      );
+    }
+    this.setState({ packages: filterdPacks, sorted:true });
+  };
+  onClose = () => {
+    this.setState({ selectedPlan: false, selectedPackage: {} });
+  };
   render() {
+    const { packages } = this.state;
+    // const filterdPacks = packages.sort((a, b) =>
+    //   a.totalCost > b.totalCost ? 1 : -1
+    // );
     return (
       <div
         style={{
@@ -224,6 +270,122 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        <div
+          style={{
+            flex: "1",
+          }}
+        >
+          <div>
+            <center
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                marginBottom: "3rem",
+              }}
+            >
+              Chose a Travel Package
+            </center>
+
+            <div
+              style={{
+                marginLeft: "7rem",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  marginBottom: "3rem",
+                }}
+                onClick={() => {
+                  this.setState({ sort: !this.state.sort });
+                  this.handleFilter();
+                }}
+                endIcon={
+                 this.state.sorted ? (!this.state.sort ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />) :null
+                }
+              >
+                Sort By Price
+              </Button>
+
+              <Grid container>
+                {packages.map((pack) => (
+                  <Grid xs={3}>
+                    <div
+                      class="card"
+                      style={{
+                        marginLeft: "0rem",
+                        width: "250px",
+                        marginBottom: "2rem",
+                        border: `1px solid ${color.primary}`,
+                      }}
+                    >
+                      <img
+                        src={pack.accommodation.image}
+                        alt="..."
+                        style={{ width: "250px", height: "200px" }}
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">{pack.name}</h5>
+                        <div>
+                          <span>Price : LKR{pack.totalCost}.00</span>
+                          <span
+                            style={{ fontSize: "12px", marginLeft: "1rem" }}
+                          >
+                            {pack.discount}% off
+                          </span>
+                        </div>
+                        {/* <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p> */}
+                        <br />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            onClick={() => {
+                              window.location = `/payment/package/${pack.id}`;
+                            }}
+                          >
+                            Book
+                          </Button>
+                          <Button
+                            style={{
+                              borderRadius: "50%",
+                              width: "2rem",
+                              height: "2rem",
+                            }}
+                            data-bs-target="#tripPlanModal"
+                            data-bs-toggle="modal"
+                            onClick={() => {
+                              this.setState({
+                                selectedPackage: pack,
+                                selectedPlan: true,
+                              });
+                            }}
+                          >
+                            <OpenInNewIcon />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          </div>
+        </div>
+        {this.state.selectedPlan && (
+          <PackageModal
+            plan={this.state.selectedPackage}
+            onClose={this.onClose}
+            dateCovertor={this.getDate}
+          />
+        )}
       </div>
     );
   }

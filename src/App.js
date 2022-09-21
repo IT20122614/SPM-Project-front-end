@@ -16,6 +16,7 @@ import Plannings from "./components/IT20122096/TripPlaning/Planings";
 import { getCurrentUser } from "./services/IT20122096/authServices";
 import { isAdmin } from "./services/IT20122096/userServices";
 import UpdatePackage from './components/IT20122096/packeges/updatePackage';
+import PackagePayment from "./components/IT20122096/packeges/payment/packagePayment";
 
 class App extends Component {
   state = {
@@ -44,8 +45,16 @@ class App extends Component {
           <Route path={"/home"} component={Home} />
           <Route path={"/plannings"} component={Plannings} />
           <Route path={"/packages"} component={Packages} />
-          <Route path={"/package/update"} component={UpdatePackage} />
+          <Route
+            path={"/package/update/:id"}
+            render={(props) => <UpdatePackage {...props} />}
+          />
           <Route path={"/profile"} component={profile} />
+
+          <Route
+            path={"/payment/package/:id"}
+            render={(props) => <PackagePayment {...props} />}
+          />
           <Route
             path={"/payment/:id"}
             render={(props) => <Payment {...props} />}

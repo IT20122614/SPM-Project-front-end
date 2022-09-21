@@ -62,7 +62,7 @@ export default class PackageCard extends Component {
                   data-bs-target="#tripPlanModal"
                   data-bs-toggle="modal"
                   onClick={() => {
-                    window.location = "/package/update";
+                    window.location = `/package/update/${plan.id}`;
                   }}
                 >
                   Update

@@ -18,7 +18,18 @@ export async function getTripPlanById(tripId) {
 export async function payForTripPlan(data) {
   return await http.post(endpoint + "/pay", data);
 }
+export async function getAllBookings() {
+  const userId = localStorage.getItem("userId");
+  return await http.get(endpoint + `/getAllBookings/${userId}`);
+}
+export async function getAllPayments() {
+  const userId = localStorage.getItem("userId");
+  return await http.get(endpoint + `/getAllPayments/${userId}`);
+}
 
 export async function getAllHotels() {
   return await http.get("/hotel/display")
+}
+export async function getAllTransports() {
+  return await http.get("/transport/getAll");
 }

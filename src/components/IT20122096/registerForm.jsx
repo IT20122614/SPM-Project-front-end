@@ -4,7 +4,8 @@ import { loginWithJwt } from "../../services/IT20122096/authServices";
 import { saveUser } from "../../services/IT20122096/userServices";
 import Form from "./common/form";
 import {toast } from "react-toastify";
-
+import img from "./images/Dream-Vacation-Now.png";
+import color from "./common/color";
 class RegisterForm extends Form {
   state = {
     data: {
@@ -29,20 +30,18 @@ class RegisterForm extends Form {
       toast.error(error.cPassword, { theme: "dark" });
       return this.setState({ errors: error });
     }
-    await saveUser(data)
-      .then((res) => {
-        console.log(res.data);
-        toast.success("Registerd in Successfully", { autoClose: 1000 });
-
-        loginWithJwt(res.data);
-        console.log(res, res.data);
-        setTimeout(() => {
-          window.location = "/login";
-        }, 2000);
-      })
-      .catch((error) => {
-        toast.error(error.response.data);
-      });
+    await toast.promise(
+      saveUser(data),
+      {
+        pending: "Registering...",
+        success: "Registerd Successfully",
+        error: "Something Went Wrong",
+      },
+      { autoClose: 1000 }
+    );
+    setTimeout(() => {
+      window.location = "/login";
+    }, 2000);
   };
 
   render() {
@@ -52,35 +51,49 @@ class RegisterForm extends Form {
       <React.Fragment>
         <div
           style={{
-            border:
-              Object.keys(errors).length !== 0
-                ? " 3px solid red"
-                : " 3px solid #73AD21",
-
-            width: "50%",
-            padding: "5rem",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            margin: "5rem",
-            marginLeft: "20rem",
+            display: "flex",
+            flexDirection: "row",
+            height: `${window.innerHeight - 137}px`,
           }}
         >
-          <center>
-            <h2>Create an Account</h2>
-            <br />
-          </center>
-          <form onSubmit={this.handleSubmit}>
-            {this.renderInputField("Full Name ", "name", "text")}
-            {this.renderInputField("Email ", "email", "text")}
-            {this.renderInputField("Password ", "password", "password")}
-            {this.renderInputField(
-              "Conform Password ",
-              "cPassword",
-              "password"
-            )}
-            <br />
-            {this.renderButton("Register", "btn btn-primary", "submit")}
-          </form>
+          <div
+            style={{
+              border:
+                Object.keys(errors).length !== 0
+                  ? " 3px solid red"
+                  : ` 3px solid ${color.primary}`,
+
+              width: "50%",
+              padding: "5rem",
+              paddingLeft: "2rem",
+              paddingRight: "2rem",
+              margin: "0.5rem",
+              //marginLeft: "20rem",
+              flex: "1",
+            }}
+          >
+            <center>
+              <h2 style={{ color: color.primary }}>Create an Account</h2>
+              <br />
+            </center>
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInputField("Full Name ", "name", "text")}
+              {this.renderInputField("Email ", "email", "text")}
+              {this.renderInputField("Password ", "password", "password")}
+              {this.renderInputField(
+                "Conform Password ",
+                "cPassword",
+                "password"
+              )}
+              <br />
+              <center>
+                {this.renderButton("Register", "btn btn-primary", "submit")}
+              </center>
+            </form>
+          </div>
+          <div style={{ flex: "2" }}>
+            <img src={img} alt="" height={"100%"} width={"100%"} />
+          </div>
         </div>
       </React.Fragment>
     );

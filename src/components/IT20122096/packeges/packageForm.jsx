@@ -5,6 +5,7 @@ import Form from "./../common/form";
 import { Button } from "@mui/material";
 import {
   getAllHotels,
+  getAllTransports,
   saveNewTripPlan,
 } from "../../../services/IT20122096/tripPlanService";
 import { toast } from "react-toastify";
@@ -22,7 +23,7 @@ export default class PackageForm extends Form {
       district: "",
       province: "",
       place: "6310ca7cdbfcd41336de4359",
-      transport: "6310ca7cdbfcd41336de4359",
+      transport: "",
       discount: 0,
     },
     errors: {},
@@ -35,9 +36,9 @@ export default class PackageForm extends Form {
         province: "Central Province",
         description:
           "Sigiriya, Sri Lanka, is a small town that has become famous because of one particular attraction – Sigiriya Rock.",
+        id: "6310ca7cdbfcd41336de4359",
         imageURL:
           "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
-        id: "6310ca7cdbfcd41336de4359",
         visitingPlaces: [
           {
             name: "Sigiriya Rock",
@@ -65,24 +66,13 @@ export default class PackageForm extends Form {
         province: "Central Province",
         description:
           "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
-        imageURL :
+        imageURL:
           "https://www.amayaresorts.com/blog/wp-content/uploads/sites/3/2018/07/Adams-Peak-Sri-Lanka.jpg",
         id: "1",
         visitingPlaces: [],
       },
     ],
-    transportMethods: [
-      {
-        name: "Samanala Cabs",
-        district: "Nuwara Eliya",
-        description:
-          "Samanala cabs provide 24/7 customer support service, a fully-fledged phone app for easy bookings.",
-        imageURL:
-          "https://lh3.googleusercontent.com/p/AF1QipPtb1z-zQeJgQWmZC6s8UbOz7uMgbWYXUdiVs9n=w768-h768-n-o-v1",
-        id: "6310ca7cdbfcd41336de4359",
-        vehicles: [{ id: "daf", type: "Car", capacity: 3, price: 100 }],
-      },
-    ],
+    transportMethods: [],
 
     filterdPlaces: [],
     filterdHotels: [],
@@ -107,8 +97,9 @@ export default class PackageForm extends Form {
 
   async componentDidMount() {
     const { data: hotels } = await getAllHotels();
-    console.log(hotels);
-    this.setState({ hotels });
+    const { data: transportMethods } = await getAllTransports();
+
+    this.setState({ hotels, transportMethods });
   }
 
   handlePlaceFilter = () => {
@@ -120,8 +111,15 @@ export default class PackageForm extends Form {
     const filterdTransportMethods = this.state.transportMethods.filter(
       (t) => t.district === district
     );
-
-    this.setState({ filterdPlaces, filterdHotels, filterdTransportMethods });
+    const data = { ...this.state.data };
+    data.hotel = filterdHotels[0].id;
+    data.transport = filterdTransportMethods[0].id;
+    this.setState({
+      filterdPlaces,
+      filterdHotels,
+      filterdTransportMethods,
+      data,
+    });
   };
 
   handleSubmitData = (data, type) => {
@@ -148,13 +146,13 @@ export default class PackageForm extends Form {
     this.props.isSubmited(true);
 
     const newTrip = {
-      userId: localStorage.getItem("userId"),
       name: data.name,
       type: data.type,
       noOfDays: data.noOfDays,
       accommodation: selectedHotel,
       place: selectedPlace,
       transportation: selectedTransportMethod,
+      discount: data.discount,
       totalCost: discount(this.calcTot(), data.discount),
     };
 

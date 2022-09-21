@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DownloaReport from './../TripPlaning/currentPlannings/downloaReport';
 
 export default class PackageModal extends Component {
   state = { visitingPlaces: [...this.props.plan.place.visitingPlaces] };
@@ -141,7 +142,7 @@ export default class PackageModal extends Component {
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <div>
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      src={plan.transportation.image}
                       alt=""
                       width="150px"
                       height={"150px"}
@@ -149,7 +150,7 @@ export default class PackageModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Samanala Cabs</h5>
+                    <h5>{plan.transportation.name}</h5>
                     <h6>Distance : {plan.transportation.numOfKilometers}KM</h6>
                     <h6>Selected Vehicles</h6>
                     <div style={{ marginBottom: "0.5rem" }}>
@@ -188,17 +189,17 @@ export default class PackageModal extends Component {
                 >
                   Close
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-primary"
                   data-bs-dismiss="modal"
-                  // onClick={() => {
-                  //   onClose();
-                  // }}
-                  // disabled={!this.state.isSaved}
+                  onClick={() => {
+                    onClose();
+                    DownloaReport({ plan: plan });
+                  }}
                 >
                   Download
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

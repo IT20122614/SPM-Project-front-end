@@ -5,7 +5,7 @@ import HikingIcon from "@mui/icons-material/Hiking";
 import { payForTripPlan } from '../../../../services/IT20122096/tripPlanService';
 import { toast } from 'react-toastify';
 
-export default class PaymentSummary extends Component {
+export default class PackagePaymentSummary extends Component {
   state = {
     invalid: true,
   };
@@ -17,20 +17,19 @@ export default class PaymentSummary extends Component {
     const payment = {
       tripPlanId: id,
       amount: total,
-      type: "Trip Plan",
+      type: "Travel Package",
       date: new Date(),
       userId: userId,
     };
     await payForTripPlan(payment).then(() => {
       toast.success("Payment Successfull", { autoClose: 1000 });
       setTimeout(() => {
-        localStorage.setItem("TPcurrent", "My Bookings");
-        window.location = "/plannings";
+        window.location = "/home";
       }, 2000);
     });
   };
   render() {
-    const plan = JSON.parse(localStorage.getItem("planObj"));
+    const plan = JSON.parse(localStorage.getItem("packObj"));
     console.log("invalid", this.state.invalid);
     return (
       <div
@@ -51,6 +50,10 @@ export default class PaymentSummary extends Component {
               <td style={{ fontWeight: "bold" }}>Total Transpotaion Cost</td>
               <td>LKR {plan.transportation.total}.00</td>
             </tr>
+            <tr>
+              <td style={{ fontWeight: "bold" }}>Discount</td>
+              <td>{plan.discount}%</td>
+            </tr>
             <br />
             <tr>
               <td style={{ fontWeight: "bold" }}>All Total</td>
@@ -63,7 +66,9 @@ export default class PaymentSummary extends Component {
             variant="contained"
             style={{ width: "50%" }}
             disabled={this.state.invalid}
-            onClick={() => {this.handleOnPay(plan.id, plan.totalCost);}}
+            onClick={() => {
+              this.handleOnPay(plan.id, plan.totalCost);
+            }}
           >
             Pay Now
           </Button>

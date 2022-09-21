@@ -23,8 +23,10 @@ class UpdatePackage extends Form {
     type: Joi.string().required().label("Type"),
     noOfDays: Joi.number().required(),
   };
+  id = this.props.match.params.id;
+
   async componentDidMount() {
-    const { data } = await getPackage("63262edc92905921dcd82926");
+    const { data } = await getPackage(this.id);
     const TravelPackage = { ...this.state.data };
     TravelPackage.name = data.name;
     TravelPackage.type = data.type;
@@ -33,7 +35,7 @@ class UpdatePackage extends Form {
   }
   doSubmit = async () => {
     const { data } = this.state;
-    data.id = "63262edc92905921dcd82926";
+    data.id = this.id;
     await updatePackage(data).then(() => {
       toast.success("Updated Successfully", { autoClose: 1000 });
       setTimeout(() => {

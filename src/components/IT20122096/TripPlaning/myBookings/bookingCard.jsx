@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import React, { Component } from "react";
-import TripPlanModal from "./tripPlanModal";
+import TripPlanModal from "../currentPlannings/tripPlanModal";
 
-export default class TripCard extends Component {
-  state={selectedPlan: false};
+
+export default class BookingCard extends Component {
+  state = { selectedPlan: false };
   getDate(d) {
     let date = new Date(d);
     let day = ("0" + date.getDate()).slice(-2);
@@ -16,7 +17,7 @@ export default class TripCard extends Component {
   };
   render() {
     const { plan } = this.props;
-    console.log(plan)
+    console.log(plan);
     return (
       <div
         className="card "
@@ -30,7 +31,7 @@ export default class TripCard extends Component {
             </span>
             <br />
             <span>{this.getDate(plan.startDate)} </span>
-            <span style={{marginLeft:"1rem", marginRight:"1rem"}}>To</span>
+            <span style={{ marginLeft: "1rem", marginRight: "1rem" }}>To</span>
             <span>{this.getDate(plan.endDate)} </span>
             <br />
             <span>
@@ -38,7 +39,7 @@ export default class TripCard extends Component {
               {plan.totalCost}.00
             </span>
           </div>
-          <div style={{ marginLeft: "75%", marginTop: "-14%" }}>
+          <div style={{ marginLeft: "75%", marginTop: "-2rem" }}>
             <div
               style={{
                 display: "flex",
@@ -46,7 +47,7 @@ export default class TripCard extends Component {
                 alignItems: "center",
               }}
             >
-              <div style={{ marginBottom: "1.5rem" }}>
+              {/* <div style={{ marginBottom: "1.5rem" }}>
                 <Button
                   variant="contained"
                   style={{ width: "10rem" }}
@@ -56,26 +57,27 @@ export default class TripCard extends Component {
                 >
                   BOOK
                 </Button>
-              </div>
+              </div> */}
               <div>
                 <Button
                   variant="contained"
                   data-bs-target="#tripPlanModal"
                   data-bs-toggle="modal"
+                  style={{ width: "10rem" }}
                   onClick={() => {
                     this.setState({ selectedPlan: true });
                   }}
                 >
                   View
                 </Button>
-                <Button
+                {/* <Button
                   variant="contained"
                   color="error"
                   style={{ marginLeft: "1rem" }}
                   onClick={() => this.props.onDelete(plan.id)}
                 >
                   Delete
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>

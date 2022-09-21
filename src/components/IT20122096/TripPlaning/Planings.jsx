@@ -6,6 +6,7 @@ import SideMenuList from "../common/sideMenuList";
 import HorizontalLinearStepper from "./Stepper";
 import CurrentPlannings from "./currentPlannings/currentPlannings";
 import MyBookings from "./myBookings/myBookings";
+import Report from "../Report/report";
 
 class Plannings extends Component {
   state = {
@@ -67,7 +68,7 @@ class Plannings extends Component {
           ) : selectedSideMenu === "My Bookings" ? (
             <MyBookings />
           ) : selectedSideMenu === "Report" ? (
-            <div>reports</div>
+            <Report/>
           ) : null}
         </div>
       </div>

@@ -21,11 +21,13 @@ export default class CurrentPlannings extends Component {
 
   async componentDidMount() {
     await getAllTripPlans()
-      .then(({ data }) => {
-        this.setState({ tripPlans: data });
-        if (data.length === 0) {
+      .then(({ data }) => { 
+        const tripPlans = data.filter((t) => t.booked === false);
+        this.setState({ tripPlans: tripPlans });
+        if (tripPlans.length === 0) {
           this.setState({ empty: true });
         }
+        
       })
       .catch((error) => {
         this.setState({ empty: true });
@@ -48,7 +50,7 @@ export default class CurrentPlannings extends Component {
       <div>
         {tripPlans.length !== 0 && !empty ? (
           <div>
-            {tripPlans.filter((t)=>t.booked===false).map((plan, index) => {
+            {tripPlans.map((plan, index) => {
               return <TripCard plan={plan} onDelete={this.handleDelete} />;
             })}
           </div>
