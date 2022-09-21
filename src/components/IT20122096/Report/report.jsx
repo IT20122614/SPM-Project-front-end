@@ -45,9 +45,10 @@ export default class Report extends Component {
       ];
       rows.push(row)
     });
-    doc.text("Payments Report", 60, 18);
-    doc.autoTable(columns,rows, { startY: 40 });
-    doc.text(`Date :${this.getDate(new Date())}`, 150, 38);
+    doc.text("Payments Report", 80, 18);
+    doc.autoTable(columns, rows, { startY: 40 });
+    doc.setFontSize(12)
+    doc.text(`Date :${this.getDate(new Date())}`, 160, 38);
     doc.save(name);
 
   }
