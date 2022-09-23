@@ -1,0 +1,110 @@
+.button5 {
+    border-radius: 60%;
+  }
+  .button {
+    background-color: #3633eb; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    margin: 8px 2px;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+  }
+  .btnShadow {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 20px 20px 50px grey;
+  }
+  .center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    margin-top: 60px;
+  }
+  hr.solid {
+    border-top: 3px solid #bbb;
+  }
+  .stylingColor {
+    margin-top: 60px;
+    padding-top: 60px;
+  }
+  .colorChange {
+    background-color: #3633eb;
+  }
+  
+  .column {
+    float: left;
+    padding: 10px;
+    height: 150px; /* Should be removed. Only for demonstration */
+  }
+  
+  .left {
+    width: 25%;
+  }
+  .centerDivTag {
+    width: 50%;
+  }
+  
+  .right {
+    width: 25%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .borderBox {
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: rgb(80, 83, 255);
+    box-shadow: 20px 20px 50px rgba(200, 201, 244, 0.635);
+    border-radius: 10px;
+  }
+  .marginStyling {
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding: 20px;
+  }
+  .viewMoreStyling {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 60px;
+    width: 60%;
+  }
+  .editStyling {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .longName {
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 500px; */
+    max-height: 80px;
+    overflow: auto;
+  }
+  .tableTop {
+    padding-bottom: 20px;
+  }
+  .adminTab {
+    background-color: #2074d4;
+    width: 100%;
+    padding-left: 25%;
+    color: white;
+  }
+  .footerTag {
+    background-color: black;
+  }
+  .addNEwBottom {
+    margin-bottom: 20px;
+  }
