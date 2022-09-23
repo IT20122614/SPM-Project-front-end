@@ -48,10 +48,11 @@ export default class MyBookings extends Component {
       <div>
         {tripPlans.length !== 0 && !empty ? (
           <div>
-            {tripPlans.map((plan, index) => {
+            {tripPlans &&
+              tripPlans.map((plan, index) => {
                 return <BookingCard plan={plan} />;
-            })}
-            {travelPackages.map((pack) => {
+              })}
+            {travelPackages && travelPackages.map((pack) => {
               return <PackageTripDetails plan={pack} isBookings={true} />;
             })}
           </div>

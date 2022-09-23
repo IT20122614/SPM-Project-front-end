@@ -41,7 +41,7 @@ class Plannings extends Component {
         style={{
           marginTop: "0rem",
           display: "flex",
-          height: "40rem",
+          height: `${window.innerHeight - 137}px`,
         }}
       >
         <div
@@ -68,7 +68,7 @@ class Plannings extends Component {
           ) : selectedSideMenu === "My Bookings" ? (
             <MyBookings />
           ) : selectedSideMenu === "Report" ? (
-            <Report/>
+            <Report />
           ) : null}
         </div>
       </div>

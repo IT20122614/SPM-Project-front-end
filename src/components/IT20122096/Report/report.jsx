@@ -56,7 +56,7 @@ export default class Report extends Component {
   render() {
     const { payments, empty } = this.state;
     return payments.length !== 0 && !empty ? (
-      <div style={{ padding: "4rem" }}>
+      <div style={{ padding: "4rem", paddingTop:"1rem" }}>
         <Button
           variant="contained"
           style={{ marginLeft: "90%" }}

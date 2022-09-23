@@ -27,6 +27,9 @@ export async function getAllPayments() {
   return await http.get(endpoint + `/getAllPayments/${userId}`);
 }
 
+export async function getAllPlaces() {
+  return await http.get("/place/getAll");
+}
 export async function getAllHotels() {
   return await http.get("/hotel/display")
 }

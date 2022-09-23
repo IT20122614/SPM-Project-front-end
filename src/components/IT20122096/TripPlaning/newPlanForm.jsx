@@ -7,6 +7,7 @@ import radioButton from "./../common/radioButton";
 import PlaceCard from "./placeCard";
 import {
   getAllHotels,
+  getAllPlaces,
   getAllTransports,
   saveNewTripPlan,
 } from "../../../services/IT20122096/tripPlanService";
@@ -30,49 +31,7 @@ export default class NewPlanForm extends Form {
     errors: {},
 
     hotels: [],
-    places: [
-      {
-        name: "Sigiriya",
-        district: "Nuwara Eliya",
-        province: "Central Province",
-        description:
-          "Sigiriya, Sri Lanka, is a small town that has become famous because of one particular attraction – Sigiriya Rock.",
-        imageURL:
-          "https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg",
-        id: "6310ca7cdbfcd41336de4359",
-        visitingPlaces: [
-          {
-            name: "Sigiriya Rock",
-            id: "abc123",
-            image:
-              "https://destinationlesstravel.com/wp-content/uploads/2020/04/Depositphotos_88178998_XL.jpg.webp",
-          },
-          {
-            id: "abcd1234",
-            name: "Pidurangala Rock",
-            image:
-              "https://destinationlesstravel.com/wp-content/uploads/2019/05/DSC_0266-1.jpg.webp",
-          },
-          {
-            id: "abcd12345",
-            name: "Pethikada paintings and crafts",
-            image:
-              "https://destinationlesstravel.com/wp-content/uploads/2020/04/Pethikada-2.jpg.webp",
-          },
-        ],
-      },
-      {
-        name: "Sri Padaya (Adam’s Peak) ",
-        district: "Ratnapura",
-        province: "Central Province",
-        description:
-          "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
-        image:
-          "https://www.amayaresorts.com/blog/wp-content/uploads/sites/3/2018/07/Adams-Peak-Sri-Lanka.jpg",
-        id: "1",
-        visitingPlaces: [],
-      },
-    ],
+    places: [],
     transportMethods: [],
 
     filterdPlaces: [],
@@ -99,8 +58,9 @@ export default class NewPlanForm extends Form {
   async componentDidMount() {
     const { data: hotels } = await getAllHotels();
     const { data: transportMethods } = await getAllTransports();
+    const { data: places } = await getAllPlaces();
 
-    this.setState({ hotels, transportMethods });
+    this.setState({ hotels, transportMethods, places });
   }
 
   handlePlaceFilter = () => {
@@ -115,7 +75,13 @@ export default class NewPlanForm extends Form {
     const data = { ...this.state.data };
     data.hotel = filterdHotels[0].id;
     data.transport = filterdTransportMethods[0].id;
-    this.setState({ filterdPlaces, filterdHotels, filterdTransportMethods,data });
+    data.place = filterdPlaces[0].id
+    this.setState({
+      filterdPlaces,
+      filterdHotels,
+      filterdTransportMethods,
+      data,
+    });
   };
 
   handleSubmitData = (data, type) => {
@@ -227,13 +193,43 @@ export default class NewPlanForm extends Form {
                 {this.renderDropDown("Province", "province", [
                   " ",
                   "Central Province",
+                  "Eastern Province",
+                  "Northern Province",
+                  "Southern Province",
+                  "Western Province",
+                  "North Western Province",
+                  "North Central Province",
+                  "Uva Province",
+                  "Sabaragamuwa Province",
                 ])}
 
                 {this.renderDropDown("District", "district", [
                   " ",
+                  "Colombo",
+                  "Gampaha",
+                  "Kalutara",
+                  "Kandy",
                   "Matale",
-                  "Ratnapura",
                   "Nuwara Eliya",
+                  "Galle",
+                  "Matara",
+                  "Hambantota",
+                  "Jaffna",
+                  "Kilinochchi",
+                  "Mannar",
+                  "Vavuniya",
+                  "Mullaitivu",
+                  "Batticaloa",
+                  "Ampara",
+                  "Trincomalee",
+                  "Kurunegala",
+                  "Puttalam",
+                  "Anuradhapura",
+                  "Polonnaruwa",
+                  "Badulla",
+                  "Moneragala",
+                  "Ratnapura",
+                  "Kegalle",
                 ])}
 
                 <Button
@@ -252,6 +248,8 @@ export default class NewPlanForm extends Form {
                   alignContent: "center",
                   display: "flex",
                   flexDirection: "column",
+                  overflowY: "scroll",
+                  height: "17rem",
                 }}
               >
                 {filterdPlaces.length !== 0 ? (
@@ -300,6 +298,8 @@ export default class NewPlanForm extends Form {
                   alignContent: "center",
                   display: "flex",
                   flexDirection: "column",
+                  overflowY: "scroll",
+                  height: "17rem",
                 }}
               >
                 {(filterdHotels.length !== 0 && (
@@ -348,6 +348,8 @@ export default class NewPlanForm extends Form {
                   alignContent: "center",
                   display: "flex",
                   flexDirection: "column",
+                  overflowY: "scroll",
+                  height: "17rem",
                 }}
               >
                 {(filterdTransportMethods.length !== 0 && (

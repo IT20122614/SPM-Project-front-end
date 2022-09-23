@@ -27,23 +27,71 @@ export default class TripPlanModal extends Component {
                 ></button>
               </div>
 
-              <div className="modal-body">
+              <div
+                className="modal-body"
+                style={{ height: "30rem", overflowY: "scroll" }}
+              >
                 <h2>Details</h2>
 
-                <span>{plan.name}</span>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      marginRight: "1rem",
+                      width: "7rem",
+                    }}
+                  >
+                    Name
+                  </div>{" "}
+                  <div>{plan.name}</div>
+                </div>
                 <br />
-                <span>{plan.type}</span>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      marginRight: "1rem",
+                      width: "7rem",
+                    }}
+                  >
+                    Type
+                  </div>{" "}
+                  <div>{plan.type}</div>
+                </div>
                 <br />
-                <span>{dateCovertor(plan.startDate)}</span>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      marginRight: "1rem",
+                      width: "7rem",
+                    }}
+                  >
+                    Start Date
+                  </div>{" "}
+                  <div>{dateCovertor(plan.startDate)}</div>
+                </div>
                 <br />
-                <span>{dateCovertor(plan.endDate)}</span>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      marginRight: "1rem",
+                      width: "7rem",
+                    }}
+                  >
+                    End Date
+                  </div>{" "}
+                  <div>{dateCovertor(plan.endDate)}</div>
+                </div>
                 <br />
+
                 <br />
                 <h2>Place</h2>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <div>
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      src={plan.place.image}
                       alt=""
                       width="150px"
                       height={"150px"}
@@ -51,7 +99,7 @@ export default class TripPlanModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Sigiriya</h5>
+                    <h5>{plan.place.name}</h5>
                     <br />
                     <span>Located in: Central Province, Matale Distric </span>
                     <br />

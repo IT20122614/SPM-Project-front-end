@@ -138,7 +138,7 @@ export default function HorizontalLinearStepper() {
               flexDirection: "row",
               pt: 2,
 
-              margin: "-1rem 1rem 0rem 1rem",
+              margin: "-2rem 1rem 0rem 1rem",
             }}
           >
             <Button

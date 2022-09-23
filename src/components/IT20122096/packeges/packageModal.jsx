@@ -28,7 +28,10 @@ export default class PackageModal extends Component {
                 ></button>
               </div>
 
-              <div className="modal-body">
+              <div
+                className="modal-body"
+                style={{ height: "30rem", overflowY: "scroll" }}
+              >
                 <h2>Details</h2>
 
                 <div style={{ display: "flex" }}>
@@ -75,7 +78,7 @@ export default class PackageModal extends Component {
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <div>
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Beauty_of_Sigiriya_by_Binuka.jpg"
+                      src={plan.place.image}
                       alt=""
                       width="150px"
                       height={"150px"}
@@ -83,7 +86,7 @@ export default class PackageModal extends Component {
                     />
                   </div>
                   <div>
-                    <h5>Sigiriya</h5>
+                    <h5>{plan.place.name}</h5>
                     <br />
                     <span>Located in: Central Province, Matale Distric </span>
                     <br />

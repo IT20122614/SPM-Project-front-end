@@ -320,7 +320,7 @@ class Home extends Component {
                       }}
                     >
                       <img
-                        src={pack.accommodation.image}
+                        src={pack.place.image}
                         alt="..."
                         style={{ width: "250px", height: "200px" }}
                       />

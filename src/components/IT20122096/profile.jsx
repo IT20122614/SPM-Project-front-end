@@ -82,9 +82,8 @@ export default class profile extends Form {
           flexDirection: "column",
           alignItems: "center",
           background: "lightgray",
-          height: "100%",
+          height: `${window.innerHeight - 137}px`,
           width: "100%",
-          position: "absolute",
         }}
       >
         <div
@@ -93,8 +92,8 @@ export default class profile extends Form {
             flexDirection: "row",
             margin: "auto",
             background: "white",
-
             width: "80%",
+            scale: "90%",
           }}
         >
           <div
@@ -117,7 +116,7 @@ export default class profile extends Form {
                 style={{
                   height: "170px",
                   width: "170px",
-                  border:`4px solid ${color.primary}`
+                  border: `4px solid ${color.primary}`,
                 }}
               />
 

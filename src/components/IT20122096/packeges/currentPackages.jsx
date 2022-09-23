@@ -44,7 +44,9 @@ export default class CurrentPackages extends Component {
   render() {
     const { tripPlans, empty } = this.state;
     return (
-      <div>
+      <div
+        style={{ overflowY: "scroll", height: `${window.innerHeight - 210}px` }}
+      >
         {tripPlans.length !== 0 && !empty ? (
           <div>
             {tripPlans.map((plan, index) => {

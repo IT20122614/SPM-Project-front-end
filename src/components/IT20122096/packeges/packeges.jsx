@@ -42,7 +42,7 @@ class Packages extends Component {
         style={{
           marginTop: "0rem",
           display: "flex",
-          height: "40rem",
+          height: `${window.innerHeight-137}px`,
         }}
       >
         <div
