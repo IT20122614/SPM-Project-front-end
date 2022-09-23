@@ -11,6 +11,10 @@ export default function AdminHomePage() {
     // 👇️ navigate to /contacts
     window.location.href = "/edit-hotel";
   };
+  const reportHotel = () => {
+    // 👇️ navigate to /contacts
+    window.location.href = "/report";
+  };
 
   return (
     <div>
@@ -56,7 +60,7 @@ export default function AdminHomePage() {
                   <td>
                     <button
                       class="button button5 btnShadow"
-                      onClick={navigateToAddNewHotel}
+                      onClick={reportHotel}
                     >
                       <i class="material-icons">summarize</i>
                     </button>

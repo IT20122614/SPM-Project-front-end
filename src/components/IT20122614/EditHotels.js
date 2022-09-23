@@ -12,6 +12,11 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import ViewMore from "./ViewMore";
 import { useHistory } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const style = {
   position: "absolute",
@@ -54,6 +59,7 @@ export default function EditHotels() {
   let [hotels, setHotels] = useState([]);
   const [search, serSearch] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [deletes, setDeletes] = React.useState(false);
   let [hotelData, setHotelData] = useState();
   const history = useHistory();
 
@@ -63,12 +69,19 @@ export default function EditHotels() {
   }
   const handleClose = () => setOpen(false);
 
+  function handleOpenDelete(data) {
+    setDeletes(true);
+    setHotelData(data);
+  }
+  const handleCloseDelete = () => setDeletes(false);
+
   useEffect(() => {
     function getHotels() {
       axios
         .get("http://localhost:8081/hotel/display")
         .then((result) => {
           setHotels(result.data);
+          console.log("mv kfl")
           console.log(result.data);
         })
         .catch((error) => {
@@ -87,8 +100,24 @@ export default function EditHotels() {
     console.log(avengers);
   }
   function EditHotels(hotel) {
-    // history.push(`/profile/${userName}`);
-    console.log(hotel._id);
+    let name = hotel.id;
+    history.push(`/update-hotel/${name}`);
+    console.log(hotel);
+  }
+  function deleteHotel(){
+    //  alert(hotelData.id);
+    const id = hotelData.id;
+    axios.post(`http://localhost:8081/hotel/delete/${id}`)
+    .then((result) => {
+      
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+
   }
   return (
     <div>
@@ -141,7 +170,7 @@ export default function EditHotels() {
                     </Button>
                   </div>
                   <Stack direction="row" spacing={4}>
-                    <Button variant="outlined" endIcon={<DeleteIcon />}>
+                    <Button variant="outlined" endIcon={<DeleteIcon />} onClick={() => handleOpenDelete(hotel)}>
                       Delete
                     </Button>
 
@@ -167,6 +196,31 @@ export default function EditHotels() {
       >
         <ViewMore hotelData={hotelData} />
       </Modal>
+      {/* <Modal
+        open={deletes}
+        onClose={handleCloseDelete}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ViewMore hotelData={hotelData} />
+      </Modal> */}
+      <Dialog
+        open={deletes}
+        keepMounted
+        onClose={handleCloseDelete}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Are you sure to delete this Hotel?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            If you delete this Hotel, You cannot restore again.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDelete}>Close</Button>
+          <Button onClick={deleteHotel}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
