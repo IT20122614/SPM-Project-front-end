@@ -8,6 +8,7 @@ import EditHotels from "./components/IT20122614/EditHotels";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import UpdateHotel from "./components/IT20122614/UpdateHotel";
+import ReportFile from "./components/IT20122614/ReportFile";
 
 class App extends Component {
   state = {};
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/add-hotel" exact component={AddNewHotel} />
           <Route path="/edit-hotel" exact component={EditHotels} />
           <Route path="/update-hotel/:name" exact component={UpdateHotel} />
+          <Route path="/report" exact component={ReportFile} />
         </Switch>
         <Footer />
       </React.Fragment>
