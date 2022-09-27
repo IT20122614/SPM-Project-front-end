@@ -270,7 +270,7 @@ export default function AddNewHotel() {
             <div className="addNEwBottom">
               <form onSubmit={submitNewHotels}>
                 {activeStep + 1 === 1 && (
-                  <table width="100%">
+                  <table width="90%">
                     <tr className="tableTop">
                       <td>Property Type</td>
                       <td>

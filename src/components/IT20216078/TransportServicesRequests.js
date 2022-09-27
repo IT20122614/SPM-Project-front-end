@@ -49,9 +49,6 @@ const Record = (props) => (
 
 export default function TransportServicesRequests() {
     const [requests, setRequests] = useState([]);
-    const [searchString, setSearchString] = useState({
-        searchText: ""
-    });
 
     useEffect(() => {
         async function getRecords() {
@@ -69,20 +66,24 @@ export default function TransportServicesRequests() {
 
     async function acceptRequest(id) {
         await fetch(`http://localhost:8081/transport-services/approve/?id=${id}`, {
-            method: "PUT",
+            method: "POST",
         });
 
         const newRequests = requests.filter((el) => el.companyEmailAddress !== id);
         setRequests(newRequests);
+
+        window.location.reload();
     }
 
     async function declineRequest(id) {
         await fetch(`http://localhost:8081/transport-services/decline/?id=${id}`, {
-            method: "PUT",
+            method: "POST",
         });
 
         const newRequests = requests.filter((el) => el.companyEmailAddress !== id);
         setRequests(newRequests);
+
+        window.location.reload();
     }
 
     function requestList() {
@@ -94,30 +95,6 @@ export default function TransportServicesRequests() {
         });
     }
 
-    function updateForm(value) {
-        return setSearchString((prev) => {
-            return { ...prev, ...value };
-        });
-    }
-
-    async function onSubmit(e) {
-        e.preventDefault();
-
-        const response = await fetch(`http://localhost:8081/transport-services/search/?searchString=${searchString.searchText}`);
-
-        const requests = await response.json();
-
-        if (requests.length === 0) {
-            window.alert("No records found for the searched text");
-        } else {
-            setRequests(requests);
-        }
-
-        setSearchString({
-            searchText: ""
-        });
-    }
-
     const style = {
         padding: 16
     }
@@ -125,18 +102,6 @@ export default function TransportServicesRequests() {
     return (
         <div style={style}>
             <h3>Requested List</h3>
-            <nav className="navbar bg-light">
-                <div className="container-fluid">
-                    <form className="d-flex" role="search" onSubmit={onSubmit}>
-                        <input className="form-control me-2"
-                            type="search" placeholder="Search"
-                            value={searchString.searchText}
-                            onChange={(e) => updateForm({ searchText: e.target.value })}
-                            aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                     <tr>
