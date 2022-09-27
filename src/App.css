@@ -1,7 +1,7 @@
 .button5 {
   border-radius: 60%;
 }
-.button {
+.button1 {
   background-color: #3633eb; /* Green */
   border: none;
   color: white;
@@ -20,7 +20,7 @@
   padding: 10px;
   box-shadow: 20px 20px 50px grey;
 }
-.center {
+.center1 {
   margin: auto;
   width: 50%;
   border: 3px solid green;
@@ -44,20 +44,20 @@ hr.solid {
   background-color: #3633eb;
 }
 
-.column {
+.column1 {
   float: left;
   padding: 10px;
   height: 150px; /* Should be removed. Only for demonstration */
 }
 
-.left {
+.left1 {
   width: 25%;
 }
 .centerDivTag {
   width: 50%;
 }
 
-.right {
+.right1 {
   width: 25%;
 }
 
