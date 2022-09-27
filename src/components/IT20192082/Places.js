@@ -49,31 +49,56 @@ export default class Places extends Component {
   render() {
     return (
       <div>
-        <section className="section search">
-          <form className="search-form">
-            <div className="form-control">
+        <section
+          className="section search"
+          style={{ marginTop: "1rem", paddingBottom: "0" }}
+        >
+          <form
+            className="search-form"
+            style={{
+              margin: "0 auto",
+              background: "white",
+              padding: "2rem ,2.5rem",
+              textTransform: "capitalize",
+            }}
+          >
+            <div
+              className="form-control"
+              style={{
+                display: "block",
+                marginBottom: "1.25rem",
+                fontWeight: "bold",
+                letterSpacing: "0.25rem",
+              }}
+            >
               <label htmlFor="name">
                 search your favorite Place name or Location
               </label>
               <input
                 type="search"
+                style={{
+                  width: "100%",
+                  marginTop: "0%",
+                  borderColor: "rgb(126, 124, 124)",
+                  padding: "0.5rem",
+                  fontSize: "1.2rem",
+                }}
                 name="searchQuery"
                 onChange={this.handleSearchArea}
               />
             </div>
           </form>
         </section>
-        <div className="cbtn">
-
+        <div className="cbtn" style={{marginTop: '2%', marginLeft:'46%'}}>
           <a
-          href="/save"
-          class="btn btn-primary btn-lg"
-          tabindex="-1"
-          role="button"
-          aria-disabled="false"
-        >
-          Create Place
-        </a>
+            href="/save"
+            class="btn btn-primary btn-lg"
+            tabindex="-1"
+            role="button"
+            aria-disabled="false"
+          >
+            Create Place
+          </a>
         </div>
         <div>
           {this.state.places.map((place, index) => (
@@ -94,9 +119,9 @@ export default class Places extends Component {
                     "& > legend": { mt: 2 },
                   }}
                 ></Box>
-                <Rating name="rating" value={place.rating} readOnly/>
+                <Rating name="rating" value={place.rating} readOnly />
                 <div>
-                <br/>
+                  <br />
                   <a href={`/edit/${place.id}`}>
                     <button type="button" className="btn-secondary">
                       Modify

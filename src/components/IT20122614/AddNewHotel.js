@@ -238,7 +238,7 @@ export default function AddNewHotel() {
   }
 
   return (
-    <div className="center">
+    <div className="" style={{marginLeft: '50px', marginRight: '50px', marginTop: '50px', marginBottom: '60px'}}>
       <Box>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -268,7 +268,7 @@ export default function AddNewHotel() {
         ) : (
           <React.Fragment>
             <div className="addNEwBottom">
-              <form onSubmit={submitNewHotels}>
+              <form onSubmit={submitNewHotels} style={{marginLeft: '50px', marginRight: '50px', marginTop: '20px', marginBottom: '60px'}}>
                 {activeStep + 1 === 1 && (
                   <table width="90%">
                     <tr className="tableTop">

@@ -5,7 +5,7 @@ const Tours = ({ places, removePlace, approvePlace }) => {
   return (
     <section>
       <div className="title">
-        <h2>Places</h2>
+        <h2 style={{marginTop: '2%', marginLeft: '0.5%'}}>Places</h2>
         <div className="underline"></div>
       </div>
       <div>

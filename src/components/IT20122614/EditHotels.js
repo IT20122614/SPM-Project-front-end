@@ -12,11 +12,11 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import ViewMore from "./ViewMore";
 import { useHistory } from "react-router-dom";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const style = {
   position: "absolute",
@@ -81,7 +81,7 @@ export default function EditHotels() {
         .get("http://localhost:8081/api/v1/hotel/display")
         .then((result) => {
           setHotels(result.data);
-          console.log("mv kfl")
+          console.log("mv kfl");
           console.log(result.data);
         })
         .catch((error) => {
@@ -104,26 +104,26 @@ export default function EditHotels() {
     history.push(`/update-hotel/${ids}`);
     console.log(ids);
   }
-  function deleteHotel(){
+  function deleteHotel() {
     //  alert(hotelData.id);
     const id = hotelData.id;
-    axios.post(`http://localhost:8081/api/v1/hotel/delete/${id}`)
-    .then((result) => {
-      
-      window.location.reload();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-
-
+    axios
+      .post(`http://localhost:8081/api/v1/hotel/delete/${id}`)
+      .then((result) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   return (
     <div>
-      <div></div>
-      <div align="right1" className="searchBar row1">
-        <form class="form-inline my-2 my-lg-0" onSubmit={searchData}>
+      <div align="right" className="searchBar row1">
+        <form
+          class="form-inline my-2 my-lg-0"
+          onSubmit={searchData}
+          style={{ marginLeft: "50px", marginRight: "50px" }}
+        >
           <input
             class="form-control mr-sm-2"
             type="search"
@@ -133,7 +133,7 @@ export default function EditHotels() {
               serSearch(e.target.value);
             }}
           />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button class="btn btn-outline-success" type="submit">
             Search
           </button>
         </form>
@@ -170,7 +170,11 @@ export default function EditHotels() {
                     </Button>
                   </div>
                   <Stack direction="row1" spacing={4}>
-                    <Button variant="outlined" endIcon={<DeleteIcon />} onClick={() => handleOpenDelete(hotel)}>
+                    <Button
+                      variant="outlined"
+                      endIcon={<DeleteIcon />}
+                      onClick={() => handleOpenDelete(hotel)}
+                    >
                       Delete
                     </Button>
 

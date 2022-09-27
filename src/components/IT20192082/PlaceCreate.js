@@ -135,7 +135,7 @@ export default class PlaceCreate extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{width: '40%', marginLeft: '12%'}}>
         <div>
           <div className="row">
             <div className="col-md-12">
@@ -168,14 +168,16 @@ export default class PlaceCreate extends Component {
                   />
 
                   <label htmlFor="description">Description:</label>
+                  <br/>
                   <textarea
+                  style={{width:'49%'}}
                     type="text"
                     name="description"
                     placeholder="Enter Description"
                     value={this.state.description}
                     onChange={this.handleInputChange}
                   />
-
+<br/>
                   <label htmlFor="location">Near Place One:</label>
                   <div class="row g-3">
                     <div class="col">
@@ -264,6 +266,7 @@ export default class PlaceCreate extends Component {
                   </div>
 
                   <label htmlFor="location">Location:</label>
+                  <br/>
                   <select
                     id="location"
                     name="location"
@@ -317,7 +320,7 @@ export default class PlaceCreate extends Component {
                       <option value="Puttalam">Puttalam</option>
                     </optgroup>
                   </select>
-
+                  <br/>
                   <label>Rating:</label>
                   <div style={{ display: "block", padding: 0 }}>
                     <Box

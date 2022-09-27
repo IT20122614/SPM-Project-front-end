@@ -163,7 +163,7 @@ export default class PlaceEdit extends Component {
     const id = this.props.match.params.id;
 
     return (
-      <div>
+      <div style={{width: '40%', marginLeft: '12%'}}>
         <div>
           <div className="row">
             <div className="col-md-12">
@@ -196,14 +196,16 @@ export default class PlaceEdit extends Component {
                   />
 
                   <label htmlFor="description">Description:</label>
+                  <br/>
                   <textarea
+                  style={{width:'49%'}}
                     id="bio"
                     name="description"
                     placeholder="Enter Description"
                     value={this.state.description}
                     onChange={this.handleInputChange}
                   ></textarea>
-
+ <br/>
                   <label htmlFor="location">Near Place One:</label>
                   <div class="row g-3">
                     <div class="col">
@@ -292,6 +294,7 @@ export default class PlaceEdit extends Component {
                   </div>
 
                   <label htmlFor="location">Location:</label>
+                  <br/>
                   <select
                     id="location"
                     name="location"
@@ -348,7 +351,7 @@ export default class PlaceEdit extends Component {
                       <option value="Puttalam">Puttalam</option>
                     </optgroup>
                   </select>
-
+                  <br/>
                   <label>Rating:</label>
                   <div style={{ display: "block", padding: 0 }}>
                     <Box

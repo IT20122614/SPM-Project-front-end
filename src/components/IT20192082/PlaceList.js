@@ -98,13 +98,39 @@ export default class PlaceList extends Component {
   render() {
     return (
       <div>
-        <section className="section search">
-          <form className="search-form">
-            <div className="form-control">
+        <section
+          className="section search"
+          style={{ marginTop: "1rem", paddingBottom: "0" }}
+        >
+          <form
+            className="search-form"
+            style={{
+              margin: "0 auto",
+              background: "white",
+              padding: "2rem ,2.5rem",
+              textTransform: "capitalize",
+            }}
+          >
+            <div
+              className="form-control"
+              style={{
+                display: "block",
+                marginBottom: "1.25rem",
+                fontWeight: "bold",
+                letterSpacing: "0.25rem",
+              }}
+            >
               <label htmlFor="name">
                 search your favorite Place name or Location
               </label>
               <input
+                style={{
+                  width: "100%",
+                  marginTop: "0%",
+                  borderColor: "rgb(126, 124, 124)",
+                  padding: "0.5rem",
+                  fontSize: "1.2rem",
+                }}
                 type="search"
                 name="searchQuery"
                 onChange={this.handleSearchArea}
@@ -115,11 +141,22 @@ export default class PlaceList extends Component {
         <a
           href="/user/save"
           class="btn btn-secondary btn-lg"
+          style={{ marginTop: "1%", marginLeft: "46%" }}
           tabindex="-1"
           role="button"
           aria-disabled="false"
         >
           suggest a place
+        </a>
+        <a
+          href="/user/report"
+          class="btn btn-success btn-lg"
+          style={{ marginTop: "1%", marginLeft: "47.5%" }}
+          tabindex="-1"
+          role="button"
+          aria-disabled="false"
+        >
+          Report
         </a>
         <div>
           {this.state.places.map((place, index) => (

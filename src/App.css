@@ -173,3 +173,46 @@ hr.solid {
 Form
 ======
 */
+
+.cocktail {
+  background: var(--mainWhite);
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  box-shadow: var(--lightShadow);
+  transition: var(--mainTransition);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: var(--mainBorderRadius);
+
+}
+.cocktail-section {
+  text-align: center;
+}
+.drink {
+  width: var(--smallWidth);
+  max-width: var(--fullWidth);
+  margin: 0 auto;
+  text-align: left;
+}
+.drink img {
+  border-radius: var(--mainBorderRadius);
+}
+.drink p {
+  font-weight: bold;
+  text-transform: capitalize;
+  line-height: 1.8;
+}
+.drink span {
+  margin-right: 0.5rem;
+}
+.drink-data {
+  background: var(--primaryLightColor);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--mainBorderRadius);
+  color: var(--primaryColor);
+}
+.drink-info {
+  padding-top: 2rem;
+}

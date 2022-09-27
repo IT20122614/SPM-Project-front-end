@@ -74,7 +74,7 @@ export default function AdminHomePage() {
                 <h3>Transport Management</h3>
               </Tab>
               <Tab>
-                <h3>Plan Management</h3>
+                <h3>Package Management</h3>
               </Tab>
             </TabList>
           </div>

@@ -79,14 +79,31 @@ export default class ApproveList extends React.Component {
 
     return (
       <div>
-        <section className="section search">
-          <form className="search-form">
-            <div className="form-control">
+        <section className="section search" style={{ marginTop: "1rem", paddingBottom: "0" }}>
+          <form className="search-form" style={{
+              margin: "0 auto",
+              background: "white",
+              padding: "2rem ,2.5rem",
+              textTransform: "capitalize",
+            }}>
+            <div className="form-control" style={{
+                display: "block",
+                marginBottom: "1.25rem",
+                fontWeight: "bold",
+                letterSpacing: "0.25rem",
+              }}>
               <label htmlFor="name">
                 search your favorite Place name or Location
               </label>
               <input
                 type="search"
+                style={{
+                  width: "100%",
+                  marginTop: "0%",
+                  borderColor: "rgb(126, 124, 124)",
+                  padding: "0.5rem",
+                  fontSize: "1.2rem",
+                }}
                 name="searchQuery"
                 onChange={this.handleSearchArea}
               />
@@ -97,8 +114,8 @@ export default class ApproveList extends React.Component {
         {isEmpty ? (
           <main>
             <div className="title">
-              <h2>no places left</h2>
-              <button className="btn" onClick={() => this.retrievePlaces()}>
+              <h2 style={{marginTop: '2%', marginLeft: '0.5%'}}>No Places Left</h2>
+              <button style={{marginTop: '1%',marginLeft: '0.5%'}} className="btn" onClick={() => this.retrievePlaces()}>
                 refresh
               </button>
             </div>
