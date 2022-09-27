@@ -56,7 +56,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
   const handleSelect = (item) => {
     setSelectedItem(localStorage.getItem("selectedNav"));
   };
-
+console.log("user", Object.keys(user).length !== 0);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -109,7 +109,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {user
+              {Object.keys(user).length !== 0
                 ? afterPages.map((page, index) => (
                     <NavLink className="nav-link" to={page.link}>
                       <MenuItem key={index} onClick={handleCloseNavMenu}>
@@ -146,7 +146,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
             TRIP PLANNER
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {user
+            {Object.keys(user).length !== 0
               ? afterPages.map((page, index) => (
                   <NavLink className="nav-link" to={page.link}>
                     <MenuItem
@@ -186,7 +186,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                   </NavLink>
                 ))}
           </Box>
-          {user && (
+          {Object.keys(user).length !== 0 && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -227,7 +227,7 @@ const ResponsiveAppBar = ({ user, isAdmin }) => {
                     {user.sub}
                   </Typography>
                 </MenuItem>
-                {user && user.sub === "admin@gmail.com" && (
+                {Object.keys(user).length !== 0 && user.sub === "admin@gmail.com" && (
                   <NavLink className="nav-link" to={"/admin-home"}>
                     <MenuItem onClick={handleCloseUserMenu}>
                       <AdminPanelSettingsIcon

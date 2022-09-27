@@ -13,7 +13,9 @@ const Input = (props) => {
         onChange={onChange}
         value={value}
         style={style}
-        onFocus={(e)=>onFocus(e)}
+        onFocus={(e) => {
+          onFocus ? onFocus(e) : console.log();
+        }}
       />
       {error ? <div className="alert alert-danger">{error}</div> : null}
     </div>

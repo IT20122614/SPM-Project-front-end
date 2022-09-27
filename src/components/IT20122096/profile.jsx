@@ -26,7 +26,7 @@ export default class profile extends Form {
   schema = {
     name: Joi.string().allow(null).label("Name"),
     address: Joi.string().allow(null).label("Address"),
-    phoneNumber: Joi.string().allow(null).label("Phone Number"),
+    phoneNumber: Joi.number().allow(null).label("Phone Number"),
     currentPassword: Joi.string().allow(null).label("Current Password"),
     newPassword: Joi.string().min(5).allow(null).label("New Password"),
     confirmPassword: Joi.string().min(5).allow(null).label("Confirm Password"),
@@ -65,6 +65,11 @@ export default class profile extends Form {
 
   doSubmit = async () => {
     const data = { ...this.state.data };
+
+    if (data.confirmPassword !== data.newPassword) {
+      return this.setState({errors:{confirmPassword:"Password didn't match."}})
+    }
+
     data.image = this.state.imageUrl;
     await updateUser(data)
       .then(() => {
@@ -93,7 +98,6 @@ export default class profile extends Form {
             margin: "auto",
             background: "white",
             width: "80%",
-            scale: "90%",
           }}
         >
           <div
