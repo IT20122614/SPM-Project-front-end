@@ -58,8 +58,8 @@ export default class PackageForm extends Form {
     const { data: hotels } = await getAllHotels();
     const { data: transportMethods } = await getAllTransports();
     const { data: places } = await getAllPlaces();
-    
-    this.setState({ hotels, transportMethods,places });
+
+    this.setState({ hotels, transportMethods, places });
   }
 
   handlePlaceFilter = () => {
@@ -186,13 +186,43 @@ export default class PackageForm extends Form {
                 {this.renderDropDown("Province", "province", [
                   " ",
                   "Central Province",
+                  "Eastern Province",
+                  "Northern Province",
+                  "Southern Province",
+                  "Western Province",
+                  "North Western Province",
+                  "North Central Province",
+                  "Uva Province",
+                  "Sabaragamuwa Province",
                 ])}
 
                 {this.renderDropDown("District", "district", [
                   " ",
+                  "Colombo",
+                  "Gampaha",
+                  "Kalutara",
+                  "Kandy",
                   "Matale",
-                  "Ratnapura",
                   "Nuwara Eliya",
+                  "Galle",
+                  "Matara",
+                  "Hambantota",
+                  "Jaffna",
+                  "Kilinochchi",
+                  "Mannar",
+                  "Vavuniya",
+                  "Mullaitivu",
+                  "Batticaloa",
+                  "Ampara",
+                  "Trincomalee",
+                  "Kurunegala",
+                  "Puttalam",
+                  "Anuradhapura",
+                  "Polonnaruwa",
+                  "Badulla",
+                  "Moneragala",
+                  "Ratnapura",
+                  "Kegalle",
                 ])}
 
                 <Button

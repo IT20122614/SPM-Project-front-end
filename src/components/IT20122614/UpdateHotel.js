@@ -1,12 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -21,7 +16,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Select from "@mui/material/Select";
-
+//import { useParams } from 'react-router-dom'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -98,12 +93,10 @@ const roomTypes = [
 
 const steps = ["Informations", "Rooms"];
 
-export default function UpdateHotel({}) {
+export default function UpdateHotel() {
+  const [hotel, setHotels] = useState([]);
 
-   let { name } = useParams();
-   const [hotel, setHotels] = useState([]);
-
-   const [currency, setCurrency] = React.useState("Hotels");
+  const [currency, setCurrency] = React.useState("Hotels");
   const [roomType, setroomType] = React.useState("Three-Bedroom Apartment");
   const [roomType2, setroomType2] = React.useState("Three-Bedroom Apartment");
   const [propName, setpropName] = React.useState("");
@@ -121,11 +114,19 @@ export default function UpdateHotel({}) {
   let isResturent = false;
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const [personName2, setPersonName2] = React.useState([]);
+  const params = useParams();
+
+  // const location = useLocation();
+  // const params = new URLSearchParams(location.search);
+  // const { ids } = useParams();
+  //const id = "631a420d6659db7cd11d29c0";
+  //const id = searchParams.ids;
+  // const id = params.get("ids");
+  const name = params.id;
 
   const handleChangeFacilities = (event) => {
     const {
@@ -195,37 +196,43 @@ export default function UpdateHotel({}) {
     setActiveStep(0);
   };
 
-   useEffect(()=>{
-    function getData(){
-      axios.get(`http://localhost:8081/api/v1/hotel/edit/${name}`)
-      .then((result) => {
-        let response = result.data;
-        
-        setpropName(response.name);
-        setdescription(response.description)
-setaddress(response.address)
-setcity(response.city)
-setimageURL(response.imageURL)
-setprice(response.room[0].price)
-setprice2(response.room[1].price)
-setCapacity(response.room[0].capacity)
-setCapacity2(response.room[1].capacity)
-setRoomNumber(response.room[0].roomNumber)
-setRoomNumber2(response.room[1].roomNumber)
-setPersonName(response.room[0].facilities)
-setPersonName2(response.room[1].facilities)
+  useEffect(() => {
+    function getData() {
+      console.log("paramsssssssssssssssssss");
+      console.log(params);
+      axios
+        .get(`http://localhost:8081/api/v1/hotel/edit/${name}`)
+        .then((result) => {
+          console.log("updatennnn");
+          console.log(result.data);
+          console.log();
+          let response = result.data;
 
-        console.log("mklnmk")
-        console.log(result.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          setpropName(response.name);
+          setdescription(response.description);
+          setaddress(response.address);
+          setcity(response.city);
+          setimageURL(response.imageURL);
+          setprice(response.room[0].price);
+          setprice2(response.room[1].price);
+          setCapacity(response.room[0].capacity);
+          setCapacity2(response.room[1].capacity);
+          setRoomNumber(response.room[0].roomNumber);
+          setRoomNumber2(response.room[1].roomNumber);
+          setPersonName(response.room[0].facilities);
+          setPersonName2(response.room[1].facilities);
 
-    } getData();
-   },[]);
+          console.log("mklnmk");
+          console.log(propName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    getData();
+  }, []);
 
-   function submitNewHotels(e) {
+  function submitNewHotels(e) {
     e.preventDefault();
     const data = {
       type: currency,
@@ -256,7 +263,7 @@ setPersonName2(response.room[1].facilities)
     setOpen(true);
     //alert("nvkdlnv")
     //const id = "6318a93a2291e77bec5b2e1e";
-    
+
     axios
       .post(`http://localhost:8081/api/v1/hotel/update-hotel/${name}`, data)
       .then((result) => {
@@ -271,39 +278,41 @@ setPersonName2(response.room[1].facilities)
   return (
     <div>
       <div className="center">
-      <Box>
-        <Stepper activeStep={activeStep}>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
+        <Box>
+          <Stepper activeStep={activeStep}>
+            {steps.map((label, index) => {
+              const stepProps = {};
+              const labelProps = {};
 
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-            return (
-              <Step>
-                <StepLabel>
-                  <h3>{label}</h3>
-                </StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-        {activeStep === steps.length ? (
-          <React.Fragment>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Box>
-              <Box />
-              <Button onClick={handleReset}>Add New</Button>
-            </Box>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <div className="addNEwBottom">
-              <form onSubmit={submitNewHotels}>
-                {activeStep + 1 === 1 && (
-                  <table width="100%">
-                    {/* <tr className="tableTop">
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step>
+                  <StepLabel>
+                    <h3>{label}</h3>
+                  </StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <Typography>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Box>
+                <Box />
+                <Button onClick={handleReset}>Add New</Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className="addNEwBottom">
+                <form onSubmit={submitNewHotels}>
+                  {activeStep + 1 === 1 && (
+                    <table width="100%">
+                      {/* <tr className="tableTop">
                       <td>Property Type</td>
                       <td>
                         <TextField
@@ -322,329 +331,337 @@ setPersonName2(response.room[1].facilities)
                         </TextField>
                       </td>
                     </tr> */}
-                    <tr className="tableTop">
-                      <td className="tableTop">Property Name</td>
-                      <td className="tableTop">
-                        <input
-                          type="text"
-                          class="form-control"
-                          value={propName}
-                          id="propertyname"
-                          onChange={(e) => {
-                            setpropName(e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-
-                    <tr className="tableTop">
-                      <td className="tableTop">Description</td>
-                      <td className="tableTop">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="description"
-                          value={description}
-                          onChange={(e) => {
-                            setdescription(e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="tableTop">Address</td>
-                      <td className="tableTop">
-                        <input
-                          type="text"
-                          class="form-control"
-                          value={address}
-                          id="address"
-                          onChange={(e) => {
-                            setaddress(e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="tableTop">City</td>
-                      <td className="tableTop">
-                        <input
-                          type="text"
-                          class="form-control"
-                          value={city}
-                          id="city"
-                          onChange={(e) => {
-                            setcity(e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="tableTop">Image</td>
-                      <td className="tableTop">
-                        <input
-                          type="text"
-                          class="form-control"
-                          value={imageURL}
-                          id="city"
-                          onChange={(e) => {
-                            setimageURL(e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  </table>
-                )}
-                {activeStep + 1 === 2 && (
-                  <div>
-                    {!currency.localeCompare("Restaurants") && (
-                      <div>
-                        <Alert severity="error">
-                          You cannot Update Restaurants
-                        </Alert>
-                      </div>
-                    )}
-                    <table
-                      width="100%"
-                      style={{
-                        pointerEvents: !currency.localeCompare("Restaurants")
-                          ? "none"
-                          : "",
-                      }}
-                    >
-                      <tr>
-                        <td className="tableTop">Room Type</td>
+                      <tr className="tableTop">
+                        <td className="tableTop">Property Name</td>
                         <td className="tableTop">
-                          <TextField
-                            id=""
-                            select
-                            label=""
-                            value={roomType}
-                            onChange={handleChangeRoom}
-                            variant="standard"
-                          >
-                            {roomTypes.map((option) => (
-                              <MenuItem key={option.value} value={option.value}>
-                                <h4>{option.label}</h4>
-                              </MenuItem>
-                            ))}
-                          </TextField>
+                          <input
+                            type="text"
+                            class="form-control"
+                            value={propName}
+                            id="propertyname"
+                            onChange={(e) => {
+                              setpropName(e.target.value);
+                            }}
+                          />
+                        </td>
+                      </tr>
+
+                      <tr className="tableTop">
+                        <td className="tableTop">Description</td>
+                        <td className="tableTop">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="description"
+                            value={description}
+                            onChange={(e) => {
+                              setdescription(e.target.value);
+                            }}
+                          />
                         </td>
                       </tr>
                       <tr>
-                        <td className="tableTop">Capacity</td>
+                        <td className="tableTop">Address</td>
                         <td className="tableTop">
                           <input
-                            type="number"
+                            type="text"
                             class="form-control"
-                            value={capacity}
+                            value={address}
                             id="address"
                             onChange={(e) => {
-                              setCapacity(e.target.value);
+                              setaddress(e.target.value);
                             }}
                           />
                         </td>
                       </tr>
                       <tr>
-                        <td className="tableTop">Room Number</td>
+                        <td className="tableTop">City</td>
                         <td className="tableTop">
                           <input
-                            type="number"
+                            type="text"
                             class="form-control"
-                            value={roomNumber}
-                            id="address"
+                            value={city}
+                            id="city"
                             onChange={(e) => {
-                              setRoomNumber(e.target.value);
-                            }}
-                          />
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className="tableTop">Facilities</td>
-                        <td className="tableTop">
-                          <InputLabel id="demo-multiple-name-label">
-                            Facilities
-                          </InputLabel>
-                          <Select
-                            labelId="demo-multiple-name-label"
-                            id="demo-multiple-name"
-                            multiple
-                            value={personName}
-                            onChange={handleChangeFacilities}
-                            input={<OutlinedInput label="Name" />}
-                            MenuProps={MenuProps}
-                          >
-                            {names.map((name) => (
-                              <MenuItem
-                                key={name}
-                                value={name}
-                                style={getStyles(name, personName, theme)}
-                              >
-                                {name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className="tableTop">Price</td>
-                        <td className="tableTop">
-                          <input
-                            type="numbers"
-                            class="form-control"
-                            placeholder="LKR 0.00"
-                            value={price}
-                            onChange={(e) => {
-                              setprice(e.target.value);
+                              setcity(e.target.value);
                             }}
                           />
                         </td>
                       </tr>
                       <tr>
-                        <td className="tableTop">
-                          <hr class="solid" />
-                        </td>
-                        <td className="tableTop">
-                          <hr class="solid" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="tableTop">Room Type</td>
-                        <td className="tableTop">
-                          <TextField
-                            id=""
-                            select
-                            label=""
-                            value={roomType2}
-                            onChange={handleChangeRoom2}
-                            variant="standard"
-                          >
-                            {roomTypes.map((option) => (
-                              <MenuItem key={option.value} value={option.value}>
-                                <h4>{option.label}</h4>
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="tableTop">Capacity</td>
+                        <td className="tableTop">Image</td>
                         <td className="tableTop">
                           <input
-                            type="number"
+                            type="text"
                             class="form-control"
-                            value={capacity2}
-                            id="address"
+                            value={imageURL}
+                            id="city"
                             onChange={(e) => {
-                              setCapacity2(e.target.value);
-                            }}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="tableTop">Room Number</td>
-                        <td className="tableTop">
-                          <input
-                            type="number"
-                            class="form-control"
-                            value={roomNumber2}
-                            id="address"
-                            onChange={(e) => {
-                              setRoomNumber2(e.target.value);
-                            }}
-                          />
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className="tableTop">Facilities</td>
-                        <td className="tableTop">
-                          <InputLabel id="demo-multiple-name-label">
-                            Facilities
-                          </InputLabel>
-                          <Select
-                            labelId="demo-multiple-name-label"
-                            id="demo-multiple-name"
-                            multiple
-                            value={personName2}
-                            onChange={handleChangeFacilities2}
-                            input={<OutlinedInput label="Name" />}
-                            MenuProps={MenuProps}
-                          >
-                            {names.map((name) => (
-                              <MenuItem
-                                key={name}
-                                value={name}
-                                style={getStyles(name, personName, theme)}
-                              >
-                                {name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className="tableTop">Price</td>
-                        <td className="tableTop">
-                          <input
-                            type="numbers"
-                            placeholder="LKR 0.00"
-                            value={price2}
-                            class="form-control"
-                            onChange={(e) => {
-                              setprice2(e.target.value);
+                              setimageURL(e.target.value);
                             }}
                           />
                         </td>
                       </tr>
                     </table>
-                    <div align="right">
-                      <input
-                        type="submit"
-                        value="Submit"
-                        className="btn btn-success"
-                      />
-                    </div>
-                  </div>
-                )}
-              </form>
-            </div>
+                  )}
+                  {activeStep + 1 === 2 && (
+                    <div>
+                      {!currency.localeCompare("Restaurants") && (
+                        <div>
+                          <Alert severity="error">
+                            You cannot Update Restaurants
+                          </Alert>
+                        </div>
+                      )}
+                      <table
+                        width="100%"
+                        style={{
+                          pointerEvents: !currency.localeCompare("Restaurants")
+                            ? "none"
+                            : "",
+                        }}
+                      >
+                        <tr>
+                          <td className="tableTop">Room Type</td>
+                          <td className="tableTop">
+                            <TextField
+                              id=""
+                              select
+                              label=""
+                              value={roomType}
+                              onChange={handleChangeRoom}
+                              variant="standard"
+                            >
+                              {roomTypes.map((option) => (
+                                <MenuItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  <h4>{option.label}</h4>
+                                </MenuItem>
+                              ))}
+                            </TextField>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">Capacity</td>
+                          <td className="tableTop">
+                            <input
+                              type="number"
+                              class="form-control"
+                              value={capacity}
+                              id="address"
+                              onChange={(e) => {
+                                setCapacity(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">Room Number</td>
+                          <td className="tableTop">
+                            <input
+                              type="number"
+                              class="form-control"
+                              value={roomNumber}
+                              id="address"
+                              onChange={(e) => {
+                                setRoomNumber(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
 
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                <h4>Back</h4>
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {/* {isStepOptional(activeStep) && (
+                        <tr>
+                          <td className="tableTop">Facilities</td>
+                          <td className="tableTop">
+                            <InputLabel id="demo-multiple-name-label">
+                              Facilities
+                            </InputLabel>
+                            <Select
+                              labelId="demo-multiple-name-label"
+                              id="demo-multiple-name"
+                              multiple
+                              value={personName}
+                              onChange={handleChangeFacilities}
+                              input={<OutlinedInput label="Name" />}
+                              MenuProps={MenuProps}
+                            >
+                              {names.map((name) => (
+                                <MenuItem
+                                  key={name}
+                                  value={name}
+                                  style={getStyles(name, personName, theme)}
+                                >
+                                  {name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td className="tableTop">Price</td>
+                          <td className="tableTop">
+                            <input
+                              type="numbers"
+                              class="form-control"
+                              placeholder="LKR 0.00"
+                              value={price}
+                              onChange={(e) => {
+                                setprice(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">
+                            <hr class="solid" />
+                          </td>
+                          <td className="tableTop">
+                            <hr class="solid" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">Room Type</td>
+                          <td className="tableTop">
+                            <TextField
+                              id=""
+                              select
+                              label=""
+                              value={roomType2}
+                              onChange={handleChangeRoom2}
+                              variant="standard"
+                            >
+                              {roomTypes.map((option) => (
+                                <MenuItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  <h4>{option.label}</h4>
+                                </MenuItem>
+                              ))}
+                            </TextField>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">Capacity</td>
+                          <td className="tableTop">
+                            <input
+                              type="number"
+                              class="form-control"
+                              value={capacity2}
+                              id="address"
+                              onChange={(e) => {
+                                setCapacity2(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="tableTop">Room Number</td>
+                          <td className="tableTop">
+                            <input
+                              type="number"
+                              class="form-control"
+                              value={roomNumber2}
+                              id="address"
+                              onChange={(e) => {
+                                setRoomNumber2(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td className="tableTop">Facilities</td>
+                          <td className="tableTop">
+                            <InputLabel id="demo-multiple-name-label">
+                              Facilities
+                            </InputLabel>
+                            <Select
+                              labelId="demo-multiple-name-label"
+                              id="demo-multiple-name"
+                              multiple
+                              value={personName2}
+                              onChange={handleChangeFacilities2}
+                              input={<OutlinedInput label="Name" />}
+                              MenuProps={MenuProps}
+                            >
+                              {names.map((name) => (
+                                <MenuItem
+                                  key={name}
+                                  value={name}
+                                  style={getStyles(name, personName, theme)}
+                                >
+                                  {name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td className="tableTop">Price</td>
+                          <td className="tableTop">
+                            <input
+                              type="numbers"
+                              placeholder="LKR 0.00"
+                              value={price2}
+                              class="form-control"
+                              onChange={(e) => {
+                                setprice2(e.target.value);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                      <div align="right">
+                        <input
+                          type="submit"
+                          value="Submit"
+                          className="btn btn-success"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </div>
+
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  <h4>Back</h4>
+                </Button>
+                <Box sx={{ flex: "1 1 auto" }} />
+                {/* {isStepOptional(activeStep) && (
                 <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                   Skip
                 </Button>
               )} */}
 
-              <Button onClick={handleNext}>
-                <h4 className="">
-                  {activeStep + 1 === 1 && "Next"}
-                </h4>
-              </Button>
-            </Box>
-          </React.Fragment>
-        )}
-      </Box>
+                <Button onClick={handleNext}>
+                  <h4 className="">{activeStep + 1 === 1 && "Next"}</h4>
+                </Button>
+              </Box>
+            </React.Fragment>
+          )}
+        </Box>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Successfully added New Hotel
-        </Alert>
-      </Snackbar>
-    </div>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Successfully added New Hotel
+          </Alert>
+        </Snackbar>
+      </div>
     </div>
   );
 }
