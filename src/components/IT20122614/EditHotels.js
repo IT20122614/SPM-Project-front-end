@@ -122,7 +122,7 @@ export default function EditHotels() {
   return (
     <div>
       <div></div>
-      <div align="right" className="searchBar">
+      <div align="right1" className="searchBar row1">
         <form class="form-inline my-2 my-lg-0" onSubmit={searchData}>
           <input
             class="form-control mr-sm-2"
@@ -143,11 +143,11 @@ export default function EditHotels() {
         {hotels.map((hotel, key) => (
           <tr className="stylingColor" key={key}>
             <div className="borderBox marginStyling">
-              <div className="row">
-                <div className="column left">
+              <div className="row1">
+                <div className="column1 left1">
                   <img src={hotel.imageURL} alt="#" width="150" height="150" />
                 </div>
-                <div className="column centerDivTag">
+                <div className="column1 centerDivTag">
                   <h3>{hotel.name}</h3>
 
                   <h4>
@@ -157,7 +157,7 @@ export default function EditHotels() {
                     <p>{hotel.description}</p>
                   </div>
                 </div>
-                <div className="column right">
+                <div className="column1 right1">
                   <div className="viewMoreStyling">
                     <Button
                       variant="contained"
@@ -169,7 +169,7 @@ export default function EditHotels() {
                       View More
                     </Button>
                   </div>
-                  <Stack direction="row" spacing={4}>
+                  <Stack direction="row1" spacing={4}>
                     <Button variant="outlined" endIcon={<DeleteIcon />} onClick={() => handleOpenDelete(hotel)}>
                       Delete
                     </Button>

@@ -90,7 +90,7 @@ export default function AdminHomePage() {
                 <tr>
                   <td>
                     <button
-                      class="button button5 btnShadow"
+                      class="button1 button5 btnShadow"
                       onClick={navigateToAddNewHotel}
                     >
                       <i class="material-icons">add_home_work</i>
@@ -98,7 +98,7 @@ export default function AdminHomePage() {
                   </td>
                   <td>
                     <button
-                      class="button button5 btnShadow"
+                      class="button1 button5 btnShadow"
                       onClick={navigateToEditHotel}
                     >
                       <i class="material-icons">edit</i>
@@ -106,7 +106,7 @@ export default function AdminHomePage() {
                   </td>
                   <td>
                     <button
-                      class="button button5 btnShadow"
+                      class="button1 button5 btnShadow"
                       onClick={reportHotel}
                     >
                       <i class="material-icons">summarize</i>
