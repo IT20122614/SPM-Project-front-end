@@ -241,6 +241,8 @@ export default class PackageForm extends Form {
                   alignContent: "center",
                   display: "flex",
                   flexDirection: "column",
+                  overflowY: "scroll",
+                  height: "17rem",
                 }}
               >
                 {filterdPlaces.length !== 0 ? (
@@ -289,6 +291,8 @@ export default class PackageForm extends Form {
                   alignContent: "center",
                   display: "flex",
                   flexDirection: "column",
+                  overflowY: "scroll",
+                  height: "17rem",
                 }}
               >
                 {(filterdHotels.length !== 0 && (
@@ -346,6 +350,8 @@ export default class PackageForm extends Form {
                       alignContent: "center",
                       display: "flex",
                       flexDirection: "column",
+                      overflowY: "scroll",
+                      height: "17rem",
                     }}
                   >
                     {this.renderRadioButtonList(
