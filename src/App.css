@@ -122,3 +122,59 @@ hr.solid {
   margin-top: 20px;
   margin-right: 80px;
 }
+
+
+/* IT20192082 */
+
+.single-tour {
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  height: 40%;
+  width: 44%;
+  margin-left: 28%;
+  margin-right: 25%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  box-shadow: var(--light-shadow);
+  transition: var(--transition);
+}
+.single-tour:hover {
+  box-shadow: var(--dark-shadow);
+}
+.single-tour img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: var(--radius);
+  border-top-left-radius: var(--radius);
+}
+.tour-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.tour-info h4 {
+  margin-bottom: 0;
+  font-size: 2rem;
+}
+
+.tour-price {
+  color: var(--clr-primary-5);
+  background: var(--clr-primary-10);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  font-size: 1.5rem;
+}
+.single-tour footer {
+  padding: 1.5rem 2rem;
+}
+
+
+
+/* 
+====== 
+Form
+======
+*/
+
