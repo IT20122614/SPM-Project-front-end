@@ -60,7 +60,7 @@ export default function TransportServicesRegistered() {
 
     async function declineRequest(id) {
         await fetch(`http://localhost:8081/transport-services/decline/?id=${id}`, {
-            method: "PUT",
+            method: "POST",
         });
 
         const newRequests = requests.filter((el) => el.companyEmailAddress !== id);
