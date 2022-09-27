@@ -296,7 +296,6 @@ export default function AddNewHotel() {
                         <input
                           type="text"
                           class="form-control"
-                          value={"mdckdmvkv"}
                           id="propertyname"
                           onChange={(e) => {
                             setpropName(e.target.value);

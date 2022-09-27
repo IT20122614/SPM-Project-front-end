@@ -100,14 +100,14 @@ export default function EditHotels() {
     console.log(avengers);
   }
   function EditHotels(hotel) {
-    let name = hotel.id;
-    history.push(`/update-hotel/${name}`);
-    console.log(hotel);
+    let ids = hotel.id;
+    history.push(`/update-hotel/${ids}`);
+    console.log(ids);
   }
   function deleteHotel(){
     //  alert(hotelData.id);
     const id = hotelData.id;
-    axios.post(`http://localhost:8081/hotel/delete/${id}`)
+    axios.post(`http://localhost:8081/api/v1/hotel/delete/${id}`)
     .then((result) => {
       
       window.location.reload();
