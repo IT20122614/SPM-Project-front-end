@@ -49,7 +49,8 @@ export default class CurrentPlannings extends Component {
     return (
       <div>
         {tripPlans.length !== 0 && !empty ? (
-          <div>
+          <div style={{overflowY: "scroll",
+                  height: `${window.innerHeight - 205}px`,}}>
             {tripPlans.map((plan, index) => {
               return <TripCard plan={plan} onDelete={this.handleDelete} />;
             })}

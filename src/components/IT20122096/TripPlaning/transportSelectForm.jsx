@@ -26,7 +26,7 @@ export default class TransportSelectForm extends Component {
     let tot = 0;
     console.log(numOfKilometers);
 
-    selectedVehicles.map((v) => {
+    selectedVehicles.forEach((v) => {
       tot += v.price * numOfKilometers;
       console.log(v.price * numOfKilometers);
     });
@@ -173,7 +173,7 @@ export default class TransportSelectForm extends Component {
                 </div>
               </div>
               <div style={{ marginLeft: "85%" }}>
-                {numOfKilometers !== "" && selectedVehicles.length !== 0 && (
+                {numOfKilometers !== 0 && selectedVehicles.length !== 0 && (
                   <Button
                     size="small"
                     variant="contained"

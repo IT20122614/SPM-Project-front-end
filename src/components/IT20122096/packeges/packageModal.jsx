@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import DownloaReport from './../TripPlaning/currentPlannings/downloaReport';
 
 export default class PackageModal extends Component {
   state = { visitingPlaces: [...this.props.plan.place.visitingPlaces] };
 
   render() {
-    const { plan, onClose, dateCovertor } = this.props;
+    const { plan, onClose} = this.props;
     console.log(plan);
     return (
       <div>

@@ -23,7 +23,7 @@ class LoginForm extends Form {
     await toast.promise(loginUser(data), {
       pending: "Sign in...",
       success: "Logged In Successfully",
-      error: "Something Went Wrong",
+      error: "Invalid Credentials",
     },{autoClose:1000});
     setTimeout(() => {
       window.location = "/home";

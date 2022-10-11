@@ -26,7 +26,7 @@ export default function PlaceSelectForm({ Selectedplace, getData, isSaved }) {
     setChecked(newChecked);
   };
   const handleOnSave = () => {
-    place.map((p) => {
+    place.forEach((p) => {
       if (checked.includes(p.id)) {
         selectedPlaces.push(p);
       }

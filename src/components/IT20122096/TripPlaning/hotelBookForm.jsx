@@ -25,7 +25,7 @@ export default class HotelBookForm extends Component {
     const { numOfMembers, selectedRooms } = this.state;
 
     let tot = 0;
-    selectedRooms.map((r) => {
+    selectedRooms.forEach((r) => {
       tot += r.price;
     });
 

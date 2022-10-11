@@ -35,7 +35,7 @@ export default class Report extends Component {
     const name = `PaymentReport_${new Date().getTime()}`;
     const columns = ["No", "Type", "Name", "Date", "Amount"];
     let rows = [];
-    payments.map((payment, index) => {
+    payments.forEach((payment, index) => {
       const row = [
         index + 1,
         payment.type,
@@ -45,6 +45,7 @@ export default class Report extends Component {
       ];
       rows.push(row)
     });
+    
     doc.text("Payments Report", 80, 18);
     doc.autoTable(columns, rows, { startY: 40 });
     doc.setFontSize(12)
@@ -109,7 +110,7 @@ export default class Report extends Component {
         </center>
       </div>
     ) : (
-      payments.length == 0 && <BackDrop />
+      payments.length === 0 && <BackDrop />
     );
   }
 }

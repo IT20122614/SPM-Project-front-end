@@ -5,7 +5,7 @@ const endPoint = "/auth";
 
 export async function loginUser(data) {
   const user = { username: data.email, password: data.password };
-  const response = await http.post(endPoint, user,{headers:{Authorization:""}});
+  const response = await http.post(endPoint, user, { headers: { Authorization: "" } });
   localStorage.setItem("token", response.data.jwtToken);
   return response;
 }

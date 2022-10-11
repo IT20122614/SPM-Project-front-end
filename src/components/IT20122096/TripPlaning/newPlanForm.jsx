@@ -4,7 +4,6 @@ import Extension from "joi-date-extensions";
 import Form from "./../common/form";
 import { Button } from "@mui/material";
 import radioButton from "./../common/radioButton";
-import PlaceCard from "./placeCard";
 import {
   getAllHotels,
   getAllPlaces,

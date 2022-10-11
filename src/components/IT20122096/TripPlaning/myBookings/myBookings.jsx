@@ -47,7 +47,8 @@ export default class MyBookings extends Component {
     return (
       <div>
         {tripPlans.length !== 0 && !empty ? (
-          <div>
+          <div style={{overflowY: "scroll",
+                  height: `${window.innerHeight - 205}px`,}}>
             {tripPlans &&
               tripPlans.map((plan, index) => {
                 return <BookingCard plan={plan} />;
