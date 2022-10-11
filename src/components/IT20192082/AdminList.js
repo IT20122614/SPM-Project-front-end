@@ -21,7 +21,6 @@ export default class ApproveList extends React.Component {
 
   async removePlace(id) {
     await deletePlace(id).then(() => {
-      alert("Place Rejected");
     });
   }
 
@@ -47,7 +46,6 @@ export default class ApproveList extends React.Component {
     };
 
     await updatePlace(id, data).then(() => {
-      alert("Place Approved");
     });
   }
 

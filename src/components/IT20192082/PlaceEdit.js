@@ -80,7 +80,6 @@ export default class PlaceEdit extends Component {
     console.log(data);
 
     await updatePlace(id, data).then(() => {
-      alert("Place Updated");
       this.setState({
         name: "",
         image: "",
@@ -111,7 +110,6 @@ export default class PlaceEdit extends Component {
     const id = this.props.match.params.id;
 
     await deletePlace(id).then(() => {
-      alert("Place Deleted");
       this.setState({
         name: "",
         image: "",

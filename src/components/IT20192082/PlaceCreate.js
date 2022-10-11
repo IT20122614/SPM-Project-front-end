@@ -106,7 +106,6 @@ export default class PlaceCreate extends Component {
       window.alert("Please fill all field");
     } else {
       await savePlace(data).then(() => {
-        alert("Place Created");
         this.setState({
           name: "",
           image: "",

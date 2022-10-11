@@ -1,0 +1,6 @@
+projectKey=IT20192082
+serverUrl=http://localhost:9000
+serverVersion=7.5.0.20543
+dashboardUrl=http://localhost:9000/dashboard?id=IT20192082
+ceTaskId=AYPHLcaWeY3DLwFLA22C
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYPHLcaWeY3DLwFLA22C
