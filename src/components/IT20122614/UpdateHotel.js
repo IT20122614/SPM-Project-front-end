@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -94,7 +94,7 @@ const roomTypes = [
 const steps = ["Informations", "Rooms"];
 
 export default function UpdateHotel() {
-  const [hotel, setHotels] = useState([]);
+  // const [hotel, setHotels] = useState([]);
 
   const [currency, setCurrency] = React.useState("Hotels");
   const [roomType, setroomType] = React.useState("Three-Bedroom Apartment");
@@ -111,7 +111,7 @@ export default function UpdateHotel() {
   const [roomNumber, setRoomNumber] = React.useState(0);
   const [roomNumber2, setRoomNumber2] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  let isResturent = false;
+  // let isResturent = false;
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -147,9 +147,9 @@ export default function UpdateHotel() {
     );
   };
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  // const isStepOptional = (step) => {
+  //   return step === 1;
+  // };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -170,9 +170,9 @@ export default function UpdateHotel() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -182,9 +182,9 @@ export default function UpdateHotel() {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setCurrency(event.target.value);
+  // };
   const handleChangeRoom = (e) => {
     setroomType(e.target.value);
   };
@@ -282,7 +282,7 @@ export default function UpdateHotel() {
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
               const stepProps = {};
-              const labelProps = {};
+              // const labelProps = {};
 
               if (isStepSkipped(index)) {
                 stepProps.completed = false;

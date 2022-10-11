@@ -117,9 +117,9 @@ export default function AddNewHotel() {
     );
   };
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  // const isStepOptional = (step) => {
+  //   return step === 1;
+  // };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -169,11 +169,11 @@ export default function AddNewHotel() {
   const [roomNumber, setRoomNumber] = React.useState(0);
   const [roomNumber2, setRoomNumber2] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  let isResturent = false;
+  // let isResturent = false;
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -243,7 +243,7 @@ export default function AddNewHotel() {
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
-            const labelProps = {};
+            // const labelProps = {};
 
             if (isStepSkipped(index)) {
               stepProps.completed = false;
