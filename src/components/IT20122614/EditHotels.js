@@ -60,7 +60,7 @@ export default function EditHotels() {
   const [search, serSearch] = useState("");
   const [open, setOpen] = React.useState(false);
   const [deletes, setDeletes] = React.useState(false);
-  let [hotelData, setHotelData] = useState();
+  let [hotelData, setHotelData] = useState({});
   const history = useHistory();
 
   function handleOpen(data) {

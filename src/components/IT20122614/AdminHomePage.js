@@ -40,7 +40,7 @@ export default function AdminHomePage() {
     const name = "Payment Report";
     const columns = ["No", "Type", "Name", "description", "Address", "city"];
     let rows = [];
-    hotels.map((hotel, index) => {
+    hotels.forEach((hotel, index) => {
       const row = [
         index + 1,
         hotel.type,

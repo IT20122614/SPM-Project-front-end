@@ -35,7 +35,7 @@ export default class Report extends Component{
         const doc = new jsPDF();
         let date = new Date();
         let Rows = [];
-        this.state.places.map((place) => {
+        this.state.places.forEach((place) => {
           const Mark = [place.name, place.location, parseInt(place.rating/ place.ratingCount), place.description, place.otherPlacesArray[0].name + "," + place.otherPlacesArray[1].name];
           Rows.push(Mark);
           return null;
